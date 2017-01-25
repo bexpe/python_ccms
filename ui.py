@@ -9,8 +9,8 @@ class StudentUI():
                 "\n/---------------------"
                 "\n| Student menu:"
                 "\n| (1) Show my grades"
-                "\n| (2) Show assigments"
-                "\n| (3) Submit assigment"
+                "\n| (2) Show assignments"
+                "\n| (3) Submit assignment"
                 "\n| (0) Exit"
                 "\n\---------------------"
             )
