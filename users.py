@@ -78,11 +78,11 @@ class Student(User):
     _students_list = []
     FILE = 'data/students.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, attendence_level):
+    def __init__(self, name, surname, date_of_birth, city, phone, attendance_level):
         super().__init__(name,surname, date_of_birth, city, phone)
         self.id = User.generate_random(Student._students_list)
         self._students_list.append(self)
-        self.attendence_level = attendence_level
+        self.attendance_level = attendance_level
         self.grade = {}
 
 
@@ -151,9 +151,9 @@ class Student(User):
 
     @classmethod
     def remove_student_from_list(cls):
-        cls.id = int(cls.id)
+        cls.id = cls.id
         for student in cls._students_list:
-            if int(student.id) == cls.id:
+            if student.id == cls.id:
                 cls._students_list.remove(student)
 
     def get_student_list(cls):
@@ -166,7 +166,7 @@ class Employee(User):
 
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._employee_list) + 1
+        self.id = User.generate_random(Employee._employee_list)
 
         if self.__class__ == Employee:
             self._employee_list.append(self)
@@ -196,7 +196,6 @@ class Employee(User):
 class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
-
 
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name,surname, date_of_birth, city, phone)
@@ -228,10 +227,9 @@ class Mentor(Employee):
     _mentor_list = []
     FILE = 'data/mentors.csv'
 
-
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._mentor_list) + 1
+        self.id = User.generate_random(Mentor._mentor_list)
         self._mentor_list.append(self)
 
     @classmethod
@@ -242,9 +240,8 @@ class Mentor(Employee):
 
     @classmethod
     def remove_mentor_from_list(cls, id):
-        id = int(id)
         for mentor in cls._mentor_list:
-            if int(mentor.id) == id:
+            if mentor.id == id:
                 cls._mentor_list.remove(mentor)
 
     @classmethod
@@ -302,15 +299,15 @@ class Attendance:
     def set_attendance():
         student_id = input('Insert student id')
         date = input('Insert date: DD:MM:YYYY')
-        attendance = input('A= present, B= late C= not there')
-        if attendance == 'A':
+        option = input('A= present, B= late C= not there')
+        if option == 'A':
             attendance ='present'
-        elif attendance == 'B':
+        elif option == 'B':
             attendance ='late'
-        elif attendance == 'C':
+        elif option == 'C':
             attendance ='not there'
         else:
-            'Something went wrong!'
+            attendance = 'dupa'
         student = Student.get_student_from_list_by_id(student_id)
         Attendance._attendance_list.append(Attendance(student.id, date, attendance))
 
@@ -332,7 +329,7 @@ user = User('Tomasz', 'Bujakowski', '12-21-1231', 'Cracow', '11111111')
 student = Student('Ania', 'Gaj', '10-10-2000', 'Cracow', '122333555', 0)
 print(student.id)
 Attendance.set_attendance()
-
+print(Attendance._attendance_list)
 Student.save_students_csv()
 Manager.save_manager_csv()
 Mentor.save_mentor_csv()
