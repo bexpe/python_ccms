@@ -32,7 +32,7 @@ class User:
 
         list_of_id = []
         for record in table:
-            list_of_id.append(record[0])
+            list_of_id.append(record.id)
 
         generated = ''
 
@@ -168,6 +168,34 @@ class Mentor(Employee):
 
 class Attendance:
     _attendance_list = []
+
+    def __init__(self, student_id, date, attendance):
+        self.student_id = student_id
+        self.date = date
+        self.attendance
+
+    @staticmethod
+    def set_attendance():
+        student_id = input('Insert student id')
+        date = input('Insert date: DD:MM:YYYY')
+        attendance = input('A= present, B= late C= not there')
+        if attendance == 'A':
+            attendance ='present'
+        elif attendance == 'B':
+            attendance ='late'
+        elif attendance == 'C':
+            attendance ='not there'
+        else:
+            'Something went wrong!'
+        student = Student.get_student_from_list_by_id(student_id)
+        Attendance._attendance_list.append(Attendance(student.id, date, attendance))
+
+
+    def check_attendance(self):
+        id = input('Insert student id')
+        Student.get_student_from_list_by_id(id)
+
+
 
 user = User('Tomasz', 'Bujakowski')
 a = User("bla", "bla")
