@@ -2,7 +2,7 @@ class User:
     def __init__(self, name, surname):
         if len(name) == 0 or len(surname) == 0:
             raise ValueError('Name and surname cannot be empty.')
-        self.id = len(self._user_list) + 1
+
         self.name = name
         self.surname = surname
 
@@ -27,22 +27,60 @@ class User:
             print(line.name)
 
 class Student(User):
-    pass
+    _students_list = []
+    def __init__(self, name, surname):
+        super().__init__(name,surname)
+        self.id = len(self._students_list) + 1
+        self._students_list.append(self)
 
+    @classmethod
+    def load_student_csv(cls):
+        pass
 
+    @classmethod
+    def save_students_csv(cls):
+        pass
+
+    def edit_student(self):
+        pass
+
+    @classmethod
+    def get_student_from_list_by_id(cls, id):
+        pass
+
+    @classmethod
+    def remove_student_from_list(cls, id):
+        pass
+
+    def get_student_grade(self):
+        pass
+    
 class Employee(User):
-    pass
+    _employee_list = []
+    def __init__(self, name, surname):
+        super().__init__(name,surname)
+        self.id = len(self._manager_list) + 1
+        self._manager_list.append(self)
 
 
-class Menager(Employee):
-    pass
+class Manager(Employee):
+    _manager_list = []
+    def __init__(self, name, surname):
+        super().__init__(name,surname)
+        self.id = len(self._manager_list) + 1
+        self._manager_list.append(self)
 
 
 class Mentor(Employee):
-    pass
+    _mentor_list = []
+    def __init__(self, name, surname):
+        super().__init__(name,surname)
+        self.id = len(self._mentor_list) + 1
+        self._mentor_list.append(self)
 
 class Attedance:
     pass
+
     #def check_attendence(self):
         #for student in _student_attendence_list
 
@@ -50,3 +88,4 @@ user = User('Tomasz', 'Bujakowski')
 a = User("bla", "bla")
 b = User('blaaaa', 'blaaaaaa')
 user.print_object()
+
