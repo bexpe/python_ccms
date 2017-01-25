@@ -1,5 +1,6 @@
 import random
 
+
 class User:
     def __init__(self, name, surname, date_of_birth, city, phone):
         if len(name) == 0 or len(surname) == 0:
@@ -17,13 +18,58 @@ class User:
     def change_password(self, new_password):
         self.password = new_password
 
+    @staticmethod
+    def generate_random(table):
+        """
+        Generates random and unique string. Used for id/key generation.
+
+        Args:
+            table: list containing keys. Generated string should be different then all of them
+
+        Returns:
+            Random and unique string
+        """
+
+        list_of_id = []
+        for record in table:
+            list_of_id.append(record[0])
+
+        generated = ''
+
+        special_char_index = list(range(33, 48)) + list(range(58, 59)) + list(range(60, 65)) \
+                                                 + list(range(91, 97)) + list(range(124, 127))
+        start = True
+        max_len_id = 3
+        while start:
+            list_of_char = []
+            new_id = ''
+
+            for i in range(random.randint(2, max_len_id)):
+                list_of_char.append(str(chr(random.choice(special_char_index))))
+            for i in range(random.randint(2, max_len_id)):
+                list_of_char.append(str(random.randint(0, 9)))
+            for i in range(random.randint(2, max_len_id)):
+                list_of_char.append(chr(random.randint(97, 122)).upper())
+            for i in range(random.randint(2, max_len_id)):
+                list_of_char.append(chr(random.randint(97, 122)))
+
+            for i in range(len(list_of_char)):
+                char = random.choice(list_of_char)
+                new_id += char
+                list_of_char.remove(char)
+            if new_id not in list_of_id:
+                generated += new_id
+                start = False
+
+        return generated
+
 
 class Student(User):
     _students_list = []
 
     def __init__(self, name, surname, date_of_birth, city, phone, attendence_level):
-        super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._students_list) + 1
+        super().__init__(name,surname, surname, date_of_birth, city, phone)
+        self.id = User.generate_random(Student._students_list)
         self._students_list.append(self)
         self.attendence_level = attendence_level
         self.grade = {}
@@ -98,7 +144,7 @@ class Employee(User):
 
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._employee_list) + 1
+        self.id = User.generate_random(Employee._employee_list)
         self._employee_list.append(self)
 
 
@@ -106,8 +152,8 @@ class Manager(Employee):
     _manager_list = []
 
     def __init__(self, name, surname, date_of_birth, city, phone):
-        super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._manager_list) + 1
+        super().__init__(name,surname, date_of_birth, city, phone)
+        self.id = User.generate_random(Manager._manager_list)
         self._manager_list.append(self)
 
 
@@ -116,7 +162,7 @@ class Mentor(Employee):
 
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
-        self.id = len(self._mentor_list) + 1
+        self.id = User.generate_random(Mentor._mentor_list)
         self._mentor_list.append(self)
 
     @classmethod
@@ -162,6 +208,10 @@ class Mentor(Employee):
             self.date_of_birth = new_date_of_birth
             self.city = new_city
             self.phone = new_phone
+
+
+class Attendance:
+    _attendance_list = []
 
 
 class Attendance:
