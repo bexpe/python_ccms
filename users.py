@@ -56,7 +56,7 @@ class Student(User):
         pass
     
 class Employee(User):
-    _manager_list = []
+    _employee_list = []
     def __init__(self, name, surname):
         super().__init__(name,surname)
         self.id = len(self._manager_list) + 1
