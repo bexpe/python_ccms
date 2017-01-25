@@ -92,8 +92,10 @@ class Student(User):
     def get_student_list(cls):
         return cls._students_list
 
+
 class Employee(User):
     _employee_list = []
+
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
         self.id = len(self._employee_list) + 1
@@ -102,14 +104,16 @@ class Employee(User):
 
 class Manager(Employee):
     _manager_list = []
+
     def __init__(self, name, surname, date_of_birth, city, phone):
-        super().__init__(name,surname, date_of_birth, city, phone)
+        super().__init__(name, surname, date_of_birth, city, phone)
         self.id = len(self._manager_list) + 1
         self._manager_list.append(self)
 
 
 class Mentor(Employee):
     _mentor_list = []
+
     def __init__(self, name, surname, date_of_birth, city, phone):
         super().__init__(name, surname, date_of_birth, city, phone)
         self.id = len(self._mentor_list) + 1
@@ -129,7 +133,7 @@ class Mentor(Employee):
             if int(mentor.id) == id:
                 cls._mentor_list.remove(mentor)
 
-    def edit_student(self, option):
+    def edit_student(self):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
                        ' 5. phone \n, 6. all')
         if option == '1':
@@ -159,15 +163,9 @@ class Mentor(Employee):
             self.city = new_city
             self.phone = new_phone
 
+
 class Attendance:
     pass
 
-    #def check_attendence(self):
-        #for student in _student_attendence_list
-
-# user = User('Tomasz','Bujakowski')
-# a = User("bla","bla")
-# b = User('blaaaa','blaaaaaa')
-student = Student('Ania','Gaj','10-10-2000','Cracow','122333555','10')
+student = Student('Ania', 'Gaj', '10-10-2000', 'Cracow', '122333555', '10')
 print(student.phone)
-
