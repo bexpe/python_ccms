@@ -16,11 +16,15 @@ class EmployeeUI:
         )
         employee_options = input("Choose ur option: ")
         if employee_options == "1":
-            # Student.table
+            self.show_student_list()
         elif employee_options == "0":
             quit()
         else:
             print("You need to choose from options")
+
+    def show_student_list(self):
+        # Student.table
+
 
 
 class ManagerUI(EmployeeUI):
@@ -28,4 +32,20 @@ class ManagerUI(EmployeeUI):
 
 
 class MentorUI(EmployeeUI):
-    pass
+
+    def __init__(self, mentor):
+        self.mentor = mentor
+
+    def menotr_menu(self):
+        print(
+            "\n/---------------------"
+            "\n| Mentor menu:"
+            "\n| (1) Show student list"
+            "\n| (2) Show student list"
+            "\n| (1) Show student list"
+            "\n| (1) Show student list"
+            "\n| (1) Show student list"
+            "\n| (1) Show student list"
+            "\n| (0) Exit"
+            "\n\---------------------"
+        )
