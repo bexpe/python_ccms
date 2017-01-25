@@ -17,14 +17,16 @@ class User:
     def change_password(self, new_password):
         self.password = new_password
 
+
 class Student(User):
     _students_list = []
 
     def __init__(self, name, surname, date_of_birth, city, phone, attendence_level):
-        super().__init__(name,surname, surname, date_of_birth, city, phone)
+        super().__init__(name, surname, date_of_birth, city, phone)
         self.id = len(self._students_list) + 1
         self._students_list.append(self)
         self.attendence_level = attendence_level
+        self.grade = {}
 
     @classmethod
     def load_student_csv(cls):
@@ -34,8 +36,9 @@ class Student(User):
     def save_students_csv(cls):
         pass
 
-    def edit_student(self, option):
-        option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth \n, 5. city \n, 6. phone \n, 7. all')
+    def edit_mentor(self):
+        option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
+                       ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
             new_name = input('Please type new name: ')
             self.name = new_name
@@ -68,23 +71,22 @@ class Student(User):
             self.city = new_city
             self.phone = new_phone
 
-
     @classmethod
-    def get_student_from_list_by_id(cls, id):
-        id = int(id)
+    def get_student_from_list_by_id(cls):
+        cls.id = int(cls.id)
         for student in cls._students_list:
-            if int(student.id) == id:
+            if int(student.id) == cls.id:
                 return student
 
     @classmethod
-    def remove_student_from_list(cls, id):
-        id = int(id)
+    def remove_student_from_list(cls):
+        cls.id = int(cls.id)
         for student in cls._students_list:
-            if int(student.id) == id:
+            if int(student.id) == cls.id:
                 cls._students_list.remove(student)
 
     def get_student_id(self):
-        return self.student.id
+        return self.id
 
     @classmethod
     def get_student_list(cls):
@@ -113,15 +115,59 @@ class Mentor(Employee):
         self.id = len(self._mentor_list) + 1
         self._mentor_list.append(self)
 
-class Attedance:
+    @classmethod
+    def get_mentor_from_list_by_id(cls, id):
+        id = int(id)
+        for mentor in cls._mentor_list:
+            if int(mentor.id) == id:
+                return mentor
+
+    @classmethod
+    def remove_mentor_from_list(cls, id):
+        id = int(id)
+        for mentor in cls._mentor_list:
+            if int(mentor.id) == id:
+                cls._mentor_list.remove(mentor)
+
+    def edit_student(self, option):
+        option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
+                       ' 5. phone \n, 6. all')
+        if option == '1':
+            new_name = input('Please type new name: ')
+            self.name = new_name
+        if option == '2':
+            new_surname = input('Please type new surname: ')
+            self.surname = new_surname
+        if option == '3':
+            new_date_of_birth = input('Please type new date of birth: ')
+            self.date_of_birth = new_date_of_birth
+        if option == '4':
+            new_city = input('Please type new city: ')
+            self.city = new_city
+        if option == '5':
+            new_phone = input('Please type new phone: ')
+            self.phone = new_phone
+        if option == '6':
+            new_name = input('Please type new name: ')
+            new_surname = input('Please type new surname: ')
+            new_date_of_birth = input('Please type new date of birth: ')
+            new_city = input('Please type new city: ')
+            new_phone = input('Please type new phone: ')
+            self.name = new_name
+            self.surname = new_surname
+            self.date_of_birth = new_date_of_birth
+            self.city = new_city
+            self.phone = new_phone
+
+class Attendance:
     pass
 
     #def check_attendence(self):
         #for student in _student_attendence_list
 
-user = User('Tomasz', 'Bujakowski')
-a = User("bla", "bla")
-b = User('blaaaa', 'blaaaaaa')
-student = Student('Ania', 'Gaj', '10-10-2000', 'Cracow', '122333555')
+# user = User('Tomasz','Bujakowski')
+# a = User("bla","bla")
+# b = User('blaaaa','blaaaaaa')
+student = Student('Ania','Gaj','10-10-2000','Cracow','122333555','10')
 print(student.phone)
 
