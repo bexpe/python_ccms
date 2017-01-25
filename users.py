@@ -230,7 +230,8 @@ class Manager(Employee):
 
         for person in self._manager_list:
             list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id, person.password])
+                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
         return list_to_write
 
     @classmethod
@@ -243,14 +244,14 @@ class Manager(Employee):
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Manager(line[0],line[1], line[2], line[3], line[4], line[5], line[6])
+                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
 
 
 class Mentor(Employee):
     _mentor_list = []
     FILE = 'data/mentors.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id= None, password = None):
+    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
         super().__init__(name, surname, date_of_birth, city, phone)
 
         if id == None:
@@ -285,8 +286,6 @@ class Mentor(Employee):
         for mentor in cls._mentor_list:
             if mentor.id == id:
                 cls._mentor_list.remove(mentor)
-
-
 
     @classmethod
     def load_mentor_csv(cls):
@@ -333,6 +332,7 @@ class Mentor(Employee):
 
 class Attendance:
     _attendance_list = []
+    FILE = 'data/attendance.csv'
 
     def __init__(self, student_id, date, attendance):
         self.student_id = student_id
@@ -360,3 +360,28 @@ class Attendance:
         id = input('Insert student id')
         Student.get_student_from_list_by_id(id)
 
+    def objects_to_list(self):
+        list_to_write = []
+
+        for item in self._attendance_list:
+            list_to_write.append(
+                [item.student_id, item.date, item.attendance])
+        return list_to_write
+
+    @classmethod
+    def save_students_attendance_(cls):
+        table = cls.objects_to_list(cls)
+        with open(cls.FILE, 'w') as file:
+            for record in table:
+                row = ','.join(record)
+                file.write(row + "\n")
+
+    @classmethod
+    def load_students_attendance_(cls):
+
+        import csv
+        with open(cls.FILE, 'r') as file:
+            reader = csv.reader(file, delimiter=',')
+
+            for line in reader:
+                Attendance(line[0], line[1], line[2])
