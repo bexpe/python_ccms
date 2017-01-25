@@ -1,12 +1,8 @@
-class Menu:
+class StudentUI():
     pass
 
 
-class StudentUI(Menu):
-    pass
-
-
-class EmployeeUI(Menu):
+class EmployeeUI():
     pass
 
 

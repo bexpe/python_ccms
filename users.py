@@ -1,5 +1,4 @@
 class User:
-    _user_list = []
     def __init__(self, name, surname):
         if len(name) == 0 or len(surname) == 0:
             raise ValueError('Name and surname cannot be empty.')
@@ -9,7 +8,7 @@ class User:
 
         self.username = self.name[:2] + self.surname[:3]
         self.password = self.username.lower()
-        self._user_list.append(self)
+
     def change_password(self, new_password):
         self.password = new_password
 
@@ -40,6 +39,9 @@ class Menager(Employee):
 
 
 class Mentor(Employee):
+    pass
+
+class Attedance:
     pass
 
 user = User('Tomasz', 'Bujakowski')
