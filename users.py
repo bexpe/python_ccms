@@ -34,13 +34,27 @@ class Student(User):
     def save_students_csv(cls):
         pass
 
-    def edit_student(self, student, ):
-        if option == 'name':
-            student.name = new_name
-        if option == 'surname':
-            student.surname = new_surname
-        if option == 'grade':
-            student.grade = new_grade
+    def edit_student(self, option):
+        option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth \n, 5. city \n, 6. phone \n, 7. all')
+        if option == '1':
+            self.name = new_name
+        if option == '2':
+            self.surname = new_surname
+        if option == '3':
+            self.grade = new_grade
+        if option == '4':
+            self.date_of_birth = new_date_of_birth
+        if option == '5':
+            self.city = new_city
+        if option == '6':
+            self.phone = phone
+        if option == '7':
+            self.name = new_name
+            self.surname = new_surname
+            self.grade = new_grade
+            self.date_of_birth = new_date_of_birth
+            self.city = new_city
+            self.phone = phone
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
