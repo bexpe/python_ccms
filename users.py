@@ -80,3 +80,12 @@ class Mentor(Employee):
 
 class Attedance:
     pass
+
+    #def check_attendence(self):
+        #for student in _student_attendence_list
+
+user = User('Tomasz', 'Bujakowski')
+a = User("bla", "bla")
+b = User('blaaaa', 'blaaaaaa')
+user.print_object()
+
