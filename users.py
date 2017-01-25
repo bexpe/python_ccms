@@ -56,7 +56,7 @@ class Student(User):
         pass
     
 class Employee(User):
-    _manager_list = []
+    _employee_list = []
     def __init__(self, name, surname):
         super().__init__(name,surname)
         self.id = len(self._manager_list) + 1
@@ -80,3 +80,12 @@ class Mentor(Employee):
 
 class Attedance:
     pass
+
+    #def check_attendence(self):
+        #for student in _student_attendence_list
+
+user = User('Tomasz', 'Bujakowski')
+a = User("bla", "bla")
+b = User('blaaaa', 'blaaaaaa')
+user.print_object()
+

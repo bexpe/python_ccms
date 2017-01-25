@@ -1,6 +1,6 @@
 import ui
 
-class Main():
+class Main:
 	pass
 
 def main():
