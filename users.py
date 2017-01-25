@@ -42,9 +42,9 @@ class Mentor(Employee):
     pass
 
 class Attedance:
-
-    def check_attendence(self):
-        for student in _student_attendence_list
+    pass
+    #def check_attendence(self):
+        #for student in _student_attendence_list
 
 user = User('Tomasz', 'Bujakowski')
 a = User("bla", "bla")
