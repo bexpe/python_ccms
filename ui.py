@@ -66,7 +66,6 @@ class ManagerUI(EmployeeUI):
 
 
 class MentorUI(EmployeeUI):
-
     def __init__(self, mentor):
         self.mentor = mentor
 
