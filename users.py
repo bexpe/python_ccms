@@ -1,5 +1,7 @@
+import random
+
 class User:
-    def __init__(self, name, surname):
+    def __init__(self, name, surname, date_of_birth, city, phone):
         if len(name) == 0 or len(surname) == 0:
             raise ValueError('Name and surname cannot be empty.')
 
@@ -8,30 +10,21 @@ class User:
 
         self.username = self.name[:2] + self.surname[:3]
         self.password = self.username.lower()
+        self.phone = phone
+        self.city = city
+        self.date_of_birth = date_of_birth
 
     def change_password(self, new_password):
         self.password = new_password
 
-    def set_name(self, new_name):
-        self.name = new_name
-
-    def set_surname(self, new_surname):
-        self.surname = new_surname
-
-    def remove_from_list(self, object):
-        self._user_list.remove(object)
-
-    @classmethod
-    def print_object(cls):
-        for line in cls._user_list:
-            print(line.name)
-
 class Student(User):
     _students_list = []
-    def __init__(self, name, surname):
-        super().__init__(name,surname)
+
+    def __init__(self, name, surname, date_of_birth, city, phone, attendence_level):
+        super().__init__(name,surname, surname, date_of_birth, city, phone)
         self.id = len(self._students_list) + 1
         self._students_list.append(self)
+        self.attendence_level = attendence_level
 
     @classmethod
     def load_student_csv(cls):
@@ -41,26 +34,42 @@ class Student(User):
     def save_students_csv(cls):
         pass
 
-    def edit_student(self):
-        pass
+    def edit_student(self, student, ):
+        if option == 'name':
+            student.name = new_name
+        if option == 'surname':
+            student.surname = new_surname
+        if option == 'grade':
+            student.grade = new_grade
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
-        pass
+        id = int(id)
+        for student in cls._students_list:
+            if int(student.id) == id:
+                return student
 
     @classmethod
     def remove_student_from_list(cls, id):
-        pass
+        id = int(id)
+        for student in cls._students_list:
+            if int(student.id) == id:
+                cls._students_list.remove(student)
 
-    def get_student_grade(self):
-        pass
-    
+    def get_student_id(self):
+        return self.student.id
+
+
+    @classmethod
+    def get_student_list(cls):
+        return cls._students_list
+
 class Employee(User):
     _employee_list = []
     def __init__(self, name, surname):
-        super().__init__(name,surname)
-        self.id = len(self._manager_list) + 1
-        self._manager_list.append(self)
+        super().__init__(name, surname)
+        self.id = len(self._employee_list) + 1
+        self._employee_list.append(self)
 
 
 class Manager(Employee):
@@ -74,7 +83,7 @@ class Manager(Employee):
 class Mentor(Employee):
     _mentor_list = []
     def __init__(self, name, surname):
-        super().__init__(name,surname)
+        super().__init__(name, surname)
         self.id = len(self._mentor_list) + 1
         self._mentor_list.append(self)
 
@@ -84,5 +93,6 @@ class Attedance:
 user = User('Tomasz', 'Bujakowski')
 a = User("bla", "bla")
 b = User('blaaaa', 'blaaaaaa')
-user.print_object()
+student = Student('Ania', 'Gaj', '10-10-2000', 'Cracow', '122333555')
+print(student.phone)
 
