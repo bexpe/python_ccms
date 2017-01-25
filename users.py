@@ -12,20 +12,6 @@ class User:
     def change_password(self, new_password):
         self.password = new_password
 
-    def set_name(self, new_name):
-        self.name = new_name
-
-    def set_surname(self, new_surname):
-        self.surname = new_surname
-
-    def remove_from_list(self, object):
-        self._user_list.remove(object)
-
-    @classmethod
-    def print_object(cls):
-        for line in cls._user_list:
-            print(line.name)
-
 class Student(User):
     _students_list = []
     def __init__(self, name, surname):
@@ -41,24 +27,41 @@ class Student(User):
     def save_students_csv(cls):
         pass
 
-    def edit_student(self):
-        pass
+    def edit_student(self, student, ):
+        if option == 'name':
+            student.name = new_name
+        if option == 'surname':
+            student.surname = new_surname
+        if option == 'grade':
+            student.grade = new_grade
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
-        pass
+        id = int(id)
+        for student in cls._students_list:
+            if int(student.id) == id:
+                return student
 
     @classmethod
     def remove_student_from_list(cls, id):
-        pass
+        id = int(id)
+        for student in cls._students_list:
+            if int(student.id) == id:
+                cls._students_list.remove(student)
+
+    @classmethod
+    def print_list(cls):
+        return cls._students_list
 
     def get_student_grade(self):
-        pass
-    
+        
+        for student in cls._students_list:
+            if int(student.id) == id
+
 class Employee(User):
     _manager_list = []
     def __init__(self, name, surname):
-        super().__init__(name,surname)
+        super().__init__(name, surname)
         self.id = len(self._manager_list) + 1
         self._manager_list.append(self)
 
