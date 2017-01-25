@@ -27,7 +27,17 @@ class StudentUI():
                 print("Bad choice. Enter correct value.")
 
     def show_student_grade_ui(self):
-        pass
+    	student_grades = self.student.get_student_grades()
+        student_grades_table = ["| {} : {} %".format(key, value) for key, value in student_grades.items()]
+
+        print((
+            "\n/---------------------"
+            "\n| Your grades:"
+            "{}"
+            "\n\---------------------"
+        ).format(
+            ''.join(student_grades_table)
+        ))
 
     def show_assigments_ui(self):
         pass
@@ -37,6 +47,7 @@ class StudentUI():
 
 
 class EmployeeUI:
+
     def __init__(self, employee):
         self.employee = employee
 
