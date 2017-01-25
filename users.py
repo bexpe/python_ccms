@@ -33,7 +33,28 @@ class Student(User):
         self.id = len(self._students_list) + 1
         self._students_list.append(self)
 
+    @classmethod
+    def load_student_csv(cls):
+        pass
 
+    @classmethod
+    def save_students_csv(cls):
+        pass
+
+    def edit_student(self):
+        pass
+
+    @classmethod
+    def get_student_from_list_by_id(cls, id):
+        pass
+
+    @classmethod
+    def remove_student_from_list(cls, id):
+        pass
+
+    def get_student_grade(self):
+        pass
+    
 class Employee(User):
     _manager_list = []
     def __init__(self, name, surname):
