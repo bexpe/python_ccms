@@ -38,7 +38,7 @@ class StudentUI():
             grade = assigment.get_student_grade(self.student.get_student_id())
             student_grades[assigment.get_assigment_name()] = grade
 
-        student_grades_table = ["| {} : {} %".format(key, value) for key, value in student_grades.items()]
+        student_grades_table = ["\n| {} : {} %".format(key, value) for key, value in student_grades.items()]
 
         print((
             "\n/---------------------"
@@ -51,7 +51,7 @@ class StudentUI():
 
     def show_assigments_ui(self):
         assigments_list = Assigment.get_assigments_list()
-        assigments_table = ["| {}".format(assigment.get_assigment_name()) for assigment in assigments_list]
+        assigments_table = ["\n| {}".format(assigment.get_assigment_name()) for assigment in assigments_list]
 
         print((
             "\n/---------------------"

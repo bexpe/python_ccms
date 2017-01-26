@@ -263,6 +263,9 @@ class Student(User):
 				student.phone), str(student.attendance_level), student.id, student.password])
 		return list_to_write
 
+	def get_student_id(self):
+		return self.id
+
 
 class Employee(User):
 	_employee_list = []

@@ -1,5 +1,6 @@
 from ui import *
 from users import *
+from assigments import Assigment
 
 
 class Main:
@@ -14,6 +15,7 @@ class Main:
 		Employee.load_employees_csv()
 		Mentor.load_mentor_csv()
 		Manager.load_manager_csv()
+		Assigment.load_assigment_csv()
 
 	def save_list(self):
 		Student.save_students_csv()
