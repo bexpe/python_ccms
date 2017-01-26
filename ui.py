@@ -211,7 +211,13 @@ class ManagerUI(EmployeeUI):
         Mentor.mentor_list_details()
 
     def add_mentor(self):
-        pass
+        name = input("Write mentor name: ")
+        surname = input("Write mentor surname: ")
+        email = input("Write mentor email: ")
+        date_of_birth = input("Write mentor date of birth: ")
+        city = input("Write mentor city: ")
+        phone = input("Write mentor phone: ")
+        Mentor(name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
     def remove_mentor():
@@ -293,7 +299,13 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def add_student():
-        pass
+        name = input("Write student name: ")
+        surname = input("Write student surname: ")
+        email = input("Write student email: ")
+        date_of_birth = input("Write student date of birth: ")
+        city = input("Write student city: ")
+        phone = input("Write student phone: ")
+        Student(name, surname, email, date_of_birth, city, phone, attendance_level=0)
 
     @staticmethod
     def remove_student():
