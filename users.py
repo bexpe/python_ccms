@@ -1,13 +1,15 @@
 import random
+import csv
 
 class User:
-    def __init__(self, name, surname, date_of_birth, city, phone, password=None):
+    def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
         if len(name) == 0 or len(surname) == 0:
             raise ValueError('Name and surname cannot be empty.')
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
+        self.email = email
         if password == None:
             self.password = self.username.lower()
         else:
@@ -77,8 +79,8 @@ class Student(User):
     _students_list = []
     FILE = 'data/students.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, attendance_level, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, attendance_level, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
         if id == None:
             self.id = User.generate_random(Student._students_list)
         else:
@@ -88,13 +90,23 @@ class Student(User):
 
         self._students_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def student_list_basics(cls):
+        student_basics_list = []
 
-        for student in self._students_list:
-            list_to_write.append([student.name, student.surname, student.date_of_birth, student.city,
-                                  str(student.phone), str(student.attendance_level), student.id, student.password])
-        return list_to_write
+        for student in cls._students_list:
+            student_basics_list.append([student.name, student.surname, student.email])
+        return student_basics_list
+
+    @classmethod
+    def student_list_detalis(cls):
+        student_detalis_list = []
+
+        for student in cls._students_list:
+            student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password])
+        return student_detalis_list
 
     @classmethod
     def save_students_csv(cls):
@@ -103,12 +115,11 @@ class Student(User):
     @classmethod
     def load_students_csv(cls):
 
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
 
             for line in reader:
-                Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
+                Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
 
     def edit_student(self):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
@@ -165,12 +176,12 @@ class Student(User):
                :return: str: string with table to print, or information if list is empty
                """
         # list of column headers
-        header_row = ['Name', 'Surname', 'Date_of_birth', 'Attendance level', 'Phone number']
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
 
         # appending lists with shape's attributes to list to print
         to_print_list = [header_row]
         for student in cls._students_list:
-            to_print_list.append([student.name, student.surname, student.date_of_birth, student.attendance_level, student.phone])
+            to_print_list.append([student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
 
         # transposition of list to print, for easy access to columns
         transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
@@ -220,8 +231,8 @@ class Employee(User):
     _employee_list = []
     FILE = 'data/employees.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Employee._employee_list)
@@ -237,13 +248,13 @@ class Employee(User):
             self._employee_list.append(self)
 
     def objects_to_list(self):
-        list_to_write = []
+        employee_list = []
 
         for person in self._employee_list:
-            list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+            employee_list.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return employee_list
 
     @classmethod
     def save_employees_csv(cls):
@@ -252,19 +263,18 @@ class Employee(User):
     @classmethod
     def load_employees_csv(cls):
 
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Employee(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Employee(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
 
 class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email,date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Manager._manager_list)
@@ -283,7 +293,7 @@ class Manager(Employee):
 
         for person in self._manager_list:
             list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
         return list_to_write
 
@@ -293,19 +303,18 @@ class Manager(Employee):
 
     @classmethod
     def load_manager_csv(cls):
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
 
 class Mentor(Employee):
     _mentor_list = []
     FILE = 'data/mentors.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Mentor._mentor_list)
@@ -319,14 +328,25 @@ class Mentor(Employee):
 
         self._mentor_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def mentor_list_basics(cls):
+        mentor_list_basics = []
 
-        for person in self._mentor_list:
-            list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+        for person in cls._mentor_list:
+            mentor_list_basics.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return mentor_list_basics
+
+    @classmethod
+    def mentor_list_details(cls):
+        mentor_list = []
+
+        for person in cls._mentor_list:
+            mentor_list.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
+        return mentor_list
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
@@ -342,11 +362,10 @@ class Mentor(Employee):
 
     @classmethod
     def load_mentor_csv(cls):
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Mentor(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Mentor(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
     @classmethod
     def save_mentor_csv(cls):
@@ -404,7 +423,7 @@ class Attendance:
         elif option == 'C':
             attendance = 'not there'
         else:
-            attendance = 'dupa'
+            raise KeyError("There is no such option.")
         student = Student.get_student_from_list_by_id(student_id)
         Attendance._attendance_list.append(Attendance(student.id, date, attendance))
 
@@ -421,6 +440,7 @@ class Attendance:
                 [item.student_id, item.date, item.attendance])
         return list_to_write
 
+
     @classmethod
     def save_students_attendance_(cls):
         table = cls.objects_to_list(cls)
@@ -431,13 +451,15 @@ class Attendance:
 
     @classmethod
     def load_students_attendance_(cls):
-
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
 
-s = Student('Ania', 'Polak', '3424', 'krk', '39282392', '80')
-print(s.get_student_list())
+if __name__ == '__main__':
+
+    s = Student('Ania', 'Polak', 'mkfk@mdmsvk','3424', 'krk', '39282392', '80')
+    print(s.get_student_list())
+
+
