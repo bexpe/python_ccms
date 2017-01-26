@@ -122,7 +122,7 @@ class EmployeeUI:
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        Student.get_student_list()
+        print(Student.get_student_list())
         print("\n/---------------------"
               "\n| Employee menu:"
               "\n| (1) Return to menu"
@@ -188,7 +188,7 @@ class ManagerUI(EmployeeUI):
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        Student.get_student_list()
+        print(Student.get_student_list())
         print("\n/---------------------"
               "\n| Manager menu:"
               "\n| (1) Return to menu"
@@ -308,7 +308,7 @@ class MentorUI(EmployeeUI):
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        Student.get_student_list()
+        print(Student.get_student_list())
         print("\n/---------------------"
               "\n| Mentor menu:"
               "\n| (1) Return to menu"
