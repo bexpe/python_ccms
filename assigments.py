@@ -1,4 +1,4 @@
-class Assigments_answer:
+class Assigments_Answer:
     """
     Class for students answer for current assigment.
     """
@@ -54,7 +54,7 @@ class Assigment:
         self.description = description
         self.answers_list = []
 
-        _assigments_list.append(self)
+        self._assigments_list.append(self)
 
     def get_assigment_name(self):
         """
@@ -62,14 +62,15 @@ class Assigment:
         """
         return self.assigment_name
 
-    def get_assigment_by_name(self, assigment_to_find):
+    @classmethod
+    def get_assigment_by_name(cls, assigment_to_find):
         """
         Method looks into class attribute _assigments_list to find assigment by given name.
         params:
                 assigment_to_find - string
         """
 
-        for assigment in _assigments_list:
+        for assigment in cls._assigments_list:
             if assigment.get_assigment_name() == assigment_to_find:
                 return assigment
 
@@ -80,7 +81,7 @@ class Assigment:
                 student_id - string
                 student_answer - string
         """
-        self.answers_list.append(Assigments_answer(student_id, student_answer))
+        self.answers_list.append(Assigments_Answer(student_id, student_answer))
 
     def get_student_answer(self, student_id):
         """
@@ -88,7 +89,7 @@ class Assigment:
         params:
                 student_id - string
         """
-        for answer in self.answers_list
+        for answer in self.answers_list:
             if answer.get_answer_student_id() == student_id:
                 return answer
 
@@ -120,4 +121,4 @@ class Assigment:
         """
         Method return class attribute _assigments_list with Assigments objects inside
         """
-        return _assigments_list
+        return cls._assigments_list

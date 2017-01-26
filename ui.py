@@ -229,7 +229,7 @@ class MentorUI(EmployeeUI):
     def __init__(self, mentor):
         super().__init__(mentor)
 
-    def mentor_menu(self):
+    def show_mentor_menu(self):
         while True:
             print(
                 "\n/---------------------"
