@@ -183,11 +183,11 @@ class Employee(User):
 
         if self.__class__ == Employee:
             self._employee_list.append(self)
-
-    def objects_to_list(self):
+    @classmethod
+    def objects_to_list(cls):
         list_to_write = []
 
-        for person in self._employee_list:
+        for person in cls._employee_list:
             list_to_write.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])

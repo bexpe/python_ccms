@@ -74,14 +74,19 @@ class EmployeeUI:
               "\n| (0) Exit"
               "\n\---------------------")
         employee_table_option = input("Choose option")
+
         if employee_table_option == "1":
-            self.employee_menu()
+            self.show_student_detalis()
         elif employee_table_option == "2":
-            pass
+            self.employee_menu()
         elif employee_table_option == "0":
             quit()
         else:
             print("You need to choose from option")
+
+    def show_student_detalis(self):
+        # print(Student.objects_to_list_details())
+        pass
 
 
 class ManagerUI(EmployeeUI):
