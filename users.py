@@ -111,7 +111,7 @@ class Student(User):
             for line in reader:
                 Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
 
-    def edit_mentor(self):
+    def edit_student(self):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
                        ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
@@ -159,6 +159,7 @@ class Student(User):
             if student.id == cls.id:
                 cls._students_list.remove(student)
 
+    @classmethod
     def get_student_list(cls):
         return cls._students_list
 
@@ -296,7 +297,7 @@ class Mentor(Employee):
     def save_mentor_csv(cls):
         cls.list_to_csv()
 
-    def edit_student(self):
+    def edit_mentor(self):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
                        ' 5. phone \n, 6. all')
         if option == '1':
@@ -348,7 +349,7 @@ class Attendance:
         elif option == 'C':
             attendance = 'not there'
         else:
-            attendance = 'dupa'
+            raise KeyError("There is no such option.")
         student = Student.get_student_from_list_by_id(student_id)
         Attendance._attendance_list.append(Attendance(student.id, date, attendance))
 
@@ -364,6 +365,7 @@ class Attendance:
             list_to_write.append(
                 [item.student_id, item.date, item.attendance])
         return list_to_write
+
 
     @classmethod
     def save_students_attendance_(cls):
