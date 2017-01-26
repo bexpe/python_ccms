@@ -90,13 +90,23 @@ class Student(User):
 
         self._students_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def student_list_basics(cls):
+        student_basics_list = []
 
-        for student in self._students_list:
-            list_to_write.append([student.name, student.surname, student.email, student.date_of_birth, student.city,
-                                  str(student.phone), str(student.attendance_level), student.id, student.password])
-        return list_to_write
+        for student in cls._students_list:
+            student_basics_list.append([student.name, student.surname, student.email])
+        return student_basics_list
+
+    @classmethod
+    def student_list_detalis(cls):
+        student_detalis_list = []
+
+        for student in cls._students_list:
+            student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city,str(student.phone), str(student.attendance_level),
+                                         student.id, student.password])
+        return student_detalis_list
 
     @classmethod
     def save_students_csv(cls):

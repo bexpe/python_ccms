@@ -94,6 +94,7 @@ class EmployeeUI:
                 print("You need to choose from options")
 
     def show_student_list(self):
+
         print("\n/---------------------"
               "\n| Employee menu:"
               "\n| (1) Show student details"
