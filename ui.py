@@ -79,7 +79,7 @@ class StudentUI():
 
 
 class EmployeeUI:
-
+    """There we are showing all employee options"""
     def __init__(self, employee):
         self.employee = employee
 
@@ -210,7 +210,8 @@ class ManagerUI(EmployeeUI):
     def show_mentor_details_list():
         Mentor.mentor_list_details()
 
-    def add_mentor(self):
+    @staticmethod
+    def add_mentor():
         name = input("Write mentor name: ")
         surname = input("Write mentor surname: ")
         email = input("Write mentor email: ")
@@ -226,10 +227,12 @@ class ManagerUI(EmployeeUI):
 
 
 class MentorUI(EmployeeUI):
+    """There we are showing all Mentor options"""
     def __init__(self, mentor):
         super().__init__(mentor)
 
     def mentor_menu(self):
+        """There we showing mentor menu"""
         while True:
             print(
                 "\n/---------------------"
@@ -295,8 +298,8 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def add_assignment():
-        assigment_name = input("Write new assigment name: ")
-        description = input("Write description for new assigment: ")
+        assigment_name = input("Write new assignment name: ")
+        description = input("Write description for new assignment: ")
         Assigment(assigment_name, description)
 
     @staticmethod
