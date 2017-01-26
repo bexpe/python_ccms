@@ -307,7 +307,7 @@ class Attendance:
         elif option == 'C':
             attendance ='not there'
         else:
-            attendance = 'dupa'
+            raise KeyError("There is no such option.")
         student = Student.get_student_from_list_by_id(student_id)
         Attendance._attendance_list.append(Attendance(student.id, date, attendance))
 
@@ -329,7 +329,7 @@ user = User('Tomasz', 'Bujakowski', '12-21-1231', 'Cracow', '11111111')
 student = Student('Ania', 'Gaj', '10-10-2000', 'Cracow', '122333555', 0)
 print(student.id)
 Attendance.set_attendance()
-print(Attendance._attendance_list)
+print(Attendance._attendance_list[0].date)
 Student.save_students_csv()
 Manager.save_manager_csv()
 Mentor.save_mentor_csv()
