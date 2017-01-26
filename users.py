@@ -365,7 +365,6 @@ class Manager(Employee):
 
 
 class Mentor(Employee):
-<<<<<<< HEAD
 	_mentor_list = []
 	FILE = 'data/mentors.csv'
 
