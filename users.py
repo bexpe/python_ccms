@@ -244,11 +244,11 @@ class Student(User):
     @classmethod
     def get_list_to_print(cls):
         """Returns list with list made from objects data"""
-        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+        header_row = ['Id', 'Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
         to_print_list = [header_row]
         for student in cls._students_list:
             to_print_list.append(
-                [student.name, student.surname, student.email, student.date_of_birth, student.attendance_level,
+                [student.id, student.name, student.surname, student.email, student.date_of_birth, student.attendance_level,
                  student.phone])
         return to_print_list
 
@@ -499,6 +499,7 @@ class Mentor(Employee):
     @classmethod
     def get_mentors_objects(cls):
         return cls._mentor_list
+
 
 class Attendance:
     _attendance_list = []

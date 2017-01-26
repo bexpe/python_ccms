@@ -279,6 +279,7 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "3":
                 self.grade_assignment()
             elif mentor_option == "4":
+                print(Student.get_student_list())
                 self.check_attendance()
             elif mentor_option == "5":
                 self.edit_student()
@@ -341,9 +342,8 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def check_attendance():
-        """There we are checking student attendance"""
-        student_id = input("Write student id")
-        Attendance.check_attendance(student_id)
+        """There we are setting student attendance"""
+        Attendance.set_attendance()
 
     @staticmethod
     def edit_student():
