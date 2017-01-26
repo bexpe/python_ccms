@@ -17,6 +17,11 @@ import getpass
 
 class Main:
 
+	def __init__(self):
+		self.load_list()
+		self.sign_in()
+		self.save_list()
+
 	def load_list(self):
 		Student.load_students_csv()
 		Employee.load_employees_csv()
@@ -64,12 +69,6 @@ class Main:
 					manager_UI = ManagerUI(manager)
 					manager_UI.show_manager_menu()
 					return
-
-	def check_password(self):
-		pass
-
-	def hide_password_input(self):
-		pass
 
 if __name__ == "__main__":
 	main = Main()
