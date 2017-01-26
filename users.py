@@ -104,7 +104,7 @@ class Student(User):
 
         for student in cls._students_list:
             student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
-                                         student.city,str(student.phone), str(student.attendance_level),
+                                         student.city, str(student.phone), str(student.attendance_level),
                                          student.id, student.password])
         return student_detalis_list
 
@@ -193,15 +193,15 @@ class Employee(User):
 
         if self.__class__ == Employee:
             self._employee_list.append(self)
-    @classmethod
-    def objects_to_list(cls):
-        list_to_write = []
 
-        for person in cls._employee_list:
-            list_to_write.append(
+    def objects_to_list(self):
+        employee_list = []
+
+        for person in self._employee_list:
+            employee_list.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return employee_list
 
     @classmethod
     def save_employees_csv(cls):
@@ -275,14 +275,15 @@ class Mentor(Employee):
 
         self._mentor_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def mentor_list_details(cls):
+        mentor_list = []
 
-        for person in self._mentor_list:
-            list_to_write.append(
+        for person in cls._mentor_list:
+            mentor_list.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return mentor_list
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
