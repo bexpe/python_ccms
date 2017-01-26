@@ -174,7 +174,60 @@ class Student(User):
 
     @classmethod
     def get_student_list(cls):
-        return cls._students_list
+        """
+               Generates string with string from shapes object list.
+               :return: str: string with table to print, or information if list is empty
+               """
+        # list of column headers
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+
+        # appending lists with shape's attributes to list to print
+        to_print_list = [header_row]
+        for student in cls._students_list:
+            to_print_list.append([student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
+
+        # transposition of list to print, for easy access to columns
+        transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
+
+        # evaluate lengths of strings in columns for getting longest strings, to determine columns widths
+        columns_widths = []
+        for line in transposed_to_print_list:
+            max_width = 0
+            for item in line:
+                if len(str(item)) > max_width:
+                    max_width = len(str(item)) + 2
+            columns_widths.append(max_width)
+
+        table_str = ""  # string with content of table
+        # generate strings for top and bottom of table, and row separator
+        pauses = "-" * (sum(columns_widths) + len(to_print_list[0]) - 1)  # create of string with '-' for printing (---)
+        top = "/{}\\\n".format(pauses)  # top row of table /----\
+        bot = "\\{}/\n".format(pauses)  # bottom row       \----/
+
+        # generate separator row |---|----------|-----| ....
+        separator = "|"
+
+        for item in columns_widths:
+            separator += '{:^{}}|'.format("-" * (columns_widths[columns_widths.index(item)]),
+                                          columns_widths[columns_widths.index(item)] - 1)
+
+        for line in to_print_list:
+            i = 0
+            table_str += '|'
+            for item in line:  # print every item from list from table in format: | column | column | col | ...
+                table_str += '{:^{}}|'.format(item, columns_widths[i])
+                i += 1
+
+            if line != to_print_list[-1]:  # adds separator after row, except last row (bottom row is adding later)
+                table_str += "\n{}\n".format(separator)
+
+        return "{}{}\n{}".format(top, table_str, bot)
+
+
+    @classmethod
+    def get_student_details(cls):
+        cls.get_student_from_list_by_id()
+        student
 
 
 class Employee(User):
