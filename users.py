@@ -1,14 +1,17 @@
 import random
 import csv
 
+
 class User:
     def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
-        if len(name) == 0 or len(surname) == 0:
-            raise ValueError('Name and surname cannot be empty.')
+        if not name or not surname or not email:
+            raise ValueError("Name, surname and email can't be empty")
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
+        if '@' not in email:
+            raise NameError("Invalid email")
         self.email = email
         if password == None:
             self.password = self.username.lower()
@@ -210,7 +213,7 @@ class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
 
-    def __init__(self, name, surname, email,date_of_birth, city, phone, id=None, password=None):
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
         super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
@@ -365,7 +368,6 @@ class Attendance:
             list_to_write.append(
                 [item.student_id, item.date, item.attendance])
         return list_to_write
-
 
     @classmethod
     def save_students_attendance_(cls):
