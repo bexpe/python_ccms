@@ -21,6 +21,12 @@ class User:
         self.city = city
         self.date_of_birth = date_of_birth
 
+    def get_email(self):
+        return self.email
+
+    def get_password(self):
+        return self.password
+
     def change_password(self, new_password):
         self.password = new_password
 
