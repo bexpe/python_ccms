@@ -133,6 +133,10 @@ class Student(User):
 			self.id = User.generate_random(Student._students_list)
 		else:
 			self.id = id
+		if password == None:
+			self.password = self.username.lower()
+		else:
+			self.password = password
 		self.attendance_level = attendance_level
 		self.grade = {}
 
@@ -227,8 +231,7 @@ class Student(User):
 		"""
 			   Generates string with string from shapes object list.
 			   :return: str: string with table to print, or information if list is empty
-			   """
-		"""Ret)e$uP40(EB7urns string with table to print"""
+		"""
 		list_to_print = cls.get_list_to_print()
 		table = cls.show_list(list_to_print)
 		return table
@@ -266,7 +269,6 @@ class Student(User):
 	def get_student_id(self):
 		return self.id
 
-
 class Employee(User):
 	_employee_list = []
 	FILE = 'data/employees.csv'
@@ -287,10 +289,11 @@ class Employee(User):
 		if self.__class__ == Employee:
 			self._employee_list.append(self)
 
-	def objects_to_list(self):
+	@classmethod
+	def objects_to_list(cls):
 		employee_list = []
 
-		for person in self._employee_list:
+		for person in cls._employee_list:
 			employee_list.append(
 				[person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
 				 person.password])
@@ -332,10 +335,11 @@ class Manager(Employee):
 
 		self._manager_list.append(self)
 
-	def objects_to_list(self):
+	@classmethod
+	def objects_to_list(cls):
 		list_to_write = []
 
-		for person in self._manager_list:
+		for person in cls._manager_list:
 			list_to_write.append(
 				[person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
 				 person.password])
@@ -375,6 +379,16 @@ class Mentor(Employee):
 			self.password = password
 
 		self._mentor_list.append(self)
+
+	@classmethod
+	def objects_to_list(cls):
+		list_to_write = []
+
+		for person in cls._mentor_list:
+			list_to_write.append(
+				[person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+				 person.password])
+		return list_to_write
 
 	@classmethod
 	def mentor_list_basics(cls):
@@ -478,7 +492,6 @@ class Mentor(Employee):
 	@classmethod
 	def get_mentors_objects(cls):
 		return cls._mentor_list
-
 
 class Attendance:
 	_attendance_list = []
