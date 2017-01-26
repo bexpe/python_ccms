@@ -93,13 +93,23 @@ class Student(User):
 
         self._students_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def student_list_basics(cls):
+        student_basics_list = []
 
-        for student in self._students_list:
-            list_to_write.append([student.name, student.surname, student.email, student.date_of_birth, student.city,
-                                  str(student.phone), str(student.attendance_level), student.id, student.password])
-        return list_to_write
+        for student in cls._students_list:
+            student_basics_list.append([student.name, student.surname, student.email])
+        return student_basics_list
+
+    @classmethod
+    def student_list_detalis(cls):
+        student_detalis_list = []
+
+        for student in cls._students_list:
+            student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password])
+        return student_detalis_list
 
     @classmethod
     def save_students_csv(cls):
@@ -188,13 +198,13 @@ class Employee(User):
             self._employee_list.append(self)
 
     def objects_to_list(self):
-        list_to_write = []
+        employee_list = []
 
         for person in self._employee_list:
-            list_to_write.append(
+            employee_list.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return employee_list
 
     @classmethod
     def save_employees_csv(cls):
@@ -268,14 +278,25 @@ class Mentor(Employee):
 
         self._mentor_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def mentor_list_basics(cls):
+        mentor_list_basics = []
 
-        for person in self._mentor_list:
-            list_to_write.append(
+        for person in cls._mentor_list:
+            mentor_list_basics.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return mentor_list_basics
+
+    @classmethod
+    def mentor_list_details(cls):
+        mentor_list = []
+
+        for person in cls._mentor_list:
+            mentor_list.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
+        return mentor_list
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
