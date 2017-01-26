@@ -260,10 +260,28 @@ class MentorUI(EmployeeUI):
             else:
                 print("You need to choose from options: ")
 
+    def show_student_list(self):
+        print(Student.student_list_basics())
+        employee_table_option = input("\n/---------------------"
+                                      "\n| Mentor menu:"
+                                      "\n| (1) Show student details"
+                                      "\n| (2) Return to menu"
+                                      "\n| (0) Exit"
+                                      "\n\---------------------\n")
+
+        if employee_table_option == "1":
+            self.show_student_details()
+        elif employee_table_option == "2":
+            self.mentor_menu()
+        elif employee_table_option == "0":
+            quit()
+        else:
+            print("You need to choose from option")
+
     def show_student_details(self):
         print(Student.get_student_list())
         print("\n/---------------------"
-              "\n| Employee menu:"
+              "\n| Mentor menu:"
               "\n| (1) Return to menu"
               "\n| (0) Exit"
               "\n\---------------------")
