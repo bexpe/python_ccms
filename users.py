@@ -22,16 +22,41 @@ class User:
         self.date_of_birth = date_of_birth
 
     def get_email(self):
+        """
+        This method gets an users email
+        :return: users email as an object
+        """
         return self.email
 
     def get_password(self):
+        """
+        This method gets an users password.
+        :return: users password as an object
+        """
         return self.password
 
     def change_password(self, new_password):
+        """
+        Changes an old password
+
+        :param new_password:
+
+        :return: new_password
+        """
+
+        @classmethod
+    def get_students_objects(cls):
+        """
+        :return: list of students as a list of objects
+        """
+        return cls._students_list
         self.password = new_password
 
     @classmethod
     def list_to_csv(cls):
+        """
+        :return:
+        """
         table = cls.objects_to_list(cls)
         with open(cls.FILE, 'w') as file:
             for record in table:
@@ -85,6 +110,13 @@ class User:
 
     @staticmethod
     def show_list(to_print_list):
+        """
+        Returns a list as a string with users depending on the class we choose
+
+        :param to_print_list:
+
+        :return: string
+        """
         # transposition of list to print, for easy access to columns
         transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
 
@@ -124,6 +156,9 @@ class User:
 
 
 class Student(User):
+    """
+    Class student inherits from User class.
+    """
     _students_list = []
     FILE = 'data/students.csv'
 
@@ -140,6 +175,10 @@ class Student(User):
 
     @classmethod
     def student_list_basics(cls):
+        """
+        It prints student details.
+        :return: list with student objects parameters like name, surname, email.
+        """
         student_basics_list = []
         for student in cls._students_list:
             student_basics_list.append([student.name, student.surname, student.email])
@@ -148,6 +187,12 @@ class Student(User):
 
     @classmethod
     def student_list_detalis(cls):
+        """
+        This class method prints more information about student like name, surname, email, date of birth, city, phone,
+        attendance level, id and password.
+
+        :return: list with students objects
+        """
         student_detalis_list = []
 
         for student in cls._students_list:
@@ -173,7 +218,13 @@ class Student(User):
             for line in reader:
                 Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
     @classmethod
+
     def edit_student(cls):
+        """
+        Allows to edit all students parameters or one of it.
+
+        :return: new object of student
+        """
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
                        ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
@@ -210,12 +261,25 @@ class Student(User):
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
+        """
+        Looks for a student by student id in a list of students.
+
+        :param id:
+
+        :return: student object
+        """
         for student in cls._students_list:
             if student.id == id:
                 return student
 
     @classmethod
     def remove_student_from_list(cls, id):
+        """
+        Returns student from a list of student by their id.
+
+        :param id:
+
+        """
         cls.id = id
         for student in cls._students_list:
             if student.id == cls.id:
@@ -224,10 +288,10 @@ class Student(User):
     @classmethod
     def get_student_list(cls):
         """
-               Generates string with string from shapes object list.
-               :return: str: string with table to print, or information if list is empty
-               """
-        """Ret)e$uP40(EB7urns string with table to print"""
+        Generates string with string from shapes object list.
+
+        :return: str: string with table to print, or information if list is empty
+         """
         list_to_print = cls.get_list_to_print()
         table = cls.show_list(list_to_print)
         return table
@@ -246,11 +310,21 @@ class Student(User):
 
     @classmethod
     def get_student_details(cls):
-        cls.get_student_from_list_by_id()
-        student
+        """
+        Gives students id by details
+
+        :return: object of student
+        """
+        cls.get_student_from_list_by_id(cls.id)
+        return cls.student
 
     @classmethod
     def get_students_objects(cls):
+        """
+        Gives objects of all students in a student list
+
+        :return: students list
+        """
         return cls._students_list
 
 class Employee(User):
@@ -296,6 +370,11 @@ class Employee(User):
 
     @classmethod
     def get_employees_objects(cls):
+        """
+        Gives employees objects list
+
+        :return: list of employees objects
+        """
         return cls._employee_list
 
 
@@ -340,6 +419,9 @@ class Manager(Employee):
 
     @classmethod
     def get_managers_objects(cls):
+        """
+        :return: list of managers objects
+        """
         return cls._manager_list
 
 class Mentor(Employee):
@@ -363,6 +445,11 @@ class Mentor(Employee):
 
     @classmethod
     def mentor_list_basics(cls):
+        """
+        Prints basic information about mentors
+
+        :return: mentor basic list
+        """
         mentor_list_basics = []
 
         for person in cls._mentor_list:
@@ -377,6 +464,11 @@ class Mentor(Employee):
 
     @classmethod
     def mentor_list_details(cls):
+        """
+        prints full information about mentors
+
+        :return: mentor list
+        """
         mentor_list = []
 
         for mentor in cls._mentor_list:
@@ -391,12 +483,26 @@ class Mentor(Employee):
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
+        """
+        Looks for mentor with a given id
+
+        :param id:
+
+        :return: mentor object
+        """
         for mentor in cls._mentor_list:
             if mentor.id == id:
                 return mentor
 
     @classmethod
     def remove_mentor_from_list(cls, id):
+        """
+        Removes mentor from a list by their id
+
+        :param id:
+
+        :return: mentor object
+        """
         for mentor in cls._mentor_list:
             if mentor.id == id:
                 cls._mentor_list.remove(mentor)
@@ -414,6 +520,11 @@ class Mentor(Employee):
 
     @classmethod
     def edit_mentor(cls):
+        """
+        Allows to edit all parameters of mentor at once or choose one of them
+
+        :return: new edited objects
+        """
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
                        ' 5. phone \n, 6. all')
         if option == '1':
@@ -462,6 +573,11 @@ class Mentor(Employee):
 
     @classmethod
     def get_mentors_objects(cls):
+        """
+        Gives all of mentors objects on the list
+
+        :return: mentor list
+        """
         return cls._mentor_list
 
 class Attendance:
