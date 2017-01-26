@@ -142,7 +142,7 @@ class ManagerUI(EmployeeUI):
     def manager_menu(self):
         print(
             "\n/---------------------"
-            "\n| Mentor menu:"
+            "\n| Manager menu:"
             "\n| (1) Show student list"
             "\n| (2) Show mentor list"
             "\n| (3) Edit mentor"
@@ -290,8 +290,9 @@ class MentorUI(EmployeeUI):
         new_grade = input("Write new rate for student")
         assigment.grade_student_assigment(student_id, new_grade)
 
-    def check_attendance(self):
-        pass
+    @staticmethod
+    def check_attendance():
+        Attendance.check_attendance()
 
     @staticmethod
     def edit_student():
