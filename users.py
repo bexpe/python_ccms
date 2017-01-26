@@ -3,7 +3,6 @@ import csv
 
 
 class User:
-
 	def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
 		if not name or not surname or not email:
 			raise ValueError("Name, surname and email can't be empty")
@@ -58,7 +57,7 @@ class User:
 		generated = ''
 
 		special_char_index = list(range(33, 48)) + list(range(58, 59)) + list(range(60, 65)) \
-			+ list(range(91, 97)) + list(range(124, 127))
+							 + list(range(91, 97)) + list(range(124, 127))
 		start = True
 		max_len_id = 3
 		while start:
@@ -259,8 +258,9 @@ class Student(User):
 		list_to_write = []
 
 		for student in cls._students_list:
-			list_to_write.append([student.name, student.surname, student.email, student.date_of_birth, student.city, str(
-				student.phone), str(student.attendance_level), student.id, student.password])
+			list_to_write.append(
+				[student.name, student.surname, student.email, student.date_of_birth, student.city, str(
+					student.phone), str(student.attendance_level), student.id, student.password])
 		return list_to_write
 
 	def get_student_id(self):
@@ -540,7 +540,7 @@ class Attendance:
 		student_id = Student.get_student_from_list_by_id(student_id)
 		attendance_dict = cls.count_attendance_values(student_id)
 		for key, value in attendance_dict.items():
-			print('{} : {}' .format(key, value))
+			print('{} : {}'.format(key, value))
 
 	def objects_to_list(self):
 		list_to_write = []

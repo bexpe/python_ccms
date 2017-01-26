@@ -26,7 +26,7 @@ class StudentUI():
             elif user_choose == "3":
                 self.submit_assigment_ui()
             elif user_choose == "0":
-                quit()
+                break
             else:
                 print("Bad choice. Enter correct value.")
 
@@ -97,13 +97,13 @@ class EmployeeUI:
             if employee_options == "1":
                 self.show_student_list()
             elif employee_options == "0":
-                quit()
+                break
             else:
                 print("You need to choose from options")
 
     def show_student_list(self):
         """There we are showing student list"""
-        print(Student.student_list_basics())
+        Student.student_list_basics()
         employee_table_option = input("\n/---------------------"
                                       "\n| Employee menu:"
                                       "\n| (1) Show student details"
@@ -122,7 +122,7 @@ class EmployeeUI:
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        print(Student.get_student_list())
+        Student.get_student_list()
         print("\n/---------------------"
               "\n| Employee menu:"
               "\n| (1) Return to menu"
@@ -169,7 +169,7 @@ class ManagerUI(EmployeeUI):
 
     def show_student_list(self):
         """There we are showing student list"""
-        print(Student.student_list_basics())
+        Student.student_list_basics()
         employee_table_option = input("\n/---------------------"
                                       "\n| Manager menu:"
                                       "\n| (1) Show student details"
@@ -188,7 +188,7 @@ class ManagerUI(EmployeeUI):
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        print(Student.get_student_list())
+        Student.get_student_list()
         print("\n/---------------------"
               "\n| Manager menu:"
               "\n| (1) Return to menu"
@@ -283,13 +283,13 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "5":
                 self.edit_student()
             elif mentor_option == "0":
-                quit()
+                break
             else:
                 print("You need to choose from options: ")
 
     def show_student_list(self):
         """There we are showing student list"""
-        print(Student.student_list_basics())
+        Student.student_list_basics()
         employee_table_option = input("\n/---------------------"
                                       "\n| Mentor menu:"
                                       "\n| (1) Show student details"
@@ -308,7 +308,7 @@ class MentorUI(EmployeeUI):
 
     def show_student_details(self):
         """There we are showing student list with details"""
-        print(Student.get_student_list())
+        Student.get_student_list()
         print("\n/---------------------"
               "\n| Mentor menu:"
               "\n| (1) Return to menu"
@@ -327,7 +327,7 @@ class MentorUI(EmployeeUI):
         """There we are adding assignment"""
         assigment_name = input("Write new assignment name: ")
         description = input("Write description for new assignment: ")
-        Assigment(assigment_name, description)
+        new_assigment = Assigment(assigment_name, description)
 
     @staticmethod
     def grade_assignment():
@@ -335,9 +335,9 @@ class MentorUI(EmployeeUI):
         assignment_to_find = input("Write assignment name You wanna grade: ")
         assigment = Assigment.get_assigment_by_name(assignment_to_find)
         student_id = input("Write student id")
-        assigment.get_student_solution_link(student_id)
+        print("Student answer: ", assigment.get_student_solution_link(student_id))
         new_grade = input("Write new rate for student")
-        assigment.grade_student_assigment(student_id, new_grade)
+        assigment.grade_student_answer(student_id, new_grade)
 
     @staticmethod
     def check_attendance():

@@ -66,6 +66,18 @@ class Assigment:
 		"""
 		return self.assigment_name
 
+	def get_assigment_description(self):
+		"""
+		Method return current assigment description
+		"""
+		return self.description
+
+	def get_assigment_answers(self):
+		"""
+		Method return current assigment answers
+		"""
+		return self.answers_list
+
 	@classmethod
 	def get_assigment_by_name(cls, assigment_to_find):
 		"""
@@ -143,9 +155,17 @@ class Assigment:
 
 	@classmethod
 	def save_assigment_csv(cls):
-		table = cls.objects_to_list(cls)
+
 		with open(cls.FILE, 'w') as file:
-			for record in table:
-				row = ','.join(record)
-				file.write(row + "\n")
+			for assigment in cls._assigments_list:
+				row = "assigment,{},{}\n".format(assigment.get_assigment_name(), assigment.get_assigment_description())
+				answers_list = assigment.get_assigment_answers()
+				if answers_list:
+					for answer in answers_list:
+						row += "answer,{},{},{}\n".format(
+							answer.get_answer_student_id(),
+							answer.get_student_solution_link(),
+							answer.get_grade()
+							)
+				file.write(row)
 

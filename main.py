@@ -4,7 +4,6 @@ from assigments import Assigment
 
 
 class Main:
-
 	def __init__(self):
 		self.load_list()
 		self.sign_in()
@@ -18,10 +17,11 @@ class Main:
 		Assigment.load_assigment_csv()
 
 	def save_list(self):
-		Student.save_students_csv()
-		Employee.save_employees_csv()
-		Mentor.save_mentor_csv()
-		Manager.save_manager_csv()
+		"""Student.save_students_csv()
+								Employee.save_employees_csv()
+								Mentor.save_mentor_csv()
+								Manager.save_manager_csv()"""
+		Assigment.save_assigment_csv()
 
 	def sign_in(self):
 		user_email = input("Input your email: ")
@@ -62,4 +62,4 @@ class Main:
 		pass
 
 if __name__ == "__main__":
-	main = Main()
+    main = Main()
