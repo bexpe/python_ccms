@@ -131,9 +131,6 @@ class Student(User):
             if int(student.id) == cls.id:
                 cls._students_list.remove(student)
 
-    def get_student_id(self):
-        return self.id
-
     @classmethod
     def get_student_list(cls):
         return cls._students_list
