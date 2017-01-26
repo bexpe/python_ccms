@@ -249,8 +249,9 @@ class Student(User):
         cls.get_student_from_list_by_id()
         student
 
-    def get_students_objects(self):
-        return self._students_list
+    @classmethod
+    def get_students_objects(cls):
+        return cls._students_list
 
 class Employee(User):
     _employee_list = []
@@ -293,6 +294,10 @@ class Employee(User):
             for line in reader:
                 Employee(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
+    @classmethod
+    def get_employees_objects(cls):
+        return cls._employee_list
+
 
 class Manager(Employee):
     _manager_list = []
@@ -333,6 +338,9 @@ class Manager(Employee):
             for line in reader:
                 Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
+    @classmethod
+    def get_managers_objects(cls):
+        return cls._manager_list
 
 class Mentor(Employee):
     _mentor_list = []
@@ -452,6 +460,9 @@ class Mentor(Employee):
                 [mentor.name, mentor.surname, mentor.email, mentor.date_of_birth, mentor.phone])
         return to_print_list
 
+    @classmethod
+    def get_mentors_objects(cls):
+        return cls._mentor_list
 
 class Attendance:
     _attendance_list = []
