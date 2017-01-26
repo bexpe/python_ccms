@@ -1,14 +1,17 @@
 import random
 import csv
 
+
 class User:
     def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
-        if len(name) == 0 or len(surname) == 0:
-            raise ValueError('Name and surname cannot be empty.')
+        if not name or not surname or not email:
+            raise ValueError("Name, surname and email can't be empty")
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
+        if '@' not in email:
+            raise NameError("Invalid email")
         self.email = email
         if password == None:
             self.password = self.username.lower()
@@ -90,13 +93,23 @@ class Student(User):
 
         self._students_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def student_list_basics(cls):
+        student_basics_list = []
 
-        for student in self._students_list:
-            list_to_write.append([student.name, student.surname, student.email, student.date_of_birth, student.city,
-                                  str(student.phone), str(student.attendance_level), student.id, student.password])
-        return list_to_write
+        for student in cls._students_list:
+            student_basics_list.append([student.name, student.surname, student.email])
+        return student_basics_list
+
+    @classmethod
+    def student_list_detalis(cls):
+        student_detalis_list = []
+
+        for student in cls._students_list:
+            student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password])
+        return student_detalis_list
 
     @classmethod
     def save_students_csv(cls):
@@ -161,7 +174,60 @@ class Student(User):
 
     @classmethod
     def get_student_list(cls):
-        return cls._students_list
+        """
+               Generates string with string from shapes object list.
+               :return: str: string with table to print, or information if list is empty
+               """
+        # list of column headers
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+
+        # appending lists with shape's attributes to list to print
+        to_print_list = [header_row]
+        for student in cls._students_list:
+            to_print_list.append([student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
+
+        # transposition of list to print, for easy access to columns
+        transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
+
+        # evaluate lengths of strings in columns for getting longest strings, to determine columns widths
+        columns_widths = []
+        for line in transposed_to_print_list:
+            max_width = 0
+            for item in line:
+                if len(str(item)) > max_width:
+                    max_width = len(str(item)) + 2
+            columns_widths.append(max_width)
+
+        table_str = ""  # string with content of table
+        # generate strings for top and bottom of table, and row separator
+        pauses = "-" * (sum(columns_widths) + len(to_print_list[0]) - 1)  # create of string with '-' for printing (---)
+        top = "/{}\\\n".format(pauses)  # top row of table /----\
+        bot = "\\{}/\n".format(pauses)  # bottom row       \----/
+
+        # generate separator row |---|----------|-----| ....
+        separator = "|"
+
+        for item in columns_widths:
+            separator += '{:^{}}|'.format("-" * (columns_widths[columns_widths.index(item)]),
+                                          columns_widths[columns_widths.index(item)] - 1)
+
+        for line in to_print_list:
+            i = 0
+            table_str += '|'
+            for item in line:  # print every item from list from table in format: | column | column | col | ...
+                table_str += '{:^{}}|'.format(item, columns_widths[i])
+                i += 1
+
+            if line != to_print_list[-1]:  # adds separator after row, except last row (bottom row is adding later)
+                table_str += "\n{}\n".format(separator)
+
+        return "{}{}\n{}".format(top, table_str, bot)
+
+
+    @classmethod
+    def get_student_details(cls):
+        cls.get_student_from_list_by_id()
+        student
 
 
 class Employee(User):
@@ -185,13 +251,13 @@ class Employee(User):
             self._employee_list.append(self)
 
     def objects_to_list(self):
-        list_to_write = []
+        employee_list = []
 
         for person in self._employee_list:
-            list_to_write.append(
+            employee_list.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return employee_list
 
     @classmethod
     def save_employees_csv(cls):
@@ -210,7 +276,7 @@ class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
 
-    def __init__(self, name, surname, email,date_of_birth, city, phone, id=None, password=None):
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
         super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
@@ -265,14 +331,25 @@ class Mentor(Employee):
 
         self._mentor_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def mentor_list_basics(cls):
+        mentor_list_basics = []
 
-        for person in self._mentor_list:
-            list_to_write.append(
+        for person in cls._mentor_list:
+            mentor_list_basics.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return mentor_list_basics
+
+    @classmethod
+    def mentor_list_details(cls):
+        mentor_list = []
+
+        for person in cls._mentor_list:
+            mentor_list.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
+        return mentor_list
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
@@ -365,7 +442,6 @@ class Attendance:
             list_to_write.append(
                 [item.student_id, item.date, item.attendance])
         return list_to_write
-
 
     @classmethod
     def save_students_attendance_(cls):
