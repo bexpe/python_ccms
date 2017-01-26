@@ -33,9 +33,9 @@ class Main:
 
 	def sign_in(self):
 		user_email = input("Input your email: ")
-        user_password = getpass.getpass("Input your password: ")
-        hash_password = hashlib.md5(user_password.encode())
-        user_password = hash_password.hexdigest()
+		user_password = getpass.getpass("Input your password: ")
+		hash_password = hashlib.md5(user_password.encode())
+		user_password = hash_password.hexdigest()
 
 		for student in Student.get_students_objects():
 			if student.get_email() == user_email:
@@ -72,4 +72,4 @@ class Main:
 		pass
 
 if __name__ == "__main__":
-    main = Main()
+	main = Main()
