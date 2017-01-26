@@ -103,7 +103,7 @@ class EmployeeUI:
 
     def show_student_list(self):
         """There we are showing student list"""
-        Student.student_list_basics()
+        print(Student.student_list_basics())
         employee_table_option = input("\n/---------------------"
                                       "\n| Employee menu:"
                                       "\n| (1) Show student details"
@@ -169,7 +169,7 @@ class ManagerUI(EmployeeUI):
 
     def show_student_list(self):
         """There we are showing student list"""
-        Student.student_list_basics()
+        print(Student.student_list_basics())
         employee_table_option = input("\n/---------------------"
                                       "\n| Manager menu:"
                                       "\n| (1) Show student details"
@@ -289,7 +289,7 @@ class MentorUI(EmployeeUI):
 
     def show_student_list(self):
         """There we are showing student list"""
-        Student.student_list_basics()
+        print(Student.student_list_basics())
         employee_table_option = input("\n/---------------------"
                                       "\n| Mentor menu:"
                                       "\n| (1) Show student details"
