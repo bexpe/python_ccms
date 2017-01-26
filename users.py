@@ -1,6 +1,6 @@
 import random
 import csv
-
+import hashlib
 
 class User:
 	def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
@@ -134,11 +134,11 @@ class Student(User):
 		else:
 			self.id = id
 		if password == None:
-			self.password = self.username.lower()
+			hash_object =  hashlib.md5(self.username.lower().encode())
+			self.password = hash_object.hexdigest()
 		else:
 			self.password = password
 		self.attendance_level = attendance_level
-		self.grade = {}
 
 		self._students_list.append(self)
 
@@ -269,6 +269,7 @@ class Student(User):
 	def get_student_id(self):
 		return self.id
 
+
 class Employee(User):
 	_employee_list = []
 	FILE = 'data/employees.csv'
@@ -282,7 +283,8 @@ class Employee(User):
 			self.id = id
 
 		if password == None:
-			self.password = self.username
+			hash_object =  hashlib.md5(self.username.lower().encode())
+			self.password = hash_object.hexdigest()
 		else:
 			self.password = password
 
@@ -329,7 +331,8 @@ class Manager(Employee):
 			self.id = id
 
 		if password == None:
-			self.password = self.username.lower()
+			hash_object =  hashlib.md5(self.username.lower().encode())
+			self.password = hash_object.hexdigest()
 		else:
 			self.password = password
 
@@ -362,6 +365,7 @@ class Manager(Employee):
 
 
 class Mentor(Employee):
+<<<<<<< HEAD
 	_mentor_list = []
 	FILE = 'data/mentors.csv'
 
@@ -374,7 +378,8 @@ class Mentor(Employee):
 			self.id = id
 
 		if password == None:
-			self.password = self.username
+			hash_object =  hashlib.md5(self.username.lower().encode())
+			self.password = hash_object.hexdigest()
 		else:
 			self.password = password
 
@@ -578,3 +583,15 @@ class Attendance:
 
 			for line in reader:
 				Attendance(line[0], line[1], line[2])
+
+if __name__ == '__main__':
+
+	mm = Mentor('Mentor','Mentorowski', 'mentor@cc', '1960-12-12', 'City', '333-232-111')
+	student = Student('Student','Studencki', 'student@cc', '1990-1211', 'City', '32-32-1231', 0)
+	mena = Manager('Jurek', 'Jerzy', 'jurek@cc', '1960-12-12', 'City', '312-321-321')
+	emp = Employee('Employee', "Emplo", 'emp@cc', '1970-12-23', 'City', '231-231-323')
+	Mentor.save_mentor_csv()
+	Student.save_students_csv()
+	Manager.save_manager_csv()
+	Employee.save_employees_csv()
+
