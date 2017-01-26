@@ -1,4 +1,7 @@
+import csv
+
 class Assigments_Answer:
+
     """
     Class for students answer for current assigment.
     """
@@ -43,6 +46,7 @@ class Assigment:
     Class for assigment.
     """
     _assigments_list = []
+    FILE = 'data/assigment.csv'
 
     def __init__(self, assigment_name, description):
         """
@@ -69,6 +73,7 @@ class Assigment:
         params:
                 assigment_to_find - string
         """
+
 
         for assigment in cls._assigments_list:
             if assigment.get_assigment_name() == assigment_to_find:
@@ -122,3 +127,25 @@ class Assigment:
         Method return class attribute _assigments_list with Assigments objects inside
         """
         return cls._assigments_list
+
+    def objects_to_list(self):
+        assignments = []
+
+        for assignment in self._assigments_list:
+            assignments.append([assignment.assigment_name, assignment.description])
+        return assignments
+
+    @classmethod
+    def load_assigment_csv(cls):
+        with open(cls.FILE, 'r') as file:
+            reader = csv.reader(file, delimiter=',')
+            for line in reader:Assigment(line[0], line[1])
+
+    @classmethod
+    def save_assigment_csv(cls):
+        table = cls.objects_to_list(cls)
+        with open(cls.FILE, 'w') as file:
+            for record in table:
+                row = ','.join(record)
+                file.write(row + "\n")
+
