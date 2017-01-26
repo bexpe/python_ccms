@@ -1,14 +1,17 @@
 import random
 import csv
 
+
 class User:
     def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
-        if len(name) == 0 or len(surname) == 0:
-            raise ValueError('Name and surname cannot be empty.')
+        if not name or not surname or not email:
+            raise ValueError("Name, surname and email can't be empty")
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
+        if '@' not in email:
+            raise NameError("Invalid email")
         self.email = email
         if password == None:
             self.password = self.username.lower()
@@ -73,6 +76,45 @@ class User:
                 start = False
 
         return generated
+
+    @staticmethod
+    def show_list(to_print_list):
+        # transposition of list to print, for easy access to columns
+        transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
+
+        # evaluate lengths of strings in columns for getting longest strings, to determine columns widths
+        columns_widths = []
+        for line in transposed_to_print_list:
+            max_width = 0
+            for item in line:
+                if len(str(item)) > max_width:
+                    max_width = len(str(item)) + 2
+            columns_widths.append(max_width)
+
+        table_str = ""  # string with content of table
+        # generate strings for top and bottom of table, and row separator
+        pauses = "-" * (sum(columns_widths) + len(to_print_list[0]) - 1)  # create of string with '-' for printing (---)
+        top = "/{}\\\n".format(pauses)  # top row of table /----\
+        bot = "\\{}/\n".format(pauses)  # bottom row       \----/
+
+        # generate separator row |---|----------|-----| ....
+        separator = "|"
+
+        for item in columns_widths:
+            separator += '{:^{}}|'.format("-" * (columns_widths[columns_widths.index(item)]),
+                                          columns_widths[columns_widths.index(item)] - 1)
+
+        for line in to_print_list:
+            i = 0
+            table_str += '|'
+            for item in line:  # print every item from list from table in format: | column | column | col | ...
+                table_str += '{:^{}}|'.format(item, columns_widths[i])
+                i += 1
+
+            if line != to_print_list[-1]:  # adds separator after row, except last row (bottom row is adding later)
+                table_str += "\n{}\n".format(separator)
+
+        return "{}{}\n{}".format(top, table_str, bot)
 
 
 class Student(User):
@@ -179,51 +221,22 @@ class Student(User):
                Generates string with string from shapes object list.
                :return: str: string with table to print, or information if list is empty
                """
-        # list of column headers
-        header_row = ['id', 'Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+        """Ret)e$uP40(EB7urns string with table to print"""
+        list_to_print = cls.get_list_to_print()
+        table = cls.show_list(list_to_print)
+        return table
 
-        # appending lists with shape's attributes to list to print
+
+    @classmethod
+    def get_list_to_print(cls):
+        """Returns list with list made from objects data"""
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
         to_print_list = [header_row]
         for student in cls._students_list:
-            to_print_list.append([student.id, student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
-
-        # transposition of list to print, for easy access to columns
-        transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
-
-        # evaluate lengths of strings in columns for getting longest strings, to determine columns widths
-        columns_widths = []
-        for line in transposed_to_print_list:
-            max_width = 0
-            for item in line:
-                if len(str(item)) > max_width:
-                    max_width = len(str(item)) + 2
-            columns_widths.append(max_width)
-
-        table_str = ""  # string with content of table
-        # generate strings for top and bottom of table, and row separator
-        pauses = "-" * (sum(columns_widths) + len(to_print_list[0]) - 1)  # create of string with '-' for printing (---)
-        top = "/{}\\\n".format(pauses)  # top row of table /----\
-        bot = "\\{}/\n".format(pauses)  # bottom row       \----/
-
-        # generate separator row |---|----------|-----| ....
-        separator = "|"
-
-        for item in columns_widths:
-            separator += '{:^{}}|'.format("-" * (columns_widths[columns_widths.index(item)]),
-                                          columns_widths[columns_widths.index(item)] - 1)
-
-        for line in to_print_list:
-            i = 0
-            table_str += '|'
-            for item in line:  # print every item from list from table in format: | id| Class | _str_ | ...
-                table_str += '{:^{}}|'.format(item, columns_widths[i])
-                i += 1
-
-            if line != to_print_list[-1]:  # adds separator after row, except last row (bottom row is adding later)
-                table_str += "\n{}\n".format(separator)
-
-        return "{}{}\n{}".format(top, table_str, bot)
-
+            to_print_list.append(
+                [student.name, student.surname, student.email, student.date_of_birth, student.attendance_level,
+                 student.phone])
+        return to_print_list
 
     @classmethod
     def get_student_details(cls):
@@ -277,7 +290,7 @@ class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
 
-    def __init__(self, name, surname, email,date_of_birth, city, phone, id=None, password=None):
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
         super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
@@ -414,6 +427,23 @@ class Mentor(Employee):
             cls.city = new_city
             cls.phone = new_phone
 
+    @classmethod
+    def get_mentor_list(cls):
+        """Returns string with table to print"""
+        list_to_print = cls.get_list_to_print()
+        table = cls.show_list(list_to_print)
+        return table
+
+    @classmethod
+    def get_list_to_print(cls):
+        """Returns list with list made from objects data"""
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Phone number']
+        to_print_list = [header_row]
+        for mentor in cls._mentor_list:
+            to_print_list.append(
+                [mentor.name, mentor.surname, mentor.email, mentor.date_of_birth, mentor.phone])
+        return to_print_list
+
 
 class Attendance:
     _attendance_list = []
@@ -453,7 +483,6 @@ class Attendance:
                 [item.student_id, item.date, item.attendance])
         return list_to_write
 
-
     @classmethod
     def save_students_attendance_(cls):
         table = cls.objects_to_list(cls)
@@ -469,15 +498,3 @@ class Attendance:
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
-
-if __name__ == '__main__':
-
-    s = Student('Ania', 'Polak', 'mkfk@mdmsvk','3424', 'krk', '39282392', '80', 'id')
-    m = Mentor('Ania', 'Polak', 'mkfk@mdmsvk', '3424', 'krk', '39282392', '80')
-    print(s.get_student_list())
-    s.student_list_basics()
-    s.get_student_from_list_by_id('1')
-    s.remove_student_from_list('id')
-    print(s.get_student_list())
-
-
