@@ -1,5 +1,5 @@
-from assigments import Assigments
 from users import *
+from assigments import Assigment
 
 
 class StudentUI():
@@ -31,7 +31,13 @@ class StudentUI():
                 print("Bad choice. Enter correct value.")
 
     def show_student_grade_ui(self):
-        student_grades = self.student.get_student_grades()
+        student_grades = {}
+
+        assigments_list = Assigment.get_assigments_list()
+        for assigment in assigments_list:
+            grade = assigment.get_student_grade(self.student.get_student_id())
+            student_grades[assigment.get_assigment_name()] = grade
+
         student_grades_table = ["| {} : {} %".format(key, value) for key, value in student_grades.items()]
 
         print((
@@ -44,8 +50,8 @@ class StudentUI():
         ))
 
     def show_assigments_ui(self):
-        assigments = Assigments.get_assigments_list()
-        assigments_table = ["| {}".format(assigment.get_assigment_name()) for assigment in assigments]
+        assigments_list = Assigment.get_assigments_list()
+        assigments_table = ["| {}".format(assigment.get_assigment_name()) for assigment in assigments_list]
 
         print((
             "\n/---------------------"
