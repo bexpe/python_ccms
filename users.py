@@ -1,14 +1,18 @@
 import random
+import csv
 
 
 class User:
-    def __init__(self, name, surname, date_of_birth, city, phone, password=None):
-        if len(name) == 0 or len(surname) == 0:
-            raise ValueError('Name and surname cannot be empty.')
+    def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
+        if not name or not surname or not email:
+            raise ValueError("Name, surname and email can't be empty")
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
+        if '@' not in email:
+            raise NameError("Invalid email")
+        self.email = email
         if password == None:
             self.password = self.username.lower()
         else:
@@ -16,6 +20,12 @@ class User:
         self.phone = phone
         self.city = city
         self.date_of_birth = date_of_birth
+
+    def get_email(self):
+        return self.email
+
+    def get_password(self):
+        return self.password
 
     def change_password(self, new_password):
         self.password = new_password
@@ -73,13 +83,52 @@ class User:
 
         return generated
 
+    @staticmethod
+    def show_list(to_print_list):
+        # transposition of list to print, for easy access to columns
+        transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
+
+        # evaluate lengths of strings in columns for getting longest strings, to determine columns widths
+        columns_widths = []
+        for line in transposed_to_print_list:
+            max_width = 0
+            for item in line:
+                if len(str(item)) > max_width:
+                    max_width = len(str(item)) + 2
+            columns_widths.append(max_width)
+
+        table_str = ""  # string with content of table
+        # generate strings for top and bottom of table, and row separator
+        pauses = "-" * (sum(columns_widths) + len(to_print_list[0]) - 1)  # create of string with '-' for printing (---)
+        top = "/{}\\\n".format(pauses)  # top row of table /----\
+        bot = "\\{}/\n".format(pauses)  # bottom row       \----/
+
+        # generate separator row |---|----------|-----| ....
+        separator = "|"
+
+        for item in columns_widths:
+            separator += '{:^{}}|'.format("-" * (columns_widths[columns_widths.index(item)]),
+                                          columns_widths[columns_widths.index(item)] - 1)
+
+        for line in to_print_list:
+            i = 0
+            table_str += '|'
+            for item in line:  # print every item from list from table in format: | column | column | col | ...
+                table_str += '{:^{}}|'.format(item, columns_widths[i])
+                i += 1
+
+            if line != to_print_list[-1]:  # adds separator after row, except last row (bottom row is adding later)
+                table_str += "\n{}\n".format(separator)
+
+        return "{}{}\n{}".format(top, table_str, bot)
+
 
 class Student(User):
     _students_list = []
     FILE = 'data/students.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, attendance_level, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, attendance_level, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
         if id == None:
             self.id = User.generate_random(Student._students_list)
         else:
@@ -89,13 +138,27 @@ class Student(User):
 
         self._students_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def student_list_basics(cls):
+        student_basics_list = []
+        for student in cls._students_list:
+            student_basics_list.append([student.name, student.surname, student.email])
+        print('name: {} \nsurname: {}\nemail: {}\n'.format(student.name, student.surname, student.email))
+        return student_basics_list
 
-        for student in self._students_list:
-            list_to_write.append([student.name, student.surname, student.date_of_birth, student.city,
-                                  str(student.phone), str(student.attendance_level), student.id, student.password])
-        return list_to_write
+    @classmethod
+    def student_list_detalis(cls):
+        student_detalis_list = []
+
+        for student in cls._students_list:
+            student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password])
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password))
+        return student_detalis_list
 
     @classmethod
     def save_students_csv(cls):
@@ -104,34 +167,33 @@ class Student(User):
     @classmethod
     def load_students_csv(cls):
 
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
 
             for line in reader:
-                Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
-
-    def edit_student(self):
+                Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
+    @classmethod
+    def edit_student(cls):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
                        ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
             new_name = input('Please type new name: ')
-            self.name = new_name
+            cls.name = new_name
         if option == '2':
             new_surname = input('Please type new surname: ')
-            self.surname = new_surname
+            cls.surname = new_surname
         if option == '3':
             new_grade = input('Please type new grade: ')
-            self.grade = new_grade
+            cls.grade = new_grade
         if option == '4':
             new_date_of_birth = input('Please type new date of birth: ')
-            self.date_of_birth = new_date_of_birth
+            cls.date_of_birth = new_date_of_birth
         if option == '5':
             new_city = input('Please type new city: ')
-            self.city = new_city
+            cls.city = new_city
         if option == '6':
             new_phone = input('Please type new phone: ')
-            self.phone = new_phone
+            cls.phone = new_phone
         if option == '7':
             new_name = input('Please type new name: ')
             new_surname = input('Please type new surname: ')
@@ -139,12 +201,12 @@ class Student(User):
             new_date_of_birth = input('Please type new date of birth: ')
             new_city = input('Please type new city: ')
             new_phone = input('Please type new phone: ')
-            self.name = new_name
-            self.surname = new_surname
-            self.grade = new_grade
-            self.date_of_birth = new_date_of_birth
-            self.city = new_city
-            self.phone = new_phone
+            cls.name = new_name
+            cls.surname = new_surname
+            cls.grade = new_grade
+            cls.date_of_birth = new_date_of_birth
+            cls.city = new_city
+            cls.phone = new_phone
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
@@ -153,23 +215,50 @@ class Student(User):
                 return student
 
     @classmethod
-    def remove_student_from_list(cls):
-        cls.id = cls.id
+    def remove_student_from_list(cls, id):
+        cls.id = id
         for student in cls._students_list:
             if student.id == cls.id:
                 cls._students_list.remove(student)
 
     @classmethod
     def get_student_list(cls):
-        return cls._students_list
+        """
+               Generates string with string from shapes object list.
+               :return: str: string with table to print, or information if list is empty
+               """
+        """Ret)e$uP40(EB7urns string with table to print"""
+        list_to_print = cls.get_list_to_print()
+        table = cls.show_list(list_to_print)
+        return table
 
+
+    @classmethod
+    def get_list_to_print(cls):
+        """Returns list with list made from objects data"""
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+        to_print_list = [header_row]
+        for student in cls._students_list:
+            to_print_list.append(
+                [student.name, student.surname, student.email, student.date_of_birth, student.attendance_level,
+                 student.phone])
+        return to_print_list
+
+    @classmethod
+    def get_student_details(cls):
+        cls.get_student_from_list_by_id()
+        student
+
+    @classmethod
+    def get_students_objects(cls):
+        return cls._students_list
 
 class Employee(User):
     _employee_list = []
     FILE = 'data/employees.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Employee._employee_list)
@@ -185,13 +274,13 @@ class Employee(User):
             self._employee_list.append(self)
 
     def objects_to_list(self):
-        list_to_write = []
+        employee_list = []
 
         for person in self._employee_list:
-            list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+            employee_list.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        return employee_list
 
     @classmethod
     def save_employees_csv(cls):
@@ -200,19 +289,22 @@ class Employee(User):
     @classmethod
     def load_employees_csv(cls):
 
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Employee(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Employee(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
+
+    @classmethod
+    def get_employees_objects(cls):
+        return cls._employee_list
 
 
 class Manager(Employee):
     _manager_list = []
     FILE = 'data/managers.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Manager._manager_list)
@@ -231,7 +323,7 @@ class Manager(Employee):
 
         for person in self._manager_list:
             list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
         return list_to_write
 
@@ -241,19 +333,21 @@ class Manager(Employee):
 
     @classmethod
     def load_manager_csv(cls):
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
+    @classmethod
+    def get_managers_objects(cls):
+        return cls._manager_list
 
 class Mentor(Employee):
     _mentor_list = []
     FILE = 'data/mentors.csv'
 
-    def __init__(self, name, surname, date_of_birth, city, phone, id=None, password=None):
-        super().__init__(name, surname, date_of_birth, city, phone)
+    def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id == None:
             self.id = User.generate_random(Mentor._mentor_list)
@@ -267,14 +361,33 @@ class Mentor(Employee):
 
         self._mentor_list.append(self)
 
-    def objects_to_list(self):
-        list_to_write = []
+    @classmethod
+    def mentor_list_basics(cls):
+        mentor_list_basics = []
 
-        for person in self._mentor_list:
-            list_to_write.append(
-                [person.name, person.surname, person.date_of_birth, person.city, person.phone, person.id,
+        for person in cls._mentor_list:
+            mentor_list_basics.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
-        return list_to_write
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(mentor.name, mentor.surname, mentor.email, mentor.date_of_birth,
+                                      mentor.city, str(mentor.phone), str(mentor.attendance_level),
+                                      mentor.id, mentor.password))
+        return mentor_list_basics
+
+    @classmethod
+    def mentor_list_details(cls):
+        mentor_list = []
+
+        for mentor in cls._mentor_list:
+            mentor_list.append(
+                [mentor.name, mentor.surname, mentor.email, mentor.date_of_birth, mentor.city, mentor.phone, mentor.id,
+                 mentor.password])
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(mentor.name, mentor.surname, mentor.email, mentor.date_of_birth,
+                                      mentor.city, str(mentor.phone), str(mentor.attendance_level),
+                                      mentor.id, mentor.password))
+        return mentor_list
 
     @classmethod
     def get_mentor_from_list_by_id(cls, id):
@@ -290,46 +403,66 @@ class Mentor(Employee):
 
     @classmethod
     def load_mentor_csv(cls):
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                Mentor(line[0], line[1], line[2], line[3], line[4], line[5], line[6])
+                Mentor(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
     @classmethod
     def save_mentor_csv(cls):
         cls.list_to_csv()
 
-    def edit_mentor(self):
+    @classmethod
+    def edit_mentor(cls):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
                        ' 5. phone \n, 6. all')
         if option == '1':
             new_name = input('Please type new name: ')
-            self.name = new_name
+            cls.name = new_name
         if option == '2':
             new_surname = input('Please type new surname: ')
-            self.surname = new_surname
+            cls.surname = new_surname
         if option == '3':
             new_date_of_birth = input('Please type new date of birth: ')
-            self.date_of_birth = new_date_of_birth
+            cls.date_of_birth = new_date_of_birth
         if option == '4':
             new_city = input('Please type new city: ')
-            self.city = new_city
+            cls.city = new_city
         if option == '5':
             new_phone = input('Please type new phone: ')
-            self.phone = new_phone
+            cls.phone = new_phone
         if option == '6':
             new_name = input('Please type new name: ')
             new_surname = input('Please type new surname: ')
             new_date_of_birth = input('Please type new date of birth: ')
             new_city = input('Please type new city: ')
             new_phone = input('Please type new phone: ')
-            self.name = new_name
-            self.surname = new_surname
-            self.date_of_birth = new_date_of_birth
-            self.city = new_city
-            self.phone = new_phone
+            cls.name = new_name
+            cls.surname = new_surname
+            cls.date_of_birth = new_date_of_birth
+            cls.city = new_city
+            cls.phone = new_phone
 
+    @classmethod
+    def get_mentor_list(cls):
+        """Returns string with table to print"""
+        list_to_print = cls.get_list_to_print()
+        table = cls.show_list(list_to_print)
+        return table
+
+    @classmethod
+    def get_list_to_print(cls):
+        """Returns list with list made from objects data"""
+        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Phone number']
+        to_print_list = [header_row]
+        for mentor in cls._mentor_list:
+            to_print_list.append(
+                [mentor.name, mentor.surname, mentor.email, mentor.date_of_birth, mentor.phone])
+        return to_print_list
+
+    @classmethod
+    def get_mentors_objects(cls):
+        return cls._mentor_list
 
 class Attendance:
     _attendance_list = []
@@ -411,12 +544,8 @@ class Attendance:
 
     @classmethod
     def load_students_attendance_(cls):
-
-        import csv
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
-Student.load_students_csv()
-Attendance.print_attendance_percentage()
