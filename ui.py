@@ -127,7 +127,7 @@ class EmployeeUI:
               "\n\---------------------")
         employee_option = input("Choose ur option: ")
         if employee_option == "1":
-            self.show_student_list()
+            self.employee_menu()
         elif employee_option == "2":
             quit()
         else:
@@ -135,16 +135,19 @@ class EmployeeUI:
 
 
 class ManagerUI(EmployeeUI):
+    """There we are printing all Manager options"""
     def __init__(self, manager):
         super().__init__(manager)
 
     def manager_menu(self):
         print(
             "\n/---------------------"
-            "\n| Mentor menu:"
+            "\n| Manager menu:"
             "\n| (1) Show student list"
             "\n| (2) Show mentor list"
             "\n| (3) Edit mentor"
+            "\n| (4) Add mentor"
+            "\n| (5) Remove mentor"
             "\n| (0) Exit"
             "\n\---------------------"
         )
@@ -160,11 +163,66 @@ class ManagerUI(EmployeeUI):
         else:
             print("You need to choose from options: ")
 
-    def show_mentor_list(self):
-        pass
+    def show_student_list(self):
+        print(Student.student_list_basics())
+        employee_table_option = input("\n/---------------------"
+                                      "\n| Employee menu:"
+                                      "\n| (1) Show student details"
+                                      "\n| (2) Return to menu"
+                                      "\n| (0) Exit"
+                                      "\n\---------------------\n")
 
-    def edit_mentor(self):
-        pass
+        if employee_table_option == "1":
+            self.show_student_details()
+        elif employee_table_option == "2":
+            self.manager_menu()
+        elif employee_table_option == "0":
+            quit()
+        else:
+            print("You need to choose from option")
+
+    def show_mentor_list(self):
+        Mentor.get_mentor_list()
+        print(
+            "\n/---------------------"
+            "\n| Mentor menu:"
+            "\n| (1) Show mentor list details"
+            "\n| (2) Back to menu"
+            "\n| (0) Exit"
+            "\n\---------------------"
+        )
+        mentor_option = input("Choose ur option:")
+
+        if mentor_option == "1":
+            self.show_mentor_details_list()
+        elif mentor_option == "2":
+            self.manager_menu()
+        elif mentor_option == "0":
+            quit()
+        else:
+            print("You need to choose from options: ")
+
+    @staticmethod
+    def edit_mentor():
+        Mentor.edit_mentor()
+
+    @staticmethod
+    def show_mentor_details_list():
+        Mentor.mentor_list_details()
+
+    def add_mentor(self):
+        name = input("Write mentor name: ")
+        surname = input("Write mentor surname: ")
+        email = input("Write mentor email: ")
+        date_of_birth = input("Write mentor date of birth: ")
+        city = input("Write mentor city: ")
+        phone = input("Write mentor phone: ")
+        Mentor(name, surname, email, date_of_birth, city, phone)
+
+    @staticmethod
+    def remove_mentor():
+        mentor_id = input("Give mentor ID")
+        Mentor.remove_mentor_from_list(mentor_id)
 
 
 class MentorUI(EmployeeUI):
@@ -172,46 +230,103 @@ class MentorUI(EmployeeUI):
         super().__init__(mentor)
 
     def mentor_menu(self):
-        print(
-            "\n/---------------------"
-            "\n| Mentor menu:"
-            "\n| (1) Show student list"
-            "\n| (2) Add assignment"
-            "\n| (3) Grade assignment"
-            "\n| (4) Check attendance"
-            "\n| (5) Edit student"
-            "\n| (0) Exit"
-            "\n\---------------------"
-        )
-        mentor_option = input("Choose ur option:")
-        if mentor_option == "1":
-            self.show_student_list()
-        elif mentor_option == "2":
-            self.add_assignment()
-        elif mentor_option == "3":
-            self.grade_assignment()
-        elif mentor_option == "4":
-            self.check_attendance()
-        elif mentor_option == "5":
-            self.edit_student()
-        elif mentor_option == "0":
+        while True:
+            print(
+                "\n/---------------------"
+                "\n| Mentor menu:"
+                "\n| (1) Show student list"
+                "\n| (2) Add assignment"
+                "\n| (3) Grade assignment"
+                "\n| (4) Check attendance"
+                "\n| (5) Edit student"
+                "\n| (6) Remove student"
+                "\n| (7) Add student"
+                "\n| (0) Exit"
+                "\n\---------------------"
+            )
+            mentor_option = input("Choose ur option:")
+            if mentor_option == "1":
+                self.show_student_list()
+            elif mentor_option == "2":
+                self.add_assignment()
+            elif mentor_option == "3":
+                self.grade_assignment()
+            elif mentor_option == "4":
+                self.check_attendance()
+            elif mentor_option == "5":
+                self.edit_student()
+            elif mentor_option == "0":
+                quit()
+            else:
+                print("You need to choose from options: ")
+
+    def show_student_list(self):
+        print(Student.student_list_basics())
+        employee_table_option = input("\n/---------------------"
+                                      "\n| Mentor menu:"
+                                      "\n| (1) Show student details"
+                                      "\n| (2) Return to menu"
+                                      "\n| (0) Exit"
+                                      "\n\---------------------\n")
+
+        if employee_table_option == "1":
+            self.show_student_details()
+        elif employee_table_option == "2":
+            self.mentor_menu()
+        elif employee_table_option == "0":
             quit()
         else:
-            print("You need to choose from options: ")
+            print("You need to choose from option")
 
-    def add_assignment(self):
+    def show_student_details(self):
+        print(Student.get_student_list())
+        print("\n/---------------------"
+              "\n| Mentor menu:"
+              "\n| (1) Return to menu"
+              "\n| (0) Exit"
+              "\n\---------------------")
+        employee_option = input("Choose ur option: ")
+        if employee_option == "1":
+            self.mentor_menu()
+        elif employee_option == "2":
+            quit()
+        else:
+            print("You need to choose from options")
 
-        Assigment(assiment_name, description)
+    @staticmethod
+    def add_assignment():
+        assigment_name = input("Write new assigment name: ")
+        description = input("Write description for new assigment: ")
+        Assigment(assigment_name, description)
 
-    def grade_assignment(self):
-        assignment_to_finde = input("Write assignment name: ")
-        assigment = Assigment.get_assigment_by_name(assignment_to_finde)
-        student_id = input()
+    @staticmethod
+    def grade_assignment():
+        assignment_to_find = input("Write assignment name You wanna grade: ")
+        assigment = Assigment.get_assigment_by_name(assignment_to_find)
+        student_id = input("Write student id")
         assigment.get_student_solution_link(student_id)
-        assigment.grade_student_assigment(student_id, nowaocena)
+        new_grade = input("Write new rate for student")
+        assigment.grade_student_assigment(student_id, new_grade)
 
-    def check_attendance(self):
-        pass
+    @staticmethod
+    def check_attendance():
+        Attendance.check_attendance()
 
-    def edit_student(self):
-        pass
+    @staticmethod
+    def edit_student():
+        Student.edit_student()
+
+    @staticmethod
+    def add_student():
+        name = input("Write student name: ")
+        surname = input("Write student surname: ")
+        email = input("Write student email: ")
+        date_of_birth = input("Write student date of birth: ")
+        city = input("Write student city: ")
+        phone = input("Write student phone: ")
+        Student(name, surname, email, date_of_birth, city, phone, attendance_level=0)
+
+    @staticmethod
+    def remove_student():
+        student_id = input("Write me student id")
+        Student.remove_student_from_list(student_id)
