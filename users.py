@@ -496,7 +496,7 @@ class Attendance:
     @classmethod
     def check_attendance_by_id(cls, student_id):
         student_attendance_list = []
-        student = Student.get_student_from_list_by_id(student_id.id)
+        student = Student.get_student_from_list_by_id(student_id)
         for attendance in cls._attendance_list:
             if attendance.student_id == student.id:
                 student_attendance_list.append(attendance)
