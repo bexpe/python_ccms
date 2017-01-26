@@ -1,6 +1,18 @@
+"""
+LOGINS TO SYSTEM
+usertype:   email:      password
+mentor :    mentor@cc   memen
+student:    student@cc  ststu
+manager:    jurek@cc    jujer
+employee:   emp@cc      ememp
+
+O
+"""
+
+
 from ui import *
 from users import *
-
+import getpass
 
 class Main:
     def __init__(self):
@@ -22,7 +34,9 @@ class Main:
 
     def sign_in(self):
         user_email = input("Input your email: ")
-        user_password = input("Input your password: ")
+        user_password = getpass.getpass("Input your password: ")
+        hash_password = hashlib.md5(user_password.encode())
+        user_password = hash_password.hexdigest()
 
         for student in Student.get_students_objects():
             if student.get_email() == user_email:

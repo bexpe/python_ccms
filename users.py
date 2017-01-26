@@ -1,9 +1,9 @@
 import random
 import csv
-
+import hashlib
 
 class User:
-    def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
+    def __init__(self, name, surname, email, date_of_birth, city, phone):
         if not name or not surname or not email:
             raise ValueError("Name, surname and email can't be empty")
 
@@ -13,10 +13,6 @@ class User:
         if '@' not in email:
             raise NameError("Invalid email")
         self.email = email
-        if password == None:
-            self.password = self.username.lower()
-        else:
-            self.password = password
         self.phone = phone
         self.city = city
         self.date_of_birth = date_of_birth
@@ -137,7 +133,8 @@ class Student(User):
 
 
         if password == None:
-            self.password = self.username.lower()
+            hash_object =  hashlib.md5(self.username.lower().encode())
+            self.password = hash_object.hexdigest()
         else:
             self.password = password
 
@@ -285,7 +282,8 @@ class Employee(User):
             self.id = id
 
         if password == None:
-            self.password = self.username
+            hash_object =  hashlib.md5(self.username.lower().encode())
+            self.password = hash_object.hexdigest()
         else:
             self.password = password
 
@@ -333,7 +331,8 @@ class Manager(Employee):
             self.id = id
 
         if password == None:
-            self.password = self.username.lower()
+            hash_object =  hashlib.md5(self.username.lower().encode())
+            self.password = hash_object.hexdigest()
         else:
             self.password = password
 
@@ -373,17 +372,16 @@ class Mentor(Employee):
     def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
         super().__init__(name, surname, email, date_of_birth, city, phone)
 
+        if password == None:
+            hash_object =  hashlib.md5(self.username.lower().encode())
+            self.password = hash_object.hexdigest()
+        else:
+            self.password = password
+
         if id == None:
             self.id = User.generate_random(Mentor._mentor_list)
         else:
             self.id = id
-
-        if password == None:
-
-            self.password = self.username.lower()
-
-        else:
-            self.password = password
 
         self._mentor_list.append(self)
 
@@ -585,3 +583,14 @@ class Attendance:
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
+
+if __name__ == '__main__':
+
+    mm = Mentor('Mentor','Mentorowski', 'mentor@cc', '1960-12-12', 'City', '333-232-111')
+    student = Student('Student','Studencki', 'student@cc', '1990-1211', 'City', '32-32-1231', 0)
+    mena = Manager('Jurek', 'Jerzy', 'jurek@cc', '1960-12-12', 'City', '312-321-321')
+    emp = Employee('Employee', "Emplo", 'emp@cc', '1970-12-23', 'City', '231-231-323')
+    Mentor.save_mentor_csv()
+    Student.save_students_csv()
+    Manager.save_manager_csv()
+    Employee.save_employees_csv()
