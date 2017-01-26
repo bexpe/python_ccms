@@ -464,6 +464,7 @@ class Mentor(Employee):
     def get_mentors_objects(cls):
         return cls._mentor_list
 
+
 class Attendance:
     _attendance_list = []
     FILE = 'data/attendance.csv'
