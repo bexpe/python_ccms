@@ -207,7 +207,7 @@ class ManagerUI(EmployeeUI):
         Mentor.get_mentor_list()
         print(
             "\n/---------------------"
-            "\n| Mentor menu:"
+            "\n| Manager menu:"
             "\n| (1) Show mentor list details"
             "\n| (2) Back to menu"
             "\n| (0) Exit"
