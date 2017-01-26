@@ -93,9 +93,9 @@ class Student(User):
     @classmethod
     def student_list_basics(cls):
         student_basics_list = []
-
         for student in cls._students_list:
             student_basics_list.append([student.name, student.surname, student.email])
+        print('name: {} \nsurname: {}\nemail: {}\n'.format(student.name, student.surname, student.email))
         return student_basics_list
 
     @classmethod
@@ -106,6 +106,10 @@ class Student(User):
             student_detalis_list.append([student.name, student.surname, student.email, student.date_of_birth,
                                          student.city, str(student.phone), str(student.attendance_level),
                                          student.id, student.password])
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(student.name, student.surname, student.email, student.date_of_birth,
+                                         student.city, str(student.phone), str(student.attendance_level),
+                                         student.id, student.password))
         return student_detalis_list
 
     @classmethod
@@ -120,28 +124,28 @@ class Student(User):
 
             for line in reader:
                 Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
-
-    def edit_student(self):
+    @classmethod
+    def edit_student(cls):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
                        ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
             new_name = input('Please type new name: ')
-            self.name = new_name
+            cls.name = new_name
         if option == '2':
             new_surname = input('Please type new surname: ')
-            self.surname = new_surname
+            cls.surname = new_surname
         if option == '3':
             new_grade = input('Please type new grade: ')
-            self.grade = new_grade
+            cls.grade = new_grade
         if option == '4':
             new_date_of_birth = input('Please type new date of birth: ')
-            self.date_of_birth = new_date_of_birth
+            cls.date_of_birth = new_date_of_birth
         if option == '5':
             new_city = input('Please type new city: ')
-            self.city = new_city
+            cls.city = new_city
         if option == '6':
             new_phone = input('Please type new phone: ')
-            self.phone = new_phone
+            cls.phone = new_phone
         if option == '7':
             new_name = input('Please type new name: ')
             new_surname = input('Please type new surname: ')
@@ -149,12 +153,12 @@ class Student(User):
             new_date_of_birth = input('Please type new date of birth: ')
             new_city = input('Please type new city: ')
             new_phone = input('Please type new phone: ')
-            self.name = new_name
-            self.surname = new_surname
-            self.grade = new_grade
-            self.date_of_birth = new_date_of_birth
-            self.city = new_city
-            self.phone = new_phone
+            cls.name = new_name
+            cls.surname = new_surname
+            cls.grade = new_grade
+            cls.date_of_birth = new_date_of_birth
+            cls.city = new_city
+            cls.phone = new_phone
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
@@ -163,8 +167,8 @@ class Student(User):
                 return student
 
     @classmethod
-    def remove_student_from_list(cls):
-        cls.id = cls.id
+    def remove_student_from_list(cls, id):
+        cls.id = id
         for student in cls._students_list:
             if student.id == cls.id:
                 cls._students_list.remove(student)
@@ -176,12 +180,12 @@ class Student(User):
                :return: str: string with table to print, or information if list is empty
                """
         # list of column headers
-        header_row = ['Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
+        header_row = ['id', 'Name', 'Surname', 'email', 'Date_of_birth', 'Attendance level', 'Phone number']
 
         # appending lists with shape's attributes to list to print
         to_print_list = [header_row]
         for student in cls._students_list:
-            to_print_list.append([student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
+            to_print_list.append([student.id, student.name, student.surname, student.email, student.date_of_birth, student.attendance_level, student.phone])
 
         # transposition of list to print, for easy access to columns
         transposed_to_print_list = [list(x) for x in zip(*to_print_list)]
@@ -336,16 +340,24 @@ class Mentor(Employee):
             mentor_list_basics.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(mentor.name, mentor.surname, mentor.email, mentor.date_of_birth,
+                                      mentor.city, str(mentor.phone), str(mentor.attendance_level),
+                                      mentor.id, mentor.password))
         return mentor_list_basics
 
     @classmethod
     def mentor_list_details(cls):
         mentor_list = []
 
-        for person in cls._mentor_list:
+        for mentor in cls._mentor_list:
             mentor_list.append(
-                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
-                 person.password])
+                [mentor.name, mentor.surname, mentor.email, mentor.date_of_birth, mentor.city, mentor.phone, mentor.id,
+                 mentor.password])
+        print('name: {} \nsurname: {}\nemail: {}\ndate of birth: {}\ncity: {}\nattendance level: {}\nid: {}\n'
+              'password: {}\n'.format(mentor.name, mentor.surname, mentor.email, mentor.date_of_birth,
+                                      mentor.city, str(mentor.phone), str(mentor.attendance_level),
+                                      mentor.id, mentor.password))
         return mentor_list
 
     @classmethod
@@ -371,35 +383,36 @@ class Mentor(Employee):
     def save_mentor_csv(cls):
         cls.list_to_csv()
 
-    def edit_mentor(self):
+    @classmethod
+    def edit_mentor(cls):
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. date_of_birth \n, 4. city \n,'
                        ' 5. phone \n, 6. all')
         if option == '1':
             new_name = input('Please type new name: ')
-            self.name = new_name
+            cls.name = new_name
         if option == '2':
             new_surname = input('Please type new surname: ')
-            self.surname = new_surname
+            cls.surname = new_surname
         if option == '3':
             new_date_of_birth = input('Please type new date of birth: ')
-            self.date_of_birth = new_date_of_birth
+            cls.date_of_birth = new_date_of_birth
         if option == '4':
             new_city = input('Please type new city: ')
-            self.city = new_city
+            cls.city = new_city
         if option == '5':
             new_phone = input('Please type new phone: ')
-            self.phone = new_phone
+            cls.phone = new_phone
         if option == '6':
             new_name = input('Please type new name: ')
             new_surname = input('Please type new surname: ')
             new_date_of_birth = input('Please type new date of birth: ')
             new_city = input('Please type new city: ')
             new_phone = input('Please type new phone: ')
-            self.name = new_name
-            self.surname = new_surname
-            self.date_of_birth = new_date_of_birth
-            self.city = new_city
-            self.phone = new_phone
+            cls.name = new_name
+            cls.surname = new_surname
+            cls.date_of_birth = new_date_of_birth
+            cls.city = new_city
+            cls.phone = new_phone
 
 
 class Attendance:
@@ -459,7 +472,12 @@ class Attendance:
 
 if __name__ == '__main__':
 
-    s = Student('Ania', 'Polak', 'mkfk@mdmsvk','3424', 'krk', '39282392', '80')
+    s = Student('Ania', 'Polak', 'mkfk@mdmsvk','3424', 'krk', '39282392', '80', 'id')
+    m = Mentor('Ania', 'Polak', 'mkfk@mdmsvk', '3424', 'krk', '39282392', '80')
+    print(s.get_student_list())
+    s.student_list_basics()
+    s.get_student_from_list_by_id('1')
+    s.remove_student_from_list('id')
     print(s.get_student_list())
 
 
