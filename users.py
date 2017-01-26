@@ -249,6 +249,8 @@ class Student(User):
         cls.get_student_from_list_by_id()
         student
 
+    def get_students_objects(self):
+        return self._students_list
 
 class Employee(User):
     _employee_list = []
