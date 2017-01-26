@@ -13,10 +13,12 @@ class User:
         if '@' not in email:
             raise NameError("Invalid email")
         self.email = email
+
         if password == None:
             self.password = self.username.lower()
         else:
             self.password = password
+
         self.phone = phone
         self.city = city
         self.date_of_birth = date_of_birth
@@ -56,7 +58,7 @@ class User:
 
         generated = ''
 
-        special_char_index = list(range(33, 48)) + list(range(58, 59)) + list(range(60, 65)) \
+        special_char_index = list(range(33, 43)) + list(range(58, 59)) + list(range(60, 65)) \
                              + list(range(91, 97)) + list(range(124, 127))
         start = True
         max_len_id = 3
@@ -133,6 +135,12 @@ class Student(User):
             self.id = User.generate_random(Student._students_list)
         else:
             self.id = id
+
+        if password == None:
+            self.password = self.username.lower()
+        else:
+            self.password = password
+
         self.attendance_level = attendance_level
         self.grade = {}
 
@@ -260,7 +268,7 @@ class Student(User):
         for student in cls._students_list:
             list_to_write.append(
                 [student.name, student.surname, student.email, student.date_of_birth, student.city, str(
-                    student.phone), str(student.attendance_level), student.id, student.password])
+                    student.phone), str(student.attendance_level), student.id, str(student.password)])
         return list_to_write
 
 
@@ -284,10 +292,11 @@ class Employee(User):
         if self.__class__ == Employee:
             self._employee_list.append(self)
 
-    def objects_to_list(self):
+    @classmethod
+    def objects_to_list(cls):
         employee_list = []
 
-        for person in self._employee_list:
+        for person in cls._employee_list:
             employee_list.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
@@ -329,10 +338,11 @@ class Manager(Employee):
 
         self._manager_list.append(self)
 
-    def objects_to_list(self):
+    @classmethod
+    def objects_to_list(cls):
         list_to_write = []
 
-        for person in self._manager_list:
+        for person in cls._manager_list:
             list_to_write.append(
                 [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
                  person.password])
@@ -367,11 +377,21 @@ class Mentor(Employee):
             self.id = id
 
         if password == None:
-            self.password = self.username
+            self.password = self.username.lower()
         else:
             self.password = password
 
         self._mentor_list.append(self)
+
+    @classmethod
+    def objects_to_list(cls):
+        list_to_write = []
+
+        for person in cls._mentor_list:
+            list_to_write.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
+        return list_to_write
 
     @classmethod
     def mentor_list_basics(cls):
@@ -563,3 +583,12 @@ class Attendance:
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
+
+
+Student.load_students_csv()
+sty = Student('aaa','ssds','sas@sa','22222','ea','231424','6', 'chuj', 'chuje')
+Student.save_students_csv()
+
+Mentor.load_mentor_csv()
+ment = Mentor('name','surname','ema@il','123-2314-13','City','333')
+Mentor.save_mentor_csv()
