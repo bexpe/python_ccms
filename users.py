@@ -490,10 +490,6 @@ class Attendance:
         cls._attendance_list.append(Attendance(student.id, date, attendance))
 
     @classmethod
-    def get_student_attendance_list(cls):
-        cls._attendance_list
-
-    @classmethod
     def check_attendance_by_id(cls, student_id):
         student_attendance_list = []
         student = Student.get_student_from_list_by_id(student_id)
@@ -506,7 +502,7 @@ class Attendance:
     def count_attendance_values(cls, student_id):
         values_attendance_by_id_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
         attendance_list = cls.check_attendance_by_id(student_id)
-        values_attendance_by_id_dict['id'] = student_id.id
+        values_attendance_by_id_dict['id'] = student_id
         for attendance in attendance_list:
             values_attendance_by_id_dict['day_sum'] += 1
             if attendance.attendance == 'present':
@@ -518,11 +514,9 @@ class Attendance:
         return values_attendance_by_id_dict
 
     @classmethod
-    def print_attendance_percentage(cls):
-        cls.set_attendance()
-        student_id = input('Insert student id \n')
+    def print_attendance_percentage(cls, student_id):
         student_id = Student.get_student_from_list_by_id(student_id)
-        attendance_dict = cls.count_attendance_values(student_id)
+        attendance_dict = cls.count_attendance_values(student_id.id)
         for key, value in attendance_dict.items():
             print('{} : {}' .format(key, value))
 
