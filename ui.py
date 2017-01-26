@@ -69,7 +69,7 @@ class StudentUI():
             "\n|"
         )
         assigment_name = input('| Assigment name: ')
-        assigment = Assigment.get_assigment_by_name(assigment_name)
+        assigment = Assigment.get_assigment_by_name(assigment_name)  # do poprawy
         if assigment:
             student_solution = input('| Insert your solution(github link): ')
             assigment.submit_assigment_answer(self.student.get_student_id(), student_solution)
@@ -229,7 +229,7 @@ class MentorUI(EmployeeUI):
     def __init__(self, mentor):
         super().__init__(mentor)
 
-    def mentor_menu(self):
+    def show_mentor_menu(self):
         while True:
             print(
                 "\n/---------------------"
