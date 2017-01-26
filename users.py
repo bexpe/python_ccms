@@ -276,6 +276,16 @@ class Mentor(Employee):
         self._mentor_list.append(self)
 
     @classmethod
+    def mentor_list_basics(cls):
+        mentor_list_basics = []
+
+        for person in cls._mentor_list:
+            mentor_list_basics.append(
+                [person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
+                 person.password])
+        return mentor_list_basics
+
+    @classmethod
     def mentor_list_details(cls):
         mentor_list = []
 
