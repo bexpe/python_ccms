@@ -212,6 +212,10 @@ class Student(User):
 
     @classmethod
     def edit_student(cls):
+        """
+        Edit student object.
+        :return: none
+        """
         option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
                        ' 5. city \n, 6. phone \n, 7. all')
         if option == '1':
@@ -248,16 +252,27 @@ class Student(User):
 
     @classmethod
     def get_student_from_list_by_id(cls, id):
+        """
+        Returns student object from list.
+        :param id:
+        :return: student: object
+        """
         for student in cls._students_list:
             if student.id == id:
                 return student
 
     @classmethod
     def remove_student_from_list(cls, id):
+        """
+        Remove student object from list.
+        :param id:
+        :return: none
+        """
         cls.id = id
         for student in cls._students_list:
             if student.id == cls.id:
                 cls._students_list.remove(student)
+        Student.save_students_csv()
 
     @classmethod
     def get_student_list(cls):
@@ -283,14 +298,27 @@ class Student(User):
 
     @classmethod
     def get_student_details(cls, student):
-        cls.get_student_from_list_by_id(student)
+        """
+        Returns student object.
+        :param student:
+        :return: student: object
+        """
+        return cls.get_student_from_list_by_id(student)
 
     @classmethod
     def get_students_objects(cls):
+        """
+        Returns student list of objects.
+        :return: student list of objects
+        """
         return cls._students_list
 
     @classmethod
     def objects_to_list(cls):
+        """
+        Returns student list of strings
+        :return: student info: list
+        """
         list_to_write = []
 
         for student in cls._students_list:
@@ -308,6 +336,17 @@ class Employee(User):
     FILE = 'data/employees.csv'
 
     def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
+        """
+        Initialize Employee object
+        :param name:
+        :param surname:
+        :param email:
+        :param date_of_birth:
+        :param city:
+        :param phone:
+        :param id:
+        :param password:
+        """
         super().__init__(name, surname, email, date_of_birth, city, phone)
 
         if id is None:
@@ -326,6 +365,10 @@ class Employee(User):
 
     @classmethod
     def objects_to_list(cls):
+        """
+        Returns employee list of strings
+        :return: employee info: list
+        """
         employee_list = []
 
         for person in cls._employee_list:
@@ -336,11 +379,18 @@ class Employee(User):
 
     @classmethod
     def save_employees_csv(cls):
+        """
+        Saves list of employees objects to csv.
+        :return: none
+        """
         cls.list_to_csv()
 
     @classmethod
     def load_employees_csv(cls):
-
+        """
+        Loads from csv and creates Employee objects.
+        :return:
+        """
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
@@ -357,6 +407,9 @@ class Employee(User):
 
     @classmethod
     def get_employees_objects(cls):
+        """
+        :return: employee list of objects
+        """
         return cls._employee_list
 
 
