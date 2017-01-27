@@ -105,38 +105,20 @@ class EmployeeUI:
 
     def show_student_list(self):
         """There we are showing student list"""
-        Student.student_list_basics()
-        employee_table_option = input("\n/---------------------"
-                                      "\n| Employee menu:"
-                                      "\n| (1) Show student details"
-                                      "\n| (2) Return to menu"
-                                      "\n| (0) Exit"
-                                      "\n\---------------------\n")
+        print(Student.student_list_basics())
+        while True:
+            employee_table_option = input("\n/---------------------"
+                                          "\n| Student list:"
+                                          "\n| (1) Show student details"
+                                          "\n| (2) Return to menu"
+                                          "\n\---------------------\n")
 
-        if employee_table_option == "1":
-            self.show_student_details()
-        elif employee_table_option == "2":
-            self.show_employee_menu()
-        elif employee_table_option == "0":
-            quit()
-        else:
-            print("You need to choose from option")
-
-    def show_student_details(self):
-        """There we are showing student list with details"""
-        print(Student.get_student_list())
-        print("\n/---------------------"
-              "\n| Employee menu:"
-              "\n| (1) Return to menu"
-              "\n| (0) Exit"
-              "\n\---------------------")
-        employee_option = input("Choose ur option: ")
-        if employee_option == "1":
-            self.show_employee_menu()
-        elif employee_option == "2":
-            quit()
-        else:
-            print("You need to choose from options")
+            if employee_table_option == "1":
+                print(Student.get_student_list())
+            elif employee_table_option == "2":
+                break
+            else:
+                print("You need to choose from option")
 
 
 class ManagerUI(EmployeeUI):
@@ -147,89 +129,64 @@ class ManagerUI(EmployeeUI):
 
     def show_manager_menu(self):
         """There we are showing Manager menu"""
-        print(
-            "\n/---------------------"
-            "\n| Manager menu:"
-            "\n| (1) Show student list"
-            "\n| (2) Show mentor list"
-            "\n| (3) Edit mentor"
-            "\n| (4) Add mentor"
-            "\n| (5) Remove mentor"
-            "\n| (0) Exit"
-            "\n\---------------------"
-        )
-        mentor_option = input("Choose ur option:")
-        if mentor_option == "1":
-            self.show_student_list()
-        elif mentor_option == "2":
-            self.show_mentor_list()
-        elif mentor_option == "3":
-            self.edit_mentor()
-        elif mentor_option == "0":
-            quit()
-        else:
-            print("You need to choose from options: ")
-
-    def show_student_list(self):
-        """There we are showing student list"""
-        Student.student_list_basics()
-        employee_table_option = input("\n/---------------------"
-                                      "\n| Manager menu:"
-                                      "\n| (1) Show student details"
-                                      "\n| (2) Return to menu"
-                                      "\n| (0) Exit"
-                                      "\n\---------------------\n")
-
-        if employee_table_option == "1":
-            self.show_student_details()
-        elif employee_table_option == "2":
-            self.show_manager_menu()
-        elif employee_table_option == "0":
-            quit()
-        else:
-            print("You need to choose from option")
-
-    def show_student_details(self):
-        """There we are showing student list with details"""
-        print(Student.get_student_list())
-        print("\n/---------------------"
-              "\n| Manager menu:"
-              "\n| (1) Return to menu"
-              "\n| (0) Exit"
-              "\n\---------------------")
-        employee_option = input("Choose ur option: ")
-        if employee_option == "1":
-            self.show_manager_menu()
-        elif employee_option == "2":
-            quit()
-        else:
-            print("You need to choose from options")
+        while True:
+            print(
+                "\n/---------------------"
+                "\n| Manager menu:"
+                "\n| (1) Show student list"
+                "\n| (2) Show mentor list"
+                "\n| (3) Edit mentor"
+                "\n| (4) Add mentor"
+                "\n| (5) Remove mentor"
+                "\n| (0) Exit"
+                "\n\---------------------"
+            )
+            mentor_option = input("Choose ur option:")
+            if mentor_option == "1":
+                self.show_student_list()
+            elif mentor_option == "2":
+                self.show_mentor_list()
+            elif mentor_option == "3":
+                self.edit_mentor()
+            elif mentor_option == "4":
+                self.add_mentor()
+            elif mentor_option == "5":
+                self.remove_mentor()
+            elif mentor_option == "0":
+                break
+            else:
+                print("You need to choose from options: ")
 
     def show_mentor_list(self):
         """There we are showing mentor list"""
-        Mentor.get_mentor_list()
-        print(
-            "\n/---------------------"
-            "\n| Manager menu:"
-            "\n| (1) Show mentor list details"
-            "\n| (2) Back to menu"
-            "\n| (0) Exit"
-            "\n\---------------------"
-        )
-        mentor_option = input("Choose ur option:")
+        print(Mentor.mentor_list_basics())
+        while True:
+            print(
+                "\n/---------------------"
+                "\n| Manager menu:"
+                "\n| (1) Show mentor list details"
+                "\n| (2) Back to menu"
+                "\n\---------------------"
+            )
+            mentor_option = input("Choose ur option:")
 
-        if mentor_option == "1":
-            self.show_mentor_details_list()
-        elif mentor_option == "2":
-            self.show_manager_menu()
-        elif mentor_option == "0":
-            quit()
-        else:
-            print("You need to choose from options: ")
+            if mentor_option == "1":
+                print(Mentor.get_mentor_list())
+            elif mentor_option == "2":
+                break
+            else:
+                print("You need to choose from options: ")
 
     @staticmethod
     def edit_mentor():
-        Mentor.edit_mentor()
+        print(Mentor.get_mentor_list())
+        mentor_id = input("Insert mentor id: ")
+        mentor = Mentor.get_mentor_from_list_by_id(mentor_id)
+        if mentor:
+            mentor.edit_user()
+            print("*** Mentor edited ***")
+        else:
+            print("*** Mentor not found ***")
 
     @staticmethod
     def show_mentor_details_list():
@@ -244,12 +201,12 @@ class ManagerUI(EmployeeUI):
         date_of_birth = input("Write mentor date of birth: ")
         city = input("Write mentor city: ")
         phone = input("Write mentor phone: ")
-        Mentor(name, surname, email, date_of_birth, city, phone)
+        new_mentor = Mentor(name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
     def remove_mentor():
         """There we are removing mentor"""
-        mentor_id = input("Give mentor ID")
+        mentor_id = input("Give mentor ID: ")
         Mentor.remove_mentor_from_list(mentor_id)
 
 
@@ -298,23 +255,6 @@ class MentorUI(EmployeeUI):
             else:
                 print("You need to choose from options: ")
 
-    def show_student_list(self):
-        """There we are showing student list"""
-        print(Student.student_list_basics())
-        while True:
-            employee_table_option = input("\n/---------------------"
-                                          "\n| Mentor menu:"
-                                          "\n| (1) Show student details"
-                                          "\n| (2) Return to menu"
-                                          "\n\---------------------\n")
-
-            if employee_table_option == "1":
-                print(Student.get_student_list())
-            elif employee_table_option == "2":
-                break
-            else:
-                print("You need to choose from option")
-
     @staticmethod
     def add_assignment():
         """There we are adding assignment"""
@@ -350,7 +290,8 @@ class MentorUI(EmployeeUI):
         student_id = input("Insert student id: ")
         student = Student.get_student_from_list_by_id(student_id)
         if student:
-            student.edit_student()
+            student.edit_user()
+            print("*** Student edited ***")
         else:
             print("*** Student not found ***")
 
