@@ -262,8 +262,8 @@ class Student(User):
     @classmethod
     def get_student_list(cls):
         """
-               Generates string with string from shapes object list.
-               :return: str: string with table to print, or information if list is empty
+        Generates string with string from shapes object list.
+        :return: str: string with table to print, or information if list is empty
         """
         list_to_print = cls.get_list_to_print()
         table = cls.show_list(list_to_print)
