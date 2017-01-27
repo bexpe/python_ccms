@@ -268,10 +268,11 @@ class MentorUI(EmployeeUI):
                 "\n| (1) Show student list"
                 "\n| (2) Add assignment"
                 "\n| (3) Grade assignment"
-                "\n| (4) Check attendance"
-                "\n| (5) Edit student"
+                "\n| (4) Set attendance"
+                "\n| (8) Check attendance"
                 "\n| (6) Remove student"
                 "\n| (7) Add student"
+                "\n| (8) Check attendance"
                 "\n| (0) Exit"
                 "\n\---------------------"
             )
@@ -283,11 +284,11 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "3":
                 self.grade_assignment()
             elif mentor_option == "4":
-                print(Student.get_student_list())
-                Attendance.set_attendance()
+                self.set_attendance()
             elif mentor_option == "5":
                 self.edit_student()
-
+            elif mentor_option == "8":
+                self.check_attendance()
             elif mentor_option == "0":
                 break
 
@@ -347,9 +348,16 @@ class MentorUI(EmployeeUI):
         assigment.grade_student_answer(student_id, new_grade)
 
     @staticmethod
-    def check_attendance():
+    def set_attendance():
         """There we are setting student attendance"""
+        print(Student.get_student_list())
         Attendance.set_attendance()
+
+    @staticmethod
+    def check_attendance():
+        """Print students list and particular student attendance"""
+        print(Student.get_student_list())
+        Attendance.print_attendance_percentage()
 
     @staticmethod
     def edit_student():
