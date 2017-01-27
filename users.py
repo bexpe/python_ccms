@@ -162,11 +162,11 @@ class Student(User):
 
     def __init__(self, name, surname, email, date_of_birth, city, phone, attendance_level, id=None, password=None):
         super().__init__(name, surname, email, date_of_birth, city, phone)
-        if id == None:
+        if id is None:
             self.id = User.generate_random(Student._students_list)
         else:
             self.id = id
-        if password == None:
+        if password is None:
             hash_object = hashlib.md5(self.username.lower().encode())
             self.password = hash_object.hexdigest()
         else:
