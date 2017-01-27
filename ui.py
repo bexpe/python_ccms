@@ -269,7 +269,7 @@ class MentorUI(EmployeeUI):
                 "\n| (2) Add assignment"
                 "\n| (3) Grade assignment"
                 "\n| (4) Set attendance"
-                "\n| (8) Check attendance"
+                "\n| (5) Edit student"
                 "\n| (6) Remove student"
                 "\n| (7) Add student"
                 "\n| (8) Check attendance"

@@ -27,6 +27,7 @@ class Main:
         Mentor.load_mentor_csv()
         Manager.load_manager_csv()
         Assigment.load_assigment_csv()
+        Attendance.load_students_attendance_()
 
     def save_list(self):
         Student.save_students_csv()
