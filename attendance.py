@@ -13,9 +13,14 @@ class Attendance:
 
     @classmethod
     def set_attendance(cls):
-        student_id = input('Insert student id')
-        date = input('Insert date: DD:MM:YYYY')
-        option = input('A= present, B= late C= not there')
+        """
+        Creates attendance object with (id, day, attendance), and saves list to csv
+        :return: None
+        """
+        student_id = input('Insert student id: ')
+        date = input('Insert date: DD:MM:YYYY: ')
+        option = input('A= present, B= late C= not there: ')
+        option = option.upper()
         if option == 'A':
             attendance = 'present'
         elif option == 'B':
@@ -23,12 +28,19 @@ class Attendance:
         elif option == 'C':
             attendance = 'absent'
         else:
-            raise KeyError("There is no such option.")
+            print("There is no such option.")
+            return None
         student = Student.get_student_from_list_by_id(student_id)
         cls._attendance_list.append(Attendance(student.id, date, attendance))
+        cls.save_students_attendance_()
 
     @classmethod
     def check_attendance_by_id(cls, student_id):
+        """
+        Creates students attendance list (id, day, attendance)
+        :param student_id:
+        :return: attendance by student: list
+        """
         student_attendance_list = []
         student = Student.get_student_from_list_by_id(student_id)
         for attendance in cls._attendance_list:
@@ -38,9 +50,14 @@ class Attendance:
 
     @classmethod
     def count_attendance_values(cls, student_id):
+        """
+        Counts student attendance
+        :param student_id:
+        :return: attendance: dictionary
+        """
         values_attendance_by_id_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
         attendance_list = cls.check_attendance_by_id(student_id)
-        values_attendance_by_id_dict['id'] = student_id.id
+        values_attendance_by_id_dict['id'] = student_id
         for attendance in attendance_list:
             values_attendance_by_id_dict['day_sum'] += 1
             if attendance.attendance == 'present':
@@ -53,12 +70,18 @@ class Attendance:
 
     @classmethod
     def print_attendance_percentage(cls):
-        cls.set_attendance()
+        """
+        Prints percentage attendance dictionary
+        :return: None
+        """
         student_id = input('Insert student id \n')
         student_id = Student.get_student_from_list_by_id(student_id)
-        attendance_dict = cls.count_attendance_values(student_id)
+        attendance_dict = cls.count_attendance_values(student_id.id)
         for key, value in attendance_dict.items():
-            print('{} : {}'.format(key, value))
+            if value is not student_id.id:
+                percentage = 100 * int(value) // attendance_dict['day_sum']
+                if key is not 'id' and key is not 'day_sum':
+                    print('{} : {} [day] = {} %'.format(key, value, percentage))
 
     def objects_to_list(self):
         list_to_write = []
