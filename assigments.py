@@ -101,7 +101,7 @@ class Assigment:
 
     def get_student_answer(self, student_id):
         """
-        Method looks in current assigmet answers_list to find student answer by his given id
+        Method looks in current assignment answers_list to find student answer by his given id
         params:
                 student_id - string
         """
@@ -116,7 +116,7 @@ class Assigment:
                 student_id - string
         """
         answer = self.get_student_answer(student_id)
-        if answer:  # if answer didnt exist it not works/now works hueheuhue
+        if answer:
             return answer.get_grade()
 
     def get_student_solution_link(self, student_id):
