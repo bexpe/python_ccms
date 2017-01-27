@@ -1,5 +1,6 @@
 from users import *
 from assigments import Assigment
+from attendance import Attendance
 
 
 class StudentUI():
