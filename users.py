@@ -4,6 +4,7 @@ import hashlib
 
 
 class User:
+
     def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
         if not name or not surname or not email:
             raise ValueError("Name, surname and email can't be empty")
@@ -58,7 +59,7 @@ class User:
         """
         :return:
         """
-        table = cls.objects_to_list(cls)
+        table = cls.objects_to_list()
         with open(cls.FILE, 'w') as file:
             for record in table:
                 row = ','.join(record)
@@ -179,9 +180,8 @@ class Student(User):
     def student_list_basics(cls):
         student_basics_list = []
         for student in cls._students_list:
-            student_basics_list.append([student.name, student.surname, student.email])
-        print('name: {} \nsurname: {}\nemail: {}\n'.format(student.name, student.surname, student.email))
-        return student_basics_list
+            student_basics_list.append('\n name: {} surname: {} email: {}'.format(student.name, student.surname, student.email))
+        return "".join(student_basics_list)
 
     @classmethod
     def student_list_detalis(cls):
@@ -210,32 +210,31 @@ class Student(User):
             for line in reader:
                 Student(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8])
 
-    @classmethod
-    def edit_student(cls):
+    def edit_student(self):
         """
         Edit student object.
         :return: none
         """
-        option = input('Choose what would you like to edit: 1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth\n,'
-                       ' 5. city \n, 6. phone \n, 7. all')
+        option = input('Choose what would you like to edit: \n1. name \n, 2. surname \n, 3. grade \n, 4. date_of_birth \n,'
+                       ' 5. city \n, 6. phone \n, 7. all ')
         if option == '1':
             new_name = input('Please type new name: ')
-            cls.name = new_name
+            self.name = new_name
         if option == '2':
             new_surname = input('Please type new surname: ')
-            cls.surname = new_surname
+            self.surname = new_surname
         if option == '3':
             new_grade = input('Please type new grade: ')
-            cls.grade = new_grade
+            self.grade = new_grade
         if option == '4':
             new_date_of_birth = input('Please type new date of birth: ')
-            cls.date_of_birth = new_date_of_birth
+            self.date_of_birth = new_date_of_birth
         if option == '5':
             new_city = input('Please type new city: ')
-            cls.city = new_city
+            self.city = new_city
         if option == '6':
             new_phone = input('Please type new phone: ')
-            cls.phone = new_phone
+            self.phone = new_phone
         if option == '7':
             new_name = input('Please type new name: ')
             new_surname = input('Please type new surname: ')
@@ -243,36 +242,34 @@ class Student(User):
             new_date_of_birth = input('Please type new date of birth: ')
             new_city = input('Please type new city: ')
             new_phone = input('Please type new phone: ')
-            cls.name = new_name
-            cls.surname = new_surname
-            cls.grade = new_grade
-            cls.date_of_birth = new_date_of_birth
-            cls.city = new_city
-            cls.phone = new_phone
+            self.name = new_name
+            self.surname = new_surname
+            self.grade = new_grade
+            self.date_of_birth = new_date_of_birth
+            self.city = new_city
+            self.phone = new_phone
 
     @classmethod
-    def get_student_from_list_by_id(cls, id):
+    def get_student_from_list_by_id(cls, student_id):
         """
         Returns student object from list.
-        :param id:
+        :param student_id:
         :return: student: object
         """
         for student in cls._students_list:
-            if student.id == id:
+            if student.get_student_id() == student_id:
                 return student
 
     @classmethod
-    def remove_student_from_list(cls, id):
+    def remove_student_from_list(cls, student_id):
         """
         Remove student object from list.
-        :param id:
+        :param student_id:
         :return: none
         """
-        cls.id = id
         for student in cls._students_list:
-            if student.id == cls.id:
+            if student.get_student_id() == student_id:
                 cls._students_list.remove(student)
-        Student.save_students_csv()
 
     @classmethod
     def get_student_list(cls):
@@ -414,36 +411,6 @@ class Employee(User):
 
 
 class Manager(Employee):
-<<<<<<< HEAD
-	_manager_list = []
-	FILE = 'data/managers.csv'
-
-	def __init__(self, name, surname, email, date_of_birth, city, phone, id=None, password=None):
-		super().__init__(name, surname, email, date_of_birth, city, phone)
-
-		if id == None:
-			self.id = User.generate_random(Manager._manager_list)
-		else:
-			self.id = id
-
-		if password == None:
-			hash_object =  hashlib.md5(self.username.lower().encode())
-			self.password = hash_object.hexdigest()
-		else:
-			self.password = password
-
-		self._manager_list.append(self)
-
-	@classmethod
-	def objects_to_list(cls):
-		list_to_write = []
-
-		for person in cls._manager_list:
-			list_to_write.append(
-				[person.name, person.surname, person.email, person.date_of_birth, person.city, person.phone, person.id,
-				 person.password])
-		return list_to_write
-
     _manager_list = []
     FILE = 'data/managers.csv'
 

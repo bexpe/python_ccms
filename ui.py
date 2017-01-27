@@ -287,48 +287,33 @@ class MentorUI(EmployeeUI):
                 self.set_attendance()
             elif mentor_option == "5":
                 self.edit_student()
+            elif mentor_option == "6":
+                self.remove_student()
+            elif mentor_option == "7":
+                self.add_student()
             elif mentor_option == "8":
                 self.check_attendance()
             elif mentor_option == "0":
                 break
-
             else:
                 print("You need to choose from options: ")
 
     def show_student_list(self):
         """There we are showing student list"""
-        Student.student_list_basics()
-        employee_table_option = input("\n/---------------------"
-                                      "\n| Mentor menu:"
-                                      "\n| (1) Show student details"
-                                      "\n| (2) Return to menu"
-                                      "\n| (0) Exit"
-                                      "\n\---------------------\n")
+        print(Student.student_list_basics())
+        while True:
+            employee_table_option = input("\n/---------------------"
+                                          "\n| Mentor menu:"
+                                          "\n| (1) Show student details"
+                                          "\n| (2) Return to menu"
+                                          "\n\---------------------\n")
 
-        if employee_table_option == "1":
-            self.show_student_details()
-        elif employee_table_option == "2":
-            self.show_mentor_menu()
-        elif employee_table_option == "0":
-            quit()
-        else:
-            print("You need to choose from option")
-
-    def show_student_details(self):
-        """There we are showing student list with details"""
-        print(Student.get_student_list())
-        print("\n/---------------------"
-              "\n| Mentor menu:"
-              "\n| (1) Return to menu"
-              "\n| (0) Exit"
-              "\n\---------------------")
-        employee_option = input("Choose ur option: ")
-        if employee_option == "1":
-            self.show_mentor_menu()
-        elif employee_option == "2":
-            quit()
-        else:
-            print("You need to choose from options")
+            if employee_table_option == "1":
+                print(Student.get_student_list())
+            elif employee_table_option == "2":
+                break
+            else:
+                print("You need to choose from option")
 
     @staticmethod
     def add_assignment():
@@ -361,7 +346,13 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def edit_student():
-        Student.edit_student()
+        print(Student.get_student_list())
+        student_id = input("Insert student id: ")
+        student = Student.get_student_from_list_by_id(student_id)
+        if student:
+            student.edit_student()
+        else:
+            print("*** Student not found ***")
 
     @staticmethod
     def add_student():
@@ -372,10 +363,10 @@ class MentorUI(EmployeeUI):
         date_of_birth = input("Write student date of birth: ")
         city = input("Write student city: ")
         phone = input("Write student phone: ")
-        Student(name, surname, email, date_of_birth, city, phone, attendance_level=0)
+        new_student = Student(name, surname, email, date_of_birth, city, phone, attendance_level=0)
 
     @staticmethod
     def remove_student():
         """There we are removing student by his id"""
-        student_id = input("Write me student id")
+        student_id = input("Write me student id: ")
         Student.remove_student_from_list(student_id)

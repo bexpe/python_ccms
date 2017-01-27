@@ -147,7 +147,7 @@ class Assigment:
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
-                if line[0] == "assignment":
+                if line[0] == "assigment":
                     current_assigment = Assigment(line[1], line[2])
                 elif line[0] == "answer":
                     current_assigment.submit_assigment_answer(line[1], line[2], line[3])
@@ -157,7 +157,7 @@ class Assigment:
 
         with open(cls.FILE, 'w') as file:
             for assigment in cls._assigments_list:
-                row = "assignment,{},{}\n".format(assigment.get_assigment_name(), assigment.get_assigment_description())
+                row = "assigment,{},{}\n".format(assigment.get_assigment_name(), assigment.get_assigment_description())
                 answers_list = assigment.get_assigment_answers()
                 if answers_list:
                     for answer in answers_list:
