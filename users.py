@@ -44,7 +44,7 @@ class User:
         :return: new_password
         """
 
-        @classmethod
+    @classmethod
     def get_students_objects(cls):
         """
         :return: list of students as a list of objects
@@ -687,20 +687,16 @@ class Manager(Employee):
 				 person.password])
 		return list_to_write
 
-	@classmethod
-	def save_manager_csv(cls):
-		cls.list_to_csv()
+    @classmethod
+    def save_manager_csv(cls):
+        cls.list_to_csv()
 
-	@classmethod
-	def load_manager_csv(cls):
-		with open(cls.FILE, 'r') as file:
-			reader = csv.reader(file, delimiter=',')
-			for line in reader:
-				Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
-
-	@classmethod
-	def get_managers_objects(cls):
-		return cls._manager_list
+    @classmethod
+    def load_manager_csv(cls):
+        with open(cls.FILE, 'r') as file:
+            reader = csv.reader(file, delimiter=',')
+            for line in reader:
+                Manager(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7])
 
     @classmethod
     def get_managers_objects(cls):
