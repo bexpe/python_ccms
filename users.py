@@ -282,9 +282,8 @@ class Student(User):
         return to_print_list
 
     @classmethod
-    def get_student_details(cls):
-        cls.get_student_from_list_by_id()
-        student
+    def get_student_details(cls, student):
+        cls.get_student_from_list_by_id(student)
 
     @classmethod
     def get_students_objects(cls):
