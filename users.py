@@ -6,14 +6,14 @@ import hashlib
 class User:
 
     def __init__(self, name, surname, email, date_of_birth, city, phone, password=None):
-        if not name or not surname or not email:
-            raise ValueError("Name, surname and email can't be empty")
+        # if not name or not surname or not email:
+        #     raise ValueError("Name, surname and email can't be empty")
 
         self.name = name
         self.surname = surname
         self.username = self.name[:2] + self.surname[:3]
-        if '@' not in email:
-            raise NameError("Invalid email")
+        # if '@' not in email:
+        #     raise NameError("Invalid email")
         self.email = email
         if password is None:
             self.password = self.username.lower()
