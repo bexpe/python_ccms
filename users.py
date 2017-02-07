@@ -57,7 +57,8 @@ class User:
     @classmethod
     def list_to_csv(cls):
         """
-        :return:
+        Write lists with objects' data to file
+        :return: None
         """
         table = cls.objects_to_list()
         with open(cls.FILE, 'w') as file:
@@ -220,10 +221,19 @@ class Student(User):
 
     @classmethod
     def save_students_csv(cls):
+        """
+        Runs list_to_csv for saving list to file
+        :return: None
+        """
+
         cls.list_to_csv()
 
     @classmethod
     def load_students_csv(cls):
+        """
+        Read data from file and runs init for every line in file
+        :return: None
+        """
 
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
@@ -368,7 +378,7 @@ class Employee(User):
     def load_employees_csv(cls):
         """
         Loads from csv and creates Employee objects.
-        :return:
+        :return: None
         """
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
@@ -414,6 +424,12 @@ class Manager(Employee):
 
     @classmethod
     def objects_to_list(cls):
+        """
+        Convert objects from objects list to list of lists
+
+        :return: list: list with lists with persons' data
+        """
+
         list_to_write = []
 
         for person in cls._manager_list:
@@ -424,10 +440,18 @@ class Manager(Employee):
 
     @classmethod
     def save_manager_csv(cls):
+        """
+        Runs list_to_csv for saving list to file
+        :return: None
+        """
         cls.list_to_csv()
 
     @classmethod
     def load_manager_csv(cls):
+        """
+        Read data from file and runs init for every line in file
+        :return: None
+        """
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
@@ -467,6 +491,12 @@ class Mentor(Employee):
 
     @classmethod
     def objects_to_list(cls):
+        """
+        Convert objects from objects list to list of lists
+
+        :return: list: list with lists with persons' data
+        """
+
         list_to_write = []
 
         for person in cls._mentor_list:
@@ -497,6 +527,10 @@ class Mentor(Employee):
 
     @classmethod
     def load_mentor_csv(cls):
+        """
+        Read data from file and runs init for every line in file
+        :return: None
+        """
         with open(cls.FILE, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             for line in reader:
@@ -504,6 +538,10 @@ class Mentor(Employee):
 
     @classmethod
     def save_mentor_csv(cls):
+        """
+        Runs list_to_csv for saving list to file
+        :return: None
+        """
         cls.list_to_csv()
 
     def edit_mentor(cls):
