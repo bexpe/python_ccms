@@ -1,4 +1,4 @@
-class Student(User):
+class Student():
     _students_list = []
     FILE = 'data/students.csv'
 
@@ -98,7 +98,8 @@ class Student(User):
         :param student:
         :return: student: object
         """
-        return cls.get_student_from_list_by_id(student)
+        if student.get_student_id() == student_id:
+            return student
 
     @classmethod
     def get_students_objects(cls):
@@ -124,3 +125,5 @@ class Student(User):
 
     def get_student_id(self):
         return self.id
+
+st
