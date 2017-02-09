@@ -41,6 +41,6 @@ class EmployeeUI:
         student_name = input("| ")
         student = Student.get_student_by_name(student_name)  # new method
         if student:
-            print(student.get_student_details(student_name))  # new method
+            print(student.get_student_details())  # new method
         else:
             print(" *** Student not found *** ")

@@ -96,7 +96,7 @@ class ManagerUI(EmployeeUI):
         date_of_birth = input("| Write mentor date of birth: ")
         city = input("| Write mentor city: ")
         phone = input("| Write mentor phone: ")
-        Mentor(name, surname, email, date_of_birth, city, phone)
+        Mentor.add_new_mentor(name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
     def remove_mentor():
