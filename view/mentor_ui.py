@@ -104,7 +104,7 @@ class MentorUI(EmployeeUI):
         )
         for student in Student.get_student_list():
             while True:
-                student_status = input("| {}: ".format(student.get_student_full_name()))
+                student_status = input("| {}: ".format(student.get_full_name()))
                 if student_status in ('p', 'l', 'a'):
                     student.set_student_attendance(student_status)
                 else:
@@ -143,7 +143,7 @@ class MentorUI(EmployeeUI):
         date_of_birth = input("| Write student date of birth: ")
         city = input("| Write student city: ")
         phone = input("| Write student phone: ")
-        student.add_new_student(name, surname, email, date_of_birth, city, phone)
+        Student.add_new_student(name, surname, email, date_of_birth, city, phone)
         print("*** Student added ***")
 
     @staticmethod
