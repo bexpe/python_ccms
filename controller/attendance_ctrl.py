@@ -36,7 +36,7 @@ class Attendance:
         student = Student.get_student_from_list_by_id(student_id)
         if student is not None:
             new_attendance = Attendance(int(student_id), date, attendance)
-            AssignmentModel.add_assignment_to_db(new_attendance)
+            AttendanceModel.add_attendance_to_db(new_attendance)
 
         else:
             print('Id is invalid')
@@ -61,18 +61,11 @@ class Attendance:
         :param student_id:
         :return: attendance: dictionary
         """
-        values_attendance_by_id_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
-        attendance_list = cls.check_attendance_by_id(student_id)
-        values_attendance_by_id_dict['id'] = student_id
-        for attendance in attendance_list:
-            values_attendance_by_id_dict['day_sum'] += 1
-            if attendance.attendance == 'present':
-                values_attendance_by_id_dict['present'] += 1
-            elif attendance.attendance == 'late':
-                values_attendance_by_id_dict['late'] += 1
-            elif attendance.attendance == 'absent':
-                values_attendance_by_id_dict['absent'] += 1
-        return values_attendance_by_id_dict
+        count_attendance_dict ={}
+
+        count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
+        count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
+        return count_attendance_dict
 
     @classmethod
     def print_attendance_percentage(cls):
@@ -118,3 +111,4 @@ class Attendance:
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
+
