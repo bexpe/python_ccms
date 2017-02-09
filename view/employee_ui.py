@@ -1,3 +1,6 @@
+from control.student_ctrl import Student
+
+
 class EmployeeUI:
     """There we are showing all employee options"""
 
@@ -10,31 +13,34 @@ class EmployeeUI:
             print(
                 "\n/---------------------"
                 "\n| Employee menu:"
-                "\n| (1) Show student list"
+                "\n| (1) Show students list"
+                "\n| (2) Show student details"
                 "\n| (0) Exit"
                 "\n\---------------------"
             )
-            employee_options = input("Choose ur option: ")
+            employee_options = input("| Choose your option: ")
             if employee_options == "1":
                 self.show_student_list()
+            elif employee_options == "2":
+                self.show_student_details()
             elif employee_options == "0":
                 break
             else:
-                print("You need to choose from options")
+                print("Bad choice. Enter correct value.")
 
     def show_student_list(self):
-        """There we are showing student list"""
-        print(Student.student_list_basics())
-        while True:
-            employee_table_option = input("\n/---------------------"
-                                          "\n| Student list:"
-                                          "\n| (1) Show student details"
-                                          "\n| (2) Return to menu"
-                                          "\n\---------------------\n")
+        student_list = Student.get_students_list()
+        # pretty table?
 
-            if employee_table_option == "1":
-                print(Student.get_student_list())
-            elif employee_table_option == "2":
-                break
-            else:
-                print("You need to choose from option")
+    def show_student_details(self):
+        """There we are showing student list"""
+        print(
+            "\n/---------------------"
+            "\n| Insert student name and surname to show informations:"
+        )
+        student_name = input("| ")
+        student = Student.get_student_by_name(student_name)  # new method
+        if student:
+            print(student.get_student_details(student_name))  # new method
+        else:
+            print(" *** Student not found *** ")
