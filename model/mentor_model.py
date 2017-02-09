@@ -17,7 +17,7 @@ class Mentor:
 
     def add_mentor(self, *args):
         try:
-            self.conn.execute("INSERT INTO Mentor VALUES (NULL,'{}','{}','{}','{}')".format(*args))
+            self.conn.execute("INSERT INTO Mentor VALUES (NULL,'{}','{}','{}','{}','{}','{}','{}','{}')".format(*args))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
@@ -26,16 +26,24 @@ class Mentor:
         try:
             self.c.execute("DELETE FROM Mentor WHERE id={}".format(mentor_id))
             self.conn.commit()
-        except sqlite3.OperationalError:
-            print("Cant remove Table from database")
+        except sqlite3.OperationalError as w:
+            print("Cant remove Table from database: {}".format(w))
 
     def close_database(self):
         self.conn.close()
+
+    def edit_mentor(self, mentor_id, *args):
+        try:
+            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
+                           "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
+            self.conn.commit()
+        except sqlite3.OperationalError as w:
+            print("Cant edit mentor: {}".format(w))
 
 
 
 c = Mentor()
 
 c.get_list_of_mentors()
-c.add_mentor("Imie", "BBBBB", "CCCCCCC", "XD")
+c.edit_mentor(1, "", "", "", "", "", "zzz")
 c.get_list_of_mentors()

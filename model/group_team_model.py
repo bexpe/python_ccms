@@ -20,12 +20,18 @@ class Team:
             groups_list.append(item)
         print(groups_list)
 
-    def add_student_to_team(self, group_name, student_name):
+    def add_student_to_team(self, student_name):
         try:
-            self.conn.execute("INSERT INTO Groups(group_name) VALUES ('{}')".format(student_name))
+            self.conn.execute("INSERT INTO Groups(name) VALUES ('{}')".format(student_name))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
 
     def close_database(self):
         self.conn.close()
+
+t = Team()
+t.create_team("zupa", "dupa")
+t.display_all_groups()
+t.add_student_to_team("zzz")
+t.display_all_groups()
