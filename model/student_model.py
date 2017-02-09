@@ -2,9 +2,13 @@ import sqlite3
 
 
 class Student:
-    def get_list_of_students(self):
+
+    def __init__(self):
         self.conn = sqlite3.connect("baza_danych.db")
         self.c = self.conn.cursor()
+
+    def get_list_of_students(self):
+
         student_list = []
         for item in self.c.execute("SELECT * FROM Student"):
             student_list.append(item)
@@ -36,6 +40,9 @@ class Student:
             return student_detail
         except sqlite3.OperationalError as w:
             print("Cant get student {}".format(w))
+
+    def close_database(self):
+        self.conn.close()
 
 
 s = Student()
