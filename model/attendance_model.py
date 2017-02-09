@@ -6,11 +6,11 @@ class AttendanceModel:
     MCV Model class for attendance, connection to database.
     """
     @staticmethod
-    def add_assignment_to_db(assignment_object):
+    def add_attendance_to_db(attendance_object):
         connect = sqlite3.connect('data/data.db')
         cur = connect.cursor()
         cur.execute("INSERT INTO Student_Attendance(Student_id, Date, Attendance_value) VALUES(?,?,?)",
-                    (assignment_object.student_id, assignment_object.date, assignment_object.attendance))
+                    (attendance_object.student_id, attendance_object.date, attendance_object.attendance))
         connect.commit()
         cur.execute("SELECT * FROM Student_Attendance")
         data = cur.fetchall()
