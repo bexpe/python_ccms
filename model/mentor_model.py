@@ -34,16 +34,28 @@ class Mentor:
 
     def edit_mentor(self, mentor_id, *args):
         try:
-            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
+            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}',"
                            "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant edit mentor: {}".format(w))
 
-
+    def get_mentor_detail(self, name, surname):
+        mentor_detail = []
+        try:
+            get_student = self.c.execute("SELECT name, surname, email, city, phone FROM Mentor"
+                                         " WHERE name = {} and surname = {}".format(name, surname))
+            for item in get_student:
+                mentor_detail.append(item)
+            self.conn.commit()
+            return mentor_detail
+        except sqlite3.OperationalError as w:
+            print("Cant get student {}".format(w))
 
 c = Mentor()
 
 c.get_list_of_mentors()
-c.edit_mentor(1, "", "", "", "", "", "zzz")
+c.edit_mentor(1, "123312", "33", "", "", "zzz")
+c.edit_mentor(2, "1", "2", "", "", "zzz")
 c.get_list_of_mentors()
+print(c.get_mentor_detail("1", "2"))

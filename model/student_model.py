@@ -29,7 +29,7 @@ class Student:
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database {}".format(w))
 
-    def get_student_detali(self, name, surname):
+    def get_student_detail(self, name, surname):
         student_detail = []
         try:
             get_student = self.c.execute("SELECT name, surname, email, city, phone FROM Student"
@@ -40,6 +40,14 @@ class Student:
             return student_detail
         except sqlite3.OperationalError as w:
             print("Cant get student {}".format(w))
+
+    def edit_student(self, student_id, *args):
+        try:
+            self.c.execute("UPDATE Student SET Name = '{}', Surname = '{}',Email = '{}',"
+                           "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, student_id))
+            self.conn.commit()
+        except sqlite3.OperationalError as w:
+            print("Cant edit mentor: {}".format(w))
 
     def close_database(self):
         self.conn.close()
