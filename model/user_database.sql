@@ -1,26 +1,39 @@
 BEGIN TRANSACTION;
-CREATE TABLE `Student` (
+CREATE TABLE "Student" (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`Imie`	TEXT,
-	`Nazwisko`	TEXT,
-	`Wiek`	INTEGER,
+	`Name`	TEXT,
+	`Surname`	TEXT,
+	`Email` TEXT,
+	`Date_of_birth` TEXT,
+	`City` TEXT,
+	`Phone` INTEGER,
+	`Attendance_level` INTEGER,
 	`Login`	TEXT UNIQUE,
-	`Haslo`	TEXT,
+	`Password`	TEXT,
 	`Group_ID`	INTEGER
+	`Card` TEXT
 );
-INSERT INTO `Student` (ID,Imie,Nazwisko,Wiek,Login,Haslo,Group_ID) VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL);
-CREATE TABLE `Mentor` (
+INSERT INTO `Student` (ID,Name,Surname,Age,Login,Password,Group_ID) VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL);
+CREATE TABLE "Mentor" (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`Imię`	TEXT,
-	`Nazwisko`	TEXT,
+	`Name`	TEXT,
+	`Surname`	TEXT,
+	`Email` TEXT,
+	`Date_of_birth` TEXT,
+	`City` TEXT,
+	`Phone` INTEGER,
 	`Login`	TEXT UNIQUE,
-	`Hasło`	TEXT
+	`Password`	TEXT
 );
-INSERT INTO `Mentor` (ID,Imię,Nazwisko,Login,Hasło) VALUES (1,NULL,NULL,NULL,NULL);
+INSERT INTO `Mentor` (ID,Name,Surname,Login,Password) VALUES (1,NULL,NULL,NULL,NULL);
 CREATE TABLE `Manager` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`name`	TEXT,
-	`surname`	TEXT,
+	`Name`	TEXT,
+	`Surname`	TEXT,
+	`Email` TEXT,
+	`Date_of_birth` TEXT,
+	`City` TEXT,
+	`Phone` INTEGER,
 	`login`	TEXT UNIQUE,
 	`password`	TEXT
 );
@@ -35,6 +48,10 @@ CREATE TABLE `Employee` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Surname`	TEXT,
+	`Email` TEXT,
+	`Date_of_birth` TEXT,
+	`City` TEXT,
+	`Phone` INTEGER,
 	`login`	TEXT UNIQUE,
 	`password`	TEXT
 );
@@ -51,7 +68,7 @@ INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (1,25,11,2
 INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (2,26,11,2016,'late',NULL);
 INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (3,27,11,2016,'present',NULL);
 INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (4,29,11,2016,'present',NULL);
-CREATE TABLE `Assignments` (
+CREATE TABLE `Assignments` (	
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Description`	TEXT,
@@ -62,6 +79,8 @@ CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Student_ID`	INTEGER,
 	`Answer_text`	TEXT
+	`grade` INTEGER
+
 );
 INSERT INTO `Answers` (ID,Student_ID,Answer_text) VALUES (1,4,'Square has four sides');
 INSERT INTO `Answers` (ID,Student_ID,Answer_text) VALUES (2,2,'Circle is round');
