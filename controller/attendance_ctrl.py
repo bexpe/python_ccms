@@ -1,12 +1,15 @@
 from users import Student
 import csv
+import datetime
+from model.attendance_model import AttendanceModel
 
 
 class Attendance:
     _attendance_list = []
     FILE = 'data/attendance.csv'
 
-    def __init__(self, student_id, date, attendance):
+    def __init__(self, attendance_id=None, student_id, date, attendance):
+        self.attendance_id =attendance_id
         self.student_id = student_id
         self.date = date
         self.attendance = attendance
@@ -18,7 +21,7 @@ class Attendance:
         :return: None
         """
         student_id = input('Insert student id: ')
-        date = input('Insert date: ')
+        date = datetime.date.today().strftime("%B %d, %Y")
         option = input('A= present, B= late C= not there: ')
         option = option.upper()
         if option == 'A':
@@ -32,8 +35,9 @@ class Attendance:
             return None
         student = Student.get_student_from_list_by_id(student_id)
         if student is not None:
-            cls._attendance_list.append(Attendance(student.id, date, attendance))
-            cls.save_students_attendance_()
+            new_attendance = Attendance(int(student_id), date, attendance)
+            AttendanceModel.add_attendance_to_db(new_attendance)
+
         else:
             print('Id is invalid')
 
@@ -44,12 +48,10 @@ class Attendance:
         :param student_id:
         :return: attendance by student: list
         """
-        student_attendance_list = []
+
         student = Student.get_student_from_list_by_id(student_id)
         if student is not None:
-            for attendance in cls._attendance_list:
-                if attendance.student_id == student.id:
-                    student_attendance_list.append(attendance)
+            student_attendance_list = AttendanceModel.check_attendance_by_id_model(student_id)
             return student_attendance_list
 
     @classmethod
@@ -59,18 +61,11 @@ class Attendance:
         :param student_id:
         :return: attendance: dictionary
         """
-        values_attendance_by_id_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
-        attendance_list = cls.check_attendance_by_id(student_id)
-        values_attendance_by_id_dict['id'] = student_id
-        for attendance in attendance_list:
-            values_attendance_by_id_dict['day_sum'] += 1
-            if attendance.attendance == 'present':
-                values_attendance_by_id_dict['present'] += 1
-            elif attendance.attendance == 'late':
-                values_attendance_by_id_dict['late'] += 1
-            elif attendance.attendance == 'absent':
-                values_attendance_by_id_dict['absent'] += 1
-        return values_attendance_by_id_dict
+        count_attendance_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
+        count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
+        count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
+        count_attendance_dict['id'] = student_id
+        return count_attendance_dict
 
     @classmethod
     def print_attendance_percentage(cls):
@@ -116,3 +111,4 @@ class Attendance:
 
             for line in reader:
                 Attendance(line[0], line[1], line[2])
+
