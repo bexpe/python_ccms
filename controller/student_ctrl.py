@@ -1,4 +1,4 @@
-from model.student_model import Student_model
+from model.student_model import StudentModel
 
 
 class Student:
@@ -10,7 +10,7 @@ class Student:
         self.student_card = student_card
 
     def get_student_grades(self):
-        return Student_model.get_student_grades(self.get_full_name())
+        return StudentModel.get_student_grades(self.get_full_name())
 
     def get_student_details(self):
         basic_data = self.get_details_basic()
@@ -20,18 +20,18 @@ class Student:
         return self.attendance_level
 
     def remove_student(self):
-        Student_model.remove_student(self.get_full_name())
+        StudentModel.remove_student(self.get_full_name())
 
     def add_card(self, card_to_add):
         self.student_card = card_to_add
 
     @staticmethod
     def get_students_list():
-        list_of_students = Student_model.get_students_list()
+        list_of_students = StudentModel.get_students_list()
 
     @staticmethod
     def get_student_by_name(student_name):
-        student_data = Student_model.get_student_by_name(student_name)
+        student_data = StudentModel.get_student_by_name(student_name)
         return Student(
             student_data[0],
             student_data[1],
@@ -45,8 +45,8 @@ class Student:
 
     @staticmethod
     def remove_student_from_data_base(student_name):
-        Student_model.remove_student_from_data_base(student_name)
+        StudentModel.remove_student_from_data_base(student_name)
 
     @staticmethod
     def add_new_student(name, surname, email, date_of_birth, city, phone):
-        Student_model.add_new_student(name, surname, email, date_of_birth, city, phone)
+        StudentModel.add_new_student(name, surname, email, date_of_birth, city, phone)

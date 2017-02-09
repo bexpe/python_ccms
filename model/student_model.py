@@ -1,7 +1,7 @@
 import sqlite3
 
 
-class Student:
+class StudentModel:
 
     def __init__(self):
         self.conn = sqlite3.connect("baza_danych.db")
