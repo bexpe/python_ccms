@@ -61,10 +61,10 @@ class Attendance:
         :param student_id:
         :return: attendance: dictionary
         """
-        count_attendance_dict ={}
-
+        count_attendance_dict = {'id': 0, 'day_sum': 0, 'present': 0, 'late': 0, 'absent': 0}
         count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
         count_attendance_dict.update(AttendanceModel.db_get_attendance_values_sum(student_id))
+        count_attendance_dict['id'] = student_id
         return count_attendance_dict
 
     @classmethod
