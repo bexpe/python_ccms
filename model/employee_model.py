@@ -2,6 +2,11 @@ import sqlite3
 
 
 class Employee:
+
+    def __init__(self):
+        self.conn = sqlite3.connect("baza_danych.db")
+        self.c = self.conn.cursor()
+
     def get_list_of_employees(self):
         self.conn = sqlite3.connect("baza_danych.db")
         self.c = self.conn.cursor()
@@ -23,3 +28,6 @@ class Employee:
             self.conn.commit()
         except sqlite3.OperationalError:
             print("Cant remove Table from database")
+
+    def close_database(self):
+        self.conn.close()
