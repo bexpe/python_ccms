@@ -1,15 +1,13 @@
 import sqlite3
 
 
-class Employee:
+class Employee_model:
 
     def __init__(self):
         self.conn = sqlite3.connect("baza_danych.db")
         self.c = self.conn.cursor()
 
     def get_list_of_employees(self):
-        self.conn = sqlite3.connect("baza_danych.db")
-        self.c = self.conn.cursor()
         employee_list = []
         for item in self.c.execute("SELECT * FROM Employee"):
             employee_list.append(item)

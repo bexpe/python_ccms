@@ -1,3 +1,9 @@
+from controller.student_ctrl import Student
+from controller.mentor_ctrl import Mentor
+from view.employee_ui import EmployeeUI
+from terminaltables import AsciiTable 
+
+
 class ManagerUI(EmployeeUI):
     """There we are printing all Manager options"""
 
@@ -14,11 +20,11 @@ class ManagerUI(EmployeeUI):
                 "\n| (2) Show student details"
                 "\n| (3) Show mentor list"
                 "\n| (4) Show mentor details"
-                "\n| (5) Edit mentor"
-                "\n| (6) Add mentor"
-                "\n| (7) Remove mentor"
-                "\n| (8) Show full statistics of mentors and students"
-                "\n| (9) Show each student average grade"
+                "\n| (5) Edit mentor"   #BUGS
+                "\n| (6) Add mentor"    #BUGS
+                "\n| (7) Remove mentor" #BUGS
+                "\n| (8) Show full statistics of mentors and students"  #BUGS
+                "\n| (9) Show each student average grade"   #TODO
                 "\n| (0) Exit"
                 "\n\---------------------"
             )
@@ -47,19 +53,42 @@ class ManagerUI(EmployeeUI):
                 print("You need to choose from options: ")
 
     def show_mentor_list(self):
-        mentor_list = Mentor.get_mentor_list()
-        # pretty table?
+        mentor_list = Mentor.get_mentors_list()
+        table_head = ['Name', 'Surname', 'Email']
+        table_basic = [[d[1],d[2],d[3]] for d in mentor_list]
+        table_basic.insert(0, table_head)
+        table = AsciiTable(table_basic)
+        print("\n" + table.table)
+        input(" *** Click enter to continue *** ")
 
     @staticmethod
-    def show_mentor_details_list():
+    def show_mentor_details():
         print(
             "\n/---------------------"
-            "\n| Insert mentor name and surname to show informations:"
+            "\n| Show mentor details:"
         )
-        mentor_name = input("| ")
-        mentor = Mentor.get_mentor_by_name(mentor_name)  # new method
-        if mentor:
-            print(mentor.get_mentor_details(mentor_name))  # new method
+        mentor_name = input("| Insert mentor name: ")
+        mentor_surname = input("| Insert mentor surname: ")
+        mentor_details = Mentor.get_mentor_details(mentor_name, mentor_surname)
+        if mentor_details:
+            mentor_details = mentor_details[0]
+            print((
+            "\n/---------------------"
+            "\n| {} {} details:"
+            "\n| Email: {}"
+            "\n| Date of birth: {}"
+            "\n| City: {}"
+            "\n| Phone: {}"
+            "\n\---------------------"
+        ).format(
+                mentor_details[0],
+                mentor_details[1],
+                mentor_details[2],
+                mentor_details[3],
+                mentor_details[4],
+                mentor_details[5],
+                )
+        )
         else:
             print(" *** Mentor not found *** ")
 
@@ -69,8 +98,9 @@ class ManagerUI(EmployeeUI):
             "\n/---------------------"
             "\n| Edit mentor"
         )
-        mentor_name = input("| Insert mentor name and surname to edit:")
-        mentor = Mentor.get_mentor_by_name(mentor_name)  # new method
+        cur_name = input("| Write mentor name: ")
+        cur_surname = input("| Write mentor surname: ")
+        mentor = mentor.get_student_details(cur_name, cur_surname)
         if mentor:
             name = input("| Write mentor name: ")
             surname = input("| Write mentor surname: ")
@@ -78,7 +108,7 @@ class ManagerUI(EmployeeUI):
             date_of_birth = input("| Write mentor date of birth: ")
             city = input("| Write mentor city: ")
             phone = input("| Write mentor phone: ")
-            mentor.edit_user(name, surname, email, date_of_birth, city, phone)
+            Mentor.edit_mentor(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
             print(" *** Mentor edited *** ")
         else:
             print(" *** Mentor not found *** ")
@@ -104,11 +134,11 @@ class ManagerUI(EmployeeUI):
             "\n/---------------------"
             "\n| Remove mentor "
         )
-        mentor_name = input("| Insert mentor name and surname to remove: ")
-        mentor = Mentor.get_mentor_by_name(mentor_name)  # new method
+        name = input("| Write mentor name: ")
+        surname = input("| Write mentor surname: ")
+        mentor = Mentor.get_mentor_details(name, surname)
         if mentor:
-            mentor.remove_mentor()
-            print(" *** Mentor removed *** ")
+            Mentor.remove_mentor_from_data_base(name, surname)
         else:
             print(" *** Mentor not found *** ")
 
