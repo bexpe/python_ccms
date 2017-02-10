@@ -54,6 +54,21 @@ class StudentModel:
         except sqlite3.OperationalError as w:
             print("Cant add card {}".format(w))
 
+    @staticmethod
+    def db_get_attendance_by_id(student_id):
+        """
+        Get attendance list by student id.
+        :param student_id:
+        :return: attendance_list_by_student
+        """
+        connect = sqlite3.connect('data/data.db')
+        cur = connect.cursor()
+        cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", student_id)
+        connect.commit()
+
+        attendance_list_by_student = cur.fetchall()
+        return attendance_list_by_student
+
     def close_database(self):
         self.conn.close()
 
