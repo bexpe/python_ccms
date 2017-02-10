@@ -1,23 +1,25 @@
-    import csv
+from assignment_model import AssignmentAnswerModel
 
-
-class Assigments_Answer:
+class AssignmentAnswer:
     """
-    Class for students answer for current assigment.
+    Class for students answer for current assignment.
     """
 
-    def __init__(self, student_id, student_solution_link, grade):
+    def __init__(self, student_solution_link, student_id, assignment_id,
+                 answer_id=None, grade=None):
         """
         Constructor
         params:
                 student_id - string
                 student_solution_link - string
         """
+        self.answer_id = answer_id
+        self.assignment_id = assignment_id
         self.student_id = student_id
         self.student_solution_link = student_solution_link
         self.grade = grade
 
-    def grade_student_assigment(self, new_grade):
+    def grade_student_assignment(self, new_grade):
         """
         Method for grade student answer
         params:
@@ -38,66 +40,107 @@ class Assigments_Answer:
         return self.student_id
 
     def get_student_solution_link(self):
+        """
+        Gets student_solution_link as string Answer object
+        :return: student_solution_link as string
+        """
         return self.student_solution_link
 
+    def get_assignment_id(self):
+        """
+        Gets assignment_id as string from Answer object
+        :return: assignment_id as string
+        """
+        return self.assignment_id
 
-class Assigment:
-    """
-    Class for assigment.
-    """
-    _assigments_list = []
-    FILE = 'data/assigment.csv'
+    @classmethod
+    def set_assignment_answer(cls, student_solution_link, student_id, assignment_id):
+        """
+        Creates object of answer not yet graded, and sends it to database.
+        :param student_solution_link:
+        :param student_id:
+        :param assignment_id:
+        :return: None
+        """
+        answer = AssignmentAnswer(student_solution_link, student_id, assignment_id)
 
-    def __init__(self, assigment_name, description):
+        AssignmentAnswerModel.set_assignment_answer(answer.get_student_solution_link(),
+                                                    answer.get_grade(),
+                                                    answer.get_answer_student_id(),
+                                                    answer.get_assignment_id())
+
+    @classmethod
+    def get_assignment_answer(cls, student_id, assignment_id):
+        """
+        Gets answer object from database and creates it.
+        :param student_id:
+        :param assignment_id:
+        :return: answer_object
+        """
+        answer_db = AssignmentAnswerModel.get_assignment_answer_model(student_id, assignment_id)
+
+        answer_object = AssignmentAnswer(answer_db[0][1],
+                                         answer_db[0][3],
+                                         answer_db[0][4],
+                                         answer_db[0][0],
+                                         answer_db[0][2])
+        return answer_object
+
+
+class Assignment:
+    """
+    Class for assignment.
+    """
+    _assignments_list = []
+    FILE = 'data/assignment.csv'
+
+    def __init__(self, assignment_name, description):
         """
         params:
-                assigment_name - string
+                assignment_name - string
                 description - string
         """
-        self.assigment_name = assigment_name
+        self.assignment_name = assignment_name
         self.description = description
-        self.answers_list = []
 
-        self._assigments_list.append(self)
+    def get_assignment_name(self):
+        """
+        Method return current assignment name
+        """
+        return self.assignment_name
 
-    def get_assigment_name(self):
+    def get_assignment_description(self):
         """
-        Method return current assigment name
-        """
-        return self.assigment_name
-
-    def get_assigment_description(self):
-        """
-        Method return current assigment description
+        Method return current assignment description
         """
         return self.description
 
-    def get_assigment_answers(self):
+    def get_assignment_answers(self):
         """
-        Method return current assigment answers
+        Method return current assignment answers
         """
         return self.answers_list
 
     @classmethod
-    def get_assigment_by_name(cls, assigment_to_find):
+    def get_assignment_by_name(cls, assignment_to_find):
         """
-        Method looks into class attribute _assigments_list to find assigment by given name.
+        Method looks into class attribute _assignments_list to find assignment by given name.
         params:
-                assigment_to_find - string
+                assignment_to_find - string
         """
 
-        for assigment in cls._assigments_list:
-            if assigment.get_assigment_name() == assigment_to_find:
-                return assigment
+        for assignment in cls._assignments_list:
+            if assignment.get_assignment_name() == assignment_to_find:
+                return assignment
 
-    def submit_assigment_answer(self, student_id, student_answer, grade=None):
+    def submit_assignment_answer(self, student_id, student_answer, grade=None):
         """
-        Students can give answer to current assigment.
+        Students can give answer to current assignment.
         params:
                 student_id - string
                 student_answer - string
         """
-        self.answers_list.append(Assigments_Answer(student_id, student_answer, grade))
+        self.answers_list.append(AssignmentAnswer(student_id, student_answer, grade))
 
     def get_student_answer(self, student_id):
         """
@@ -111,7 +154,7 @@ class Assigment:
 
     def get_student_grade(self, student_id):
         """
-        Method for find and return student grade for assigment
+        Method for find and return student grade for assignment
         params:
                 student_id - string
         """
@@ -125,45 +168,19 @@ class Assigment:
 
     def grade_student_answer(self, student_id, new_grade):
         answer = self.get_student_answer(student_id)
-        answer.grade_student_assigment(new_grade)
+        answer.grade_student_assignment(new_grade)
 
-    def remove_assigment(self):
+    def remove_assignment(self):
         """
         Method remove current assignment from assignments list
         """
-        self._assigments_list.remove(self)
+        self._assignments_list.remove(self)
 
     @classmethod
-    def get_assigments_list(cls):
+    def get_assignments_list(cls):
         """
         Method return class attribute _assignments_list with Assignments objects inside
         """
-        return cls._assigments_list
+        return cls._assignments_list
 
-    @classmethod
-    def load_assigment_csv(cls):
-        current_assigment = None
-
-        with open(cls.FILE, 'r') as file:
-            reader = csv.reader(file, delimiter=',')
-            for line in reader:
-                if line[0] == "assigment":
-                    current_assigment = Assigment(line[1], line[2])
-                elif line[0] == "answer":
-                    current_assigment.submit_assigment_answer(line[1], line[2], line[3])
-
-    @classmethod
-    def save_assigment_csv(cls):
-
-        with open(cls.FILE, 'w') as file:
-            for assigment in cls._assigments_list:
-                row = "assigment,{},{}\n".format(assigment.get_assigment_name(), assigment.get_assigment_description())
-                answers_list = assigment.get_assigment_answers()
-                if answers_list:
-                    for answer in answers_list:
-                        row += "answer,{},{},{}\n".format(
-                            answer.get_answer_student_id(),
-                            answer.get_student_solution_link(),
-                            answer.get_grade()
-                        )
-                file.write(row)
+AssignmentAnswer.get_assignment_answer(1,2)

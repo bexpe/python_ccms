@@ -77,11 +77,11 @@ CREATE TABLE `Assignments` (
 INSERT INTO `Assignments` (ID,Name,Description,Student_ID) VALUES (1,'Square','Find the area of a square with a given side',1);
 CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`Answer_text`	TEXT,
+	`Grade`	INTEGER,
 	`Student_ID`	INTEGER,
-	`Answer_text`	TEXT
-	`grade` INTEGER
-
+	`Assignment_id`	INTEGER
 );
-INSERT INTO `Answers` (ID,Student_ID,Answer_text) VALUES (1,4,'Square has four sides');
-INSERT INTO `Answers` (ID,Student_ID,Answer_text) VALUES (2,2,'Circle is round');
+INSERT INTO `Answers` (ID,Answer_text,Grade,Student_ID,Assignment_id) VALUES (1,'Square has four sides',6,1,1);
+INSERT INTO `Answers` (ID,Answer_text,Grade,Student_ID,Assignment_id) VALUES (2,'Circle is round',5,1,2);
 COMMIT;

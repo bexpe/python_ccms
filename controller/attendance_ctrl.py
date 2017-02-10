@@ -1,6 +1,6 @@
 import sqlite3
-import csv
 import datetime
+from controller.student_ctrl import Student
 from model.attendance_model import AttendanceModel
 
 
@@ -33,7 +33,7 @@ class Attendance:
         else:
             print("There is no such option.")
             return None
-        student = 1 #  Student.get_student_from_list_by_id(student_id)
+        student = Student.get_student_from_list_by_id(student_id)
         if student is not None:
             new_attendance = Attendance(int(student_id), date, attendance)
             try:
