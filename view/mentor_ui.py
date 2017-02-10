@@ -2,6 +2,7 @@ from controller.student_ctrl import Student
 from view.employee_ui import EmployeeUI
 from controller.attendance_ctrl import Attendance
 import datetime
+from model.group_team_model import Team
 
 
 class MentorUI(EmployeeUI):
@@ -184,12 +185,15 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def create_student_team():
+        team = Team()
+
         print(
             "\n/---------------------"
             "\n| Create new team"
         )
         new_team_name = input("| Insert team name: ")
-        Mentor.create_student_team(new_team_name)
+        assignment_id = input(" Please insert id for an assignment for this team ")
+        team.create_team(new_team_name, assignment_id)
         print(" *** Team created *** ")
 
     @staticmethod
