@@ -100,7 +100,7 @@ class ManagerUI(EmployeeUI):
         )
         cur_name = input("| Write mentor name: ")
         cur_surname = input("| Write mentor surname: ")
-        mentor = mentor.get_student_details(cur_name, cur_surname)
+        mentor = Mentor.get_mentor_details(cur_name, cur_surname)
         if mentor:
             name = input("| Write mentor name: ")
             surname = input("| Write mentor surname: ")

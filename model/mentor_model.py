@@ -22,7 +22,7 @@ class Mentor_model:
 
     def remove_mentor_from_database(self, mentor_name, mentor_surname):
         try:
-            self.c.execute("DELETE FROM Mentor WHERE name={} and surname={}".format(mentor_name, mentor_surname))
+            self.c.execute("DELETE FROM Mentor WHERE name='{}' and surname='{}'".format(mentor_name, mentor_surname))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database: {}".format(w))
@@ -32,8 +32,8 @@ class Mentor_model:
 
     def edit_mentor(self, mentor_name, mentor_surname, *args):
         try:
-            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}',"
-                           "City = '{}', Phone = '{}' WHERE name = '{}' and surname ='{}'".format(*args, mentor_name, mentor_surname))
+            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
+                           "City = '{}', Phone = '{}' WHERE name = '{}' and surname = '{}'".format(*args, mentor_name, mentor_surname))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant edit mentor: {}".format(w))

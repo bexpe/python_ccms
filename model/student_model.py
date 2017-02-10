@@ -22,7 +22,7 @@ class StudentModel:
 
     def remove_student_from_database(self, name_student, surname_student):
         try:
-            self.c.execute("DELETE FROM Student WHERE name={} and surname={}".format(name_student, surname_student))
+            self.c.execute("DELETE FROM Student WHERE name='{}' and surname='{}'".format(name_student, surname_student))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database {}".format(w))
