@@ -44,6 +44,15 @@ class Student:
         )
 
     @staticmethod
+    def check_student_in_db_by_id(student_id):
+        """
+        check if student exists
+        :param student_id:
+        :return: boolean
+        """
+        return StudentModel.check_student_in_db_by_id_model(student_id)
+
+    @staticmethod
     def remove_student_from_data_base(student_name):
         StudentModel.remove_student_from_data_base(student_name)
 
