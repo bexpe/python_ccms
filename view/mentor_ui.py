@@ -1,5 +1,6 @@
 from controller.student_ctrl import Student
 from view.employee_ui import EmployeeUI
+from controller.attendance_ctrl import Attendance
 import datetime
 
 
@@ -101,15 +102,33 @@ class MentorUI(EmployeeUI):
             "\n/---------------------"
             "\n| Checking attendance for {}"
             "\n| p - present, l - late, a - absent"
-        ).format(datetime.datetime.now())
+        ).format(datetime.datetime.now().date())
         )
-        for student in Student.get_student_list():
-            while True:
-                student_status = input("| {}: ".format(student.get_full_name()))
-                if student_status in ('p', 'l', 'a'):
-                    student.set_student_attendance(student_status)
-                else:
-                    print(" *** Bad input *** ")
+        while True:
+            student_id = input('Insert student id: ')
+            student = Student.check_student_in_db_by_id(student_id)
+            print(student)
+            if not student:
+                print('Invalid id')
+                continue
+            date = datetime.datetime.now().date()
+            option = input('p = present, l = late a = absent: ')
+            option = option.upper()
+            if option == 'P':
+                attendance = 'present'
+            elif option == 'L':
+                attendance = 'late'
+            elif option == 'A':
+                attendance = 'absent'
+            else:
+                print("There is no such option.")
+                continue
+
+            if option in ('P', 'L', 'A'):
+                Attendance.set_attendance(student_id, date, attendance)
+            else:
+                print(" *** Bad input *** ")
+                continue
 
     @staticmethod
     def edit_student():
@@ -221,3 +240,5 @@ class MentorUI(EmployeeUI):
                     print(" *** Bad card number *** ")
         else:
             print(" *** Student not found *** ")
+
+MentorUI.check_attendance()
