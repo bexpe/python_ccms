@@ -20,6 +20,13 @@ class AssignmentAnswer:
         self.student_id = student_id
         self.assignment_id = assignment_id
 
+    def get_answer_id(self):
+        """
+        Get answer id
+        :return:
+        """
+        return self.answer_id
+
     def grade_student_assignment(self, new_grade):
         """
         Method for grade student answer
@@ -91,7 +98,9 @@ class AssignmentAnswer:
     def set_grade(cls, grade, student_id, assignment_id):
         """Set student grade"""
         answer = AssignmentAnswer.get_assignment_answer(student_id, assignment_id)
-        AssignmentAnswerModel.update_assignment_answer_obj(answer.get_student_solution_link(),
+        
+        AssignmentAnswerModel.update_assignment_answer_obj(answer.get_answer_id(),
+                                                           answer.get_student_solution_link(),
                                                            grade,
                                                            answer.get_answer_student_id(),
                                                            answer.get_assignment_id())
@@ -193,4 +202,3 @@ class Assignment:
         """
         return cls._assignments_list
 
-AssignmentAnswer.get_assignment_answer(1,2)

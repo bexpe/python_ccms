@@ -8,7 +8,7 @@ class AttendanceModel:
     @staticmethod
     def add_attendance_to_db(attendance_object):
         try:
-            connect = sqlite3.connect('../data/data.db')
+            connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
             cur.execute("INSERT INTO Student_Attendance(Student_id, Date, Attendance_value) VALUES(?,?,?)",
                         (attendance_object.student_id, attendance_object.date, attendance_object.attendance))
@@ -29,7 +29,7 @@ class AttendanceModel:
         :return: attendance_list_by_student
         """
         try:
-            connect = sqlite3.connect('../data/data.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+            connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
             cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", str(student_id))
             connect.commit()
@@ -52,7 +52,7 @@ class AttendanceModel:
         :return: counted_attendance_values (object)
         """
         try:
-            connect = sqlite3.connect('../data/data.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+            connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
             cur.execute("SELECT Attendance_value, COUNT(Attendance_value) from Student_Attendance "
                         "WHERE Student_id = (?)"
@@ -76,7 +76,7 @@ class AttendanceModel:
         :return: attendance_by_student_id_sum
         """
         try:
-            connect = sqlite3.connect('../data/data.db')
+            connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
             cur.execute("SELECT count(Attendance_value) as 'sum_attendance' from Student_Attendance "
                         "where student_id = (?)", str(student_id))
