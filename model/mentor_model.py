@@ -8,7 +8,7 @@ class Mentor_model:
         self.c = self.conn.cursor()
 
     def get_list_of_mentors(self):
-        mentor_list = []
+        mentor_list = []git
         for item in self.c.execute("SELECT * FROM Mentor"):
             mentor_list.append(item)
         return mentor_list
