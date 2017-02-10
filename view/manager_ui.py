@@ -20,11 +20,11 @@ class ManagerUI(EmployeeUI):
                 "\n| (2) Show student details"
                 "\n| (3) Show mentor list"
                 "\n| (4) Show mentor details"
-                "\n| (5) Edit mentor"   #BUGS
-                "\n| (6) Add mentor"    #BUGS
-                "\n| (7) Remove mentor" #BUGS
-                "\n| (8) Show full statistics of mentors and students"  #BUGS
-                "\n| (9) Show each student average grade"   #TODO
+                "\n| (5) Edit mentor"
+                "\n| (6) Add mentor"
+                "\n| (7) Remove mentor"
+                #"\n| (8) Show full statistics of mentors and students"
+                #"\n| (9) Show each student average grade"
                 "\n| (0) Exit"
                 "\n\---------------------"
             )
@@ -44,9 +44,11 @@ class ManagerUI(EmployeeUI):
             elif manager_option == "7":
                 self.remove_mentor()
             elif manager_option == "8":
-                self.show_full_statistics_of_mentors_and_students()
+                #self.show_full_statistics_of_mentors_and_students()
+                pass
             elif manager_option == "9":
-                self.show_each_student_average_grade()
+                #self.show_each_student_average_grade()
+                pass
             elif manager_option == "0":
                 break
             else:
@@ -100,7 +102,7 @@ class ManagerUI(EmployeeUI):
         )
         cur_name = input("| Write mentor name: ")
         cur_surname = input("| Write mentor surname: ")
-        mentor = mentor.get_student_details(cur_name, cur_surname)
+        mentor = Mentor.get_mentor_details(cur_name, cur_surname)
         if mentor:
             name = input("| Write mentor name: ")
             surname = input("| Write mentor surname: ")
@@ -139,6 +141,7 @@ class ManagerUI(EmployeeUI):
         mentor = Mentor.get_mentor_details(name, surname)
         if mentor:
             Mentor.remove_mentor_from_data_base(name, surname)
+            print(" *** Mentor removed *** ")
         else:
             print(" *** Mentor not found *** ")
 

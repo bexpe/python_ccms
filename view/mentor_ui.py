@@ -19,15 +19,15 @@ class MentorUI(EmployeeUI):
                 "\n| Mentor menu:"
                 "\n| (1) Show student list"
                 "\n| (2) Show student details"
-                "\n| (3) Add assignment"    #TODO
-                "\n| (4) Grade assignment"  #TODO
-                "\n| (5) Check attendance"  #TODO
-                "\n| (6) Edit student"  #BUGS
-                "\n| (7) Remove student"    #BUGS
-                "\n| (8) Add student"   #BUGS
-                "\n| (9) Create student team"   #TODO
-                "\n| (10) Add student to team"  #TODO
-                "\n| (11) List student teams"   #TODO
+                #"\n| (3) Add assignment"
+                #"\n| (4) Grade assignment"
+                #"\n| (5) Check attendance"
+                "\n| (6) Edit student"
+                "\n| (7) Remove student"
+                "\n| (8) Add student"
+                #"\n| (9) Create student team"
+                #"\n| (10) Add student to team"
+                #"\n| (11) List student teams"
                 "\n| (12) Add card to student"
                 "\n| (0) Exit"
                 "\n\---------------------"
@@ -38,11 +38,14 @@ class MentorUI(EmployeeUI):
             if mentor_option == "2":
                 self.show_student_details()
             elif mentor_option == "3":
-                self.add_assignment()
+                #self.add_assignment()
+                pass
             elif mentor_option == "4":
-                self.grade_assignment()
+                #self.grade_assignment()
+                pass
             elif mentor_option == "5":
-                self.check_attendance()
+                #self.check_attendance()
+                pass
             elif mentor_option == "6":
                 self.edit_student()
             elif mentor_option == "7":
@@ -50,11 +53,14 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "8":
                 self.add_student()
             elif mentor_option == "9":
-                self.create_student_team()
+                #self.create_student_team()
+                pass
             elif mentor_option == "10":
-                self.add_student_to_team()
+                #self.add_student_to_team()
+                pass
             elif mentor_option == "11":
-                self.list_students_groups()
+                #self.list_students_groups()
+                pass
             elif mentor_option == "12":
                 self.add_cards_to_students()
             elif mentor_option == "0":
@@ -180,6 +186,7 @@ class MentorUI(EmployeeUI):
         student = Student.get_student_details(name, surname)
         if student:
             Student.remove_student_from_data_base(name, surname)
+            print(" *** Student removed *** ")
         else:
             print(" *** Student not found *** ")
 
@@ -235,14 +242,12 @@ class MentorUI(EmployeeUI):
         student = Student.get_student_details(name, surname)
         if student:
             while True:
-                card_to_add = input("| Which card you want add? r-red, y-yellow, g-green]: ")
+                card_to_add = input("| Which card you want add? [r-red, y-yellow, g-green]: ")
                 if card_to_add in ('r', 'y', 'g'):
-                    student.add_card(card_to_add)
+                    Student.add_card(card_to_add, name, surname)
                     print(" *** Student card added *** ")
                     break
                 else:
                     print(" *** Bad card number *** ")
         else:
             print(" *** Student not found *** ")
-
-MentorUI.check_attendance()

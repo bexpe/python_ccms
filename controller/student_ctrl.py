@@ -15,9 +15,11 @@ class Student(User):
 
     def get_student_overall_attendance(self):
         return self.attendance_level
+    @staticmethod
+    def add_card(card_to_add, name, surname):
+        model = StudentModel()
+        model.add_card(card_to_add, name, surname)
 
-    def add_card(self, card_to_add):
-        self.student_card = card_to_add
 
     @staticmethod
     def get_students_list():
@@ -42,12 +44,15 @@ class Student(User):
 
     @staticmethod
     def remove_student_from_data_base(name, surname):
-        StudentModel.remove_student_from_data_base(name, surname)
+        model = StudentModel()
+        model.remove_student_from_database(name, surname)
 
     @staticmethod
     def add_student(name, surname, email, date_of_birth, city, phone):
-        StudentModel.add_student(name, surname, email, date_of_birth, city, phone)
+        model = StudentModel()
+        model.add_student(name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
     def edit_student(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone):
-        StudentModel.edit_student(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
+        model = StudentModel()
+        model.edit_student(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
