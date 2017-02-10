@@ -7,7 +7,7 @@ class AssignmentAnswerModel:
     @staticmethod
     def set_assignment_answer_obj(student_solution_link, grade, student_id, assignment_id):
         """
-
+        Add answer object to database.
         :param student_solution_link:
         :param grade:
         :param student_id:
@@ -54,6 +54,15 @@ class AssignmentAnswerModel:
 
     @staticmethod
     def update_assignment_answer_obj(answer_id, student_solution_link, grade, student_id, assignment_id):
+        """
+        Update answer object in database.
+        :param answer_id:
+        :param student_solution_link:
+        :param grade:
+        :param student_id:
+        :param assignment_id:
+        :return:
+        """
         try:
             connect = sqlite3.connect('db.db')
             cur = connect.cursor()

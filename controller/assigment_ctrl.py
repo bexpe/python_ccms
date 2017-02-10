@@ -89,6 +89,7 @@ class AssignmentAnswer:
 
     @classmethod
     def set_grade(cls, grade, student_id, assignment_id):
+        """Set student grade"""
         answer = AssignmentAnswer.get_assignment_answer(student_id, assignment_id)
         AssignmentAnswerModel.update_assignment_answer_obj(answer.get_student_solution_link(),
                                                            grade,
