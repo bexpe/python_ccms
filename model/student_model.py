@@ -15,18 +15,14 @@ class StudentModel:
 
     def add_student(self, *args):
         try:
-            #TODO
-            #coś tu kurwa jego mać nie działa zbyt dobrze
-            self.c.execute("INSERT INTO Student (Name,Surname,Email,Date_of_birth,City,Phone) VALUES ('{}','{}','{}','{}','{}','{}')".format(*args))
+            self.c.execute("INSERT INTO Student(name, surname, email, date_of_birth, city, phone) VALUES ('{}','{}','{}','{}','{}','{}')".format(*args))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
 
-    def remove_student_from_database(self, student_id):
-        #TODO
-        #patrz kontroler
+    def remove_student_from_database(self, name_student, surname_student):
         try:
-            self.c.execute("DELETE FROM Student WHERE id={}".format(student_id))
+            self.c.execute("DELETE FROM Student WHERE name={} and surname={}".format(name_student, surname_student))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database {}".format(w))
@@ -44,8 +40,6 @@ class StudentModel:
             print("Cant get student {}".format(w))
 
     def edit_student(self, cur_name, cur_surname, *args):
-        #AttributeError: 'str' object has no attribute 'c'
-        # no kurfa znowu...:(
         try:
             self.c.execute("UPDATE Student SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
                            "City = '{}', Phone = '{}' WHERE name = '{}' and surname = '{}'".format(*args, cur_name, cur_surname))
@@ -53,8 +47,14 @@ class StudentModel:
         except sqlite3.OperationalError as w:
             print("Cant edit mentor: {}".format(w))
 
-    def add_card_kurfa(self):
-        pass
-
+    def add_card(self, cards, name, surname):
+        try:
+            self.c.execute("UPDATE Student SET Card = '{}' WHERE name = '{}' and surname = '{}'".format(cards, name, surname))
+            self.conn.commit()
+        except sqlite3.OperationalError as w:
+            print("Cant add card {}".format(w))
     def close_database(self):
         self.conn.close()
+
+
+

@@ -14,17 +14,15 @@ class Mentor_model:
         return mentor_list
 
     def add_mentor(self, *args):
-        #TODO
-        #patrz kontroler co dostajesz
         try:
-            self.conn.execute("INSERT INTO Mentor VALUES (NULL,'{}','{}','{}','{}','{}','{}','{}','{}')".format(*args))
+            self.conn.execute("INSERT INTO Mentor(name, surname, email, date_of_birth, city, phone) VALUES ('{}','{}','{}','{}','{}','{}')".format(*args))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
 
-    def remove_mentor_from_database(self, mentor_id):
+    def remove_mentor_from_database(self, mentor_name, mentor_surname):
         try:
-            self.c.execute("DELETE FROM Mentor WHERE id={}".format(mentor_id))
+            self.c.execute("DELETE FROM Mentor WHERE name={} and surname={}".format(mentor_name, mentor_surname))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database: {}".format(w))
@@ -32,12 +30,10 @@ class Mentor_model:
     def close_database(self):
         self.conn.close()
 
-    def edit_mentor(self, mentor_id, *args):
-        #TODO
-        #spójrz na kontroler
+    def edit_mentor(self, mentor_name, mentor_surname, *args):
         try:
             self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}',"
-                           "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
+                           "City = '{}', Phone = '{}' WHERE name = '{}' and surname ='{}'".format(*args, mentor_name, mentor_surname))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant edit mentor: {}".format(w))
@@ -46,7 +42,7 @@ class Mentor_model:
         mentor_detail = []
         try:
             get_mentor = self.c.execute("SELECT name, surname, email, date_of_birth, city, phone FROM Mentor"
-                                         " WHERE name = '{}' and surname = '{}'".format(name, surname))
+                                        " WHERE name = '{}' and surname = '{}'".format(name, surname))
             for item in get_mentor:
                 mentor_detail.append(item)
             self.conn.commit()
