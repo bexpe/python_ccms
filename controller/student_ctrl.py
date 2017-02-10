@@ -15,9 +15,11 @@ class Student(User):
 
     def get_student_overall_attendance(self):
         return self.attendance_level
+    @staticmethod
+    def add_card(card_to_add, name, surname):
+        model = StudentModel()
+        model.add_card(card_to_add, name, surname)
 
-    def add_card(self, card_to_add):
-        self.student_card = card_to_add
 
     @staticmethod
     def get_students_list():
