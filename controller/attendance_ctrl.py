@@ -32,7 +32,7 @@ class Attendance:
             attendance = 'absent'
         else:
             print("There is no such option.")
-            return None
+
         student = Student.check_student_in_db_by_id(student_id)
         if student:
             new_attendance = Attendance(int(student_id), date, attendance)
