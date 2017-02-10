@@ -14,7 +14,8 @@ class Mentor(Employee):
 
     @staticmethod
     def add_new_mentor(name, surname, email, date_of_birth, city, phone):
-        Mentor_model.add_mentor(name, surname, email, date_of_birth, city, phone)
+        model = Mentor_model()
+        model.add_mentor(name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
     def get_mentor_details(mentor_name, mentor_surname):
@@ -24,8 +25,10 @@ class Mentor(Employee):
 
     @staticmethod
     def edit_mentor(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone):
-        Mentor_model.edit_mentor(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
+        model = Mentor_model()
+        model.edit_mentor(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
 
     @staticmethod
-    def remove_mentor_from_data_base(mentor_name):
-        Mentor_model.remove_mentor_from_data_base(mentor_name)
+    def remove_mentor_from_data_base(mentor_name, mentor_surname):
+        model = Mentor_model()
+        model.remove_mentor_from_database(mentor_name, mentor_surname)

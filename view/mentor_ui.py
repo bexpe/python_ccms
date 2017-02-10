@@ -231,9 +231,9 @@ class MentorUI(EmployeeUI):
         student = Student.get_student_details(name, surname)
         if student:
             while True:
-                card_to_add = input("| Which card you want add? r-red, y-yellow, g-green]: ")
+                card_to_add = input("| Which card you want add? [r-red, y-yellow, g-green]: ")
                 if card_to_add in ('r', 'y', 'g'):
-                    student.add_card(card_to_add)
+                    Student.add_card(card_to_add, name, surname)
                     print(" *** Student card added *** ")
                     break
                 else:
