@@ -53,6 +53,7 @@ class StudentModel:
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add card {}".format(w))
+            
     def close_database(self):
         self.conn.close()
 
