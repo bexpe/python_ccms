@@ -25,9 +25,9 @@ class MentorUI(EmployeeUI):
                 "\n| (6) Edit student"
                 "\n| (7) Remove student"
                 "\n| (8) Add student"
-                #"\n| (9) Create student team"
+                "\n| (9) Create student team"
                 #"\n| (10) Add student to team"
-                #"\n| (11) List student teams"
+                "\n| (11) List student teams"
                 "\n| (12) Add card to student"
                 "\n| (0) Exit"
                 "\n\---------------------"
@@ -53,14 +53,12 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "8":
                 self.add_student()
             elif mentor_option == "9":
-                #self.create_student_team()
-                pass
+                self.create_student_team()
             elif mentor_option == "10":
                 #self.add_student_to_team()
                 pass
             elif mentor_option == "11":
-                #self.list_students_groups()
-                pass
+                self.list_students_groups()
             elif mentor_option == "12":
                 self.add_cards_to_students()
             elif mentor_option == "0":
@@ -224,12 +222,13 @@ class MentorUI(EmployeeUI):
 
     @staticmethod
     def list_students_groups():
+        team_model = Team()
         print(
             "\n/---------------------"
             "\n| Students groups"
         )
-        for group in Mentor.get_list_of_teams():
-            print("| Group: {}".format(group))
+        for group in team_model.display_all_groups():
+            print("| Group name: {}".format(group[1]))
 
     @staticmethod
     def add_cards_to_students():

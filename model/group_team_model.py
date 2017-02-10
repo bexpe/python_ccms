@@ -18,7 +18,7 @@ class Team:
         groups_list = []
         for item in self.c.execute("SELECT * FROM Groups"):
             groups_list.append(item)
-        print(groups_list)
+        return groups_list
 
     def add_student_to_team(self, student_name, group_id):
         try:
@@ -29,9 +29,3 @@ class Team:
 
     def close_database(self):
         self.conn.close()
-
-t = Team()
-t.create_team("zupa", "dupa")
-t.display_all_groups()
-t.add_student_to_team("zzz")
-t.display_all_groups()
