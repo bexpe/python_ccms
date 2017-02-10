@@ -1,5 +1,6 @@
 from assignment_model import AssignmentAnswerModel
 
+
 class AssignmentAnswer:
     """
     Class for students answer for current assignment.
@@ -14,10 +15,10 @@ class AssignmentAnswer:
                 student_solution_link - string
         """
         self.answer_id = answer_id
-        self.assignment_id = assignment_id
-        self.student_id = student_id
         self.student_solution_link = student_solution_link
         self.grade = grade
+        self.student_id = student_id
+        self.assignment_id = assignment_id
 
     def grade_student_assignment(self, new_grade):
         """
@@ -64,10 +65,10 @@ class AssignmentAnswer:
         """
         answer = AssignmentAnswer(student_solution_link, student_id, assignment_id)
 
-        AssignmentAnswerModel.set_assignment_answer(answer.get_student_solution_link(),
-                                                    answer.get_grade(),
-                                                    answer.get_answer_student_id(),
-                                                    answer.get_assignment_id())
+        AssignmentAnswerModel.set_assignment_answer_obj(answer.get_student_solution_link(),
+                                                        answer.get_grade(),
+                                                        answer.get_answer_student_id(),
+                                                        answer.get_assignment_id())
 
     @classmethod
     def get_assignment_answer(cls, student_id, assignment_id):
@@ -77,7 +78,7 @@ class AssignmentAnswer:
         :param assignment_id:
         :return: answer_object
         """
-        answer_db = AssignmentAnswerModel.get_assignment_answer_model(student_id, assignment_id)
+        answer_db = AssignmentAnswerModel.get_assignment_answer_obj(student_id, assignment_id)
 
         answer_object = AssignmentAnswer(answer_db[0][1],
                                          answer_db[0][3],
@@ -85,6 +86,14 @@ class AssignmentAnswer:
                                          answer_db[0][0],
                                          answer_db[0][2])
         return answer_object
+
+    @classmethod
+    def set_grade(cls, grade, student_id, assignment_id):
+        answer = AssignmentAnswer.get_assignment_answer(student_id, assignment_id)
+        AssignmentAnswerModel.update_assignment_answer_obj(answer.get_student_solution_link(),
+                                                           grade,
+                                                           answer.get_answer_student_id(),
+                                                           answer.get_assignment_id())
 
 
 class Assignment:
