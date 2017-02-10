@@ -14,6 +14,8 @@ class Mentor_model:
         return mentor_list
 
     def add_mentor(self, *args):
+        #TODO
+        #patrz kontroler co dostajesz
         try:
             self.conn.execute("INSERT INTO Mentor VALUES (NULL,'{}','{}','{}','{}','{}','{}','{}','{}')".format(*args))
             self.conn.commit()
@@ -31,6 +33,8 @@ class Mentor_model:
         self.conn.close()
 
     def edit_mentor(self, mentor_id, *args):
+        #TODO
+        #spójrz na kontroler
         try:
             self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}',"
                            "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
@@ -41,9 +45,9 @@ class Mentor_model:
     def get_mentor_detail(self, name, surname):
         mentor_detail = []
         try:
-            get_student = self.c.execute("SELECT name, surname, email, city, phone FROM Mentor"
-                                         " WHERE name = {} and surname = {}".format(name, surname))
-            for item in get_student:
+            get_mentor = self.c.execute("SELECT name, surname, email, date_of_birth, city, phone FROM Mentor"
+                                         " WHERE name = '{}' and surname = '{}'".format(name, surname))
+            for item in get_mentor:
                 mentor_detail.append(item)
             self.conn.commit()
             return mentor_detail
