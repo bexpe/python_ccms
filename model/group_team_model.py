@@ -6,9 +6,9 @@ class Team:
         self.conn = sqlite3.connect("baza_danych.db")
         self.c = self.conn.cursor()
 
-    def create_team(self, *args):
+    def add_new_group(self, *args):
         try:
-            self.conn.execute("INSERT INTO Groups VALUES (NULL,'{}','{}')".format(*args))
+            self.conn.execute("INSERT INTO Groups VALUES (NULL,'{}','{}','{}')".format(*args))
             self.conn.commit()
             print('New group is added')
         except sqlite3.OperationalError as w:
@@ -20,9 +20,9 @@ class Team:
             groups_list.append(item)
         print(groups_list)
 
-    def add_student_to_team(self, student_name):
+    def add_student_to_team(self, student_name, group_id):
         try:
-            self.conn.execute("INSERT INTO Groups(name) VALUES ('{}')".format(student_name))
+            self.conn.execute("UPDATE Groups SET student_list = student_list || ',' || '{}' WHERE ID = {}".format(student_name, group_id))
             self.conn.commit()
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
@@ -38,8 +38,8 @@ class Team:
     def close_database(self):
         self.conn.close()
 
-t = Team()
-t.create_team("zupa", "dupa")
-t.display_all_groups()
-t.add_student_to_team("zzz")
-t.display_all_groups()
+
+c = Team()
+c.add_new_group('Stefany','',1)
+c.add_student_to_team('Darek', 2)
+c.display_all_groups()
