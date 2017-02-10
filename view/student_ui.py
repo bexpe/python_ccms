@@ -1,5 +1,5 @@
-from control.student_ctrl import Student
-from control.assigment_ctrl import Assigment
+from controller.student_ctrl import Student
+#from controller.assigment_ctrl import Assigment
 
 
 class StudentUI():

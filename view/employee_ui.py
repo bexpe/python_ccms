@@ -1,4 +1,4 @@
-from control.student_ctrl import Student
+from controller.student_ctrl import Student
 
 
 class EmployeeUI:

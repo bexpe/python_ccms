@@ -1,4 +1,5 @@
-from control.student_ctrl import Student
+from controller.student_ctrl import Student
+from view.employee_ui import EmployeeUI
 import datetime
 
 

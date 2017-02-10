@@ -1,3 +1,7 @@
+from controller.student_ctrl import Student
+from view.employee_ui import EmployeeUI
+
+
 class ManagerUI(EmployeeUI):
     """There we are printing all Manager options"""
 
