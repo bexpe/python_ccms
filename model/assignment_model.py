@@ -16,7 +16,7 @@ class AssignmentAnswerModel:
         :return: None
         """
         try:
-            connect = sqlite3.connect('db.db')
+            connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
             cur.execute("INSERT INTO Answers(Answer_text,Grade,Student_ID,Assignment_id) VALUES(?,?,?,?)",
                         (student_solution_link, grade, student_id, assignment_id))
@@ -38,7 +38,7 @@ class AssignmentAnswerModel:
         :return:
         """
         try:
-            connect = sqlite3.connect('db.db')
+            connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
             cur.execute("SELECT * FROM Answers WHERE Student_ID=(?) AND Assignment_id=(?)",
                         (student_id, assignment_id))
@@ -65,7 +65,7 @@ class AssignmentAnswerModel:
         :return:
         """
         try:
-            connect = sqlite3.connect('db.db')
+            connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
             cur.execute("UPDATE Answers SET Answer_text=(?), Grade=(?), Student_ID=(?), Assignment_id=(?) WHERE ID=(?)",
                         (student_solution_link, grade, student_id, assignment_id, answer_id))
