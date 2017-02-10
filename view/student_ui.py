@@ -1,5 +1,5 @@
-from control.student_ctrl import Student
-from control.assigment_ctrl import Assigment
+from controller.student_ctrl import Student
+#from controller.assigment_ctrl import Assigment
 
 
 class StudentUI():
@@ -12,7 +12,7 @@ class StudentUI():
             print(
                 "\n/---------------------"
                 "\n| Student menu:"
-                "\n| (1) Show my grades"
+                "\n| (1) Show my grades" 
                 "\n| (2) See my overall attendance"
                 "\n| (3) Submit assignment"
                 "\n| (4) Submit team assigment"
@@ -34,18 +34,8 @@ class StudentUI():
                 print("Bad choice. Enter correct value.")
 
     def show_student_grade_ui(self):
-        student_grades = {}
-
-        # TODO
-        # to poniżej przenieść to student controller, assigment.get_student_grades(student_id)
-        assigments_list = Assigment.get_assigments_list()
-        for assigment in assigments_list:
-            grade = assigment.get_student_grade(self.student.get_student_id())
-            student_grades[assigment.get_assigment_name()] = grade
-
-        student_grades_table = ["\n| {} : {} %".format(key, value) for key, value in student_grades.items()]
-        # end todo
-
+        student_grades = self.student.get_student_grades()
+        student_grades_table = ["\n| {} : {} %".format(task_name, grade) for task_name, grade in student_grades.items()]
         print((
             "\n/---------------------"
             "\n| Your grades:"
@@ -67,10 +57,7 @@ class StudentUI():
 
     def submit_assigment_ui(self):
         assigments_list = Assigment.get_assigments_list()
-        # TODO
-        # to poniżej ma być w kontrolerze
-        assigments_table = ["\n| {}".format(assigment.get_assigment_name()) for assigment in assigments_list]
-        # end todo
+        assigments_table = ["\n| {}".format(assigment_name) for assigment_name in assigments_list]
         print((
             "\n/---------------------"
             "\n| Assigments:"

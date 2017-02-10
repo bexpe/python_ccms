@@ -7,7 +7,7 @@ class AttendanceModel:
     """
     @staticmethod
     def add_attendance_to_db(attendance_object):
-        connect = sqlite3.connect('data/data.db')
+        connect = sqlite3.connect('../data/data.db')
         cur = connect.cursor()
         cur.execute("INSERT INTO Student_Attendance(Student_id, Date, Attendance_value) VALUES(?,?,?)",
                     (attendance_object.student_id, attendance_object.date, attendance_object.attendance))
@@ -24,9 +24,9 @@ class AttendanceModel:
         :param student_id:
         :return: attendance_list_by_student
         """
-        connect = sqlite3.connect('data/data.db')
+        connect = sqlite3.connect('../data/data.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
         cur = connect.cursor()
-        cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", student_id)
+        cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", str(student_id))
         connect.commit()
         attendance_list_by_student = cur.fetchall()
         return attendance_list_by_student
@@ -38,11 +38,11 @@ class AttendanceModel:
         :param student_id:
         :return: counted_attendance_values (object)
         """
-        connect = sqlite3.connect('data/data.db')
+        connect = sqlite3.connect('../data/data.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
         cur = connect.cursor()
         cur.execute("SELECT Attendance_value, COUNT(Attendance_value) from Student_Attendance "
                     "WHERE Student_id = (?)"
-                    "GROUP BY Attendance_value ORDER BY Attendance_value ASC;", student_id)
+                    "GROUP BY Attendance_value ORDER BY Attendance_value ASC;", str(student_id))
         connect.commit()
         counted_attendance_values = cur.fetchall()
         return counted_attendance_values
@@ -54,10 +54,10 @@ class AttendanceModel:
         :param student_id:
         :return: attendance_by_student_id_sum
         """
-        connect = sqlite3.connect('data/data.db')
+        connect = sqlite3.connect('../data/data.db')
         cur = connect.cursor()
         cur.execute("SELECT count(Attendance_value) as 'sum_attendance' from Student_Attendance "
-                    "where student_id = (?)", student_id)
+                    "where student_id = (?)", str(student_id))
         connect.commit()
         attendance_by_student_id_sum = cur.fetchall()
         return attendance_by_student_id_sum

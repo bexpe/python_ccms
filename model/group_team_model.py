@@ -27,8 +27,17 @@ class Team:
         except sqlite3.OperationalError as w:
             print("Cant add this {}".format(w))
 
+    def edit_mentor(self, mentor_id, *args):
+        try:
+            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
+                           "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
+            self.conn.commit()
+        except sqlite3.OperationalError as w:
+            print("Cant edit mentor: {}".format(w))
+
     def close_database(self):
         self.conn.close()
+
 
 c = Team()
 c.add_new_group('Stefany','',1)

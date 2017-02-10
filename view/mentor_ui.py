@@ -1,4 +1,5 @@
-from control.student_ctrl import Student
+from controller.student_ctrl import Student
+from view.employee_ui import EmployeeUI
 import datetime
 
 
@@ -16,15 +17,15 @@ class MentorUI(EmployeeUI):
                 "\n| Mentor menu:"
                 "\n| (1) Show student list"
                 "\n| (2) Show student details"
-                "\n| (3) Add assignment"
-                "\n| (4) Grade assignment"
-                "\n| (5) Check attendance"
-                "\n| (6) Edit student"
-                "\n| (7) Remove student"
-                "\n| (8) Add student"
-                "\n| (9) Create student team"
-                "\n| (10) Add student to team"
-                "\n| (11) List student teams"
+                "\n| (3) Add assignment"    #TODO
+                "\n| (4) Grade assignment"  #TODO
+                "\n| (5) Check attendance"  #TODO
+                "\n| (6) Edit student"  #BUGS
+                "\n| (7) Remove student"    #BUGS
+                "\n| (8) Add student"   #BUGS
+                "\n| (9) Create student team"   #TODO
+                "\n| (10) Add student to team"  #TODO
+                "\n| (11) List student teams"   #TODO
                 "\n| (12) Add card to student"
                 "\n| (0) Exit"
                 "\n\---------------------"
@@ -57,7 +58,7 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "0":
                 break
             else:
-                print("You need to choose from options: ")
+                print("Bad choice. Enter correct value.")
 
     @staticmethod
     def add_assignment():
@@ -104,7 +105,7 @@ class MentorUI(EmployeeUI):
         )
         for student in Student.get_student_list():
             while True:
-                student_status = input("| {}: ".format(student.get_student_full_name()))
+                student_status = input("| {}: ".format(student.get_full_name()))
                 if student_status in ('p', 'l', 'a'):
                     student.set_student_attendance(student_status)
                 else:
@@ -116,8 +117,9 @@ class MentorUI(EmployeeUI):
             "\n/---------------------"
             "\n| Edit student"
         )
-        student_name = input("| Write student full name: ")
-        student = Student.get_student_by_name(student_name)
+        cur_name = input("| Write student name: ")
+        cur_surname = input("| Write student surname: ")
+        student = Student.get_student_details(cur_name, cur_surname)
         if student:
             name = input("| Write student name: ")
             surname = input("| Write student surname: ")
@@ -125,7 +127,7 @@ class MentorUI(EmployeeUI):
             date_of_birth = input("| Write student date of birth: ")
             city = input("| Write student city: ")
             phone = input("| Write student phone: ")
-            student.edit_user(name, surname, email, date_of_birth, city, phone)
+            Student.edit_student(cur_name, cur_surname, name, surname, email, date_of_birth, city, phone)
             print("*** Student edited ***")
         else:
             print("*** Student not found ***")
@@ -143,7 +145,7 @@ class MentorUI(EmployeeUI):
         date_of_birth = input("| Write student date of birth: ")
         city = input("| Write student city: ")
         phone = input("| Write student phone: ")
-        student.add_new_student(name, surname, email, date_of_birth, city, phone)
+        Student.add_student(name, surname, email, date_of_birth, city, phone)
         print("*** Student added ***")
 
     @staticmethod
@@ -151,12 +153,13 @@ class MentorUI(EmployeeUI):
         """There we are removing student by his id"""
         print(
             "\n/---------------------"
-            "\n| Add student"
+            "\n| Remove student"
         )
-        student_name = input("| Write student full name: ")
-        student = Student.get_student_by_name(student_name)
+        name = input("| Write student name: ")
+        surname = input("| Write student surname: ")
+        student = Student.get_student_details(name, surname)
         if student:
-            student.remove_student()
+            Student.remove_student_from_data_base(name, surname)
         else:
             print(" *** Student not found *** ")
 
@@ -204,8 +207,9 @@ class MentorUI(EmployeeUI):
             "\n/---------------------"
             "\n| Add cards to team"
         )
-        student_name = input("| Write student full name to add: ")
-        student = Student.get_student_by_name(student_name)
+        name = input("| Write student name: ")
+        surname = input("| Write student surname: ")
+        student = Student.get_student_details(name, surname)
         if student:
             while True:
                 card_to_add = input("| Which card you want add? r-red, y-yellow, g-green]: ")
