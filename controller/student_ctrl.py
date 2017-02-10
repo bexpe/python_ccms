@@ -1,13 +1,14 @@
 from model.student_model import StudentModel
+from controller.user_ctrl import User
 
+class Student(User):
 
-class Student:
-
-    def __init__(self, name, surname, email, date_of_birth, city, phone, attendance_level, group_name, student_card):
+    def __init__(self, name, surname, email, date_of_birth, city, phone, attendance_level, group_id, student_card):
         super().__init__(name, surname, email, date_of_birth, city, phone)
         self.attendance_level = attendance_level
-        self.group_name = group_name
+        self.group_id = group_id
         self.student_card = student_card
+
 
     def get_student_grades(self):
         return StudentModel.get_student_grades(self.get_full_name())
@@ -27,7 +28,9 @@ class Student:
 
     @staticmethod
     def get_students_list():
-        list_of_students = StudentModel.get_students_list()
+        model = StudentModel()
+        list_of_students = model.get_list_of_students()
+        return list_of_students
 
     @staticmethod
     def get_student_by_name(student_name):

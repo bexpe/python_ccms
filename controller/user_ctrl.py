@@ -1,13 +1,9 @@
-from model.user_model import User_model
-
-
 class User:
 
-    def __init__(self, name, surname, email, date_of_birth, city, phone, password):
+    def __init__(self, name, surname, email, date_of_birth, city, phone):
         self.name = name
         self.surname = surname
         self.email = email
-        self.password = password
         self.phone = phone
         self.city = city
         self.date_of_birth = date_of_birth

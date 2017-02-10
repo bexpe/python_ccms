@@ -1,5 +1,5 @@
-from model.Mentor_model import Mentor_model
-
+from model.mentor_model import Mentor_model
+from controller.employee_ctrl import Employee
 
 class Mentor(Employee):
 
@@ -14,7 +14,9 @@ class Mentor(Employee):
 
     @staticmethod
     def get_mentors_list():
-        list_of_mentors = Mentor_model.get_mentors_list()
+        model = Mentor_model()
+        list_of_mentors = model.get_list_of_mentors()
+        return list_of_mentors
 
     @staticmethod
     def add_new_mentor(name, surname, email, date_of_birth, city, phone):
