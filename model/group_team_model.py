@@ -8,7 +8,7 @@ class Team:
 
     def add_new_group(self, *args):
         try:
-            self.conn.execute("INSERT INTO Groups VALUES (NULL,'{}','{}')".format(*args))
+            self.conn.execute("INSERT INTO Groups VALUES (NULL,'{}','{}','{}')".format(*args))
             self.conn.commit()
             print('New group is added')
         except sqlite3.OperationalError as w:
@@ -20,12 +20,17 @@ class Team:
             groups_list.append(item)
         print(groups_list)
 
-    # def add_student_to_team(self, group_name, student_name):
-    #     try:
-    #         self.conn.execute("INSERT INTO Groups('{}') VALUES ('{}')".format(group_name, student_name))
-    #         self.conn.commit()
-    #     except sqlite3.OperationalError as w:
-    #         print("Cant add this {}".format(w))
+    def add_student_to_team(self, student_name, group_id):
+        try:
+            self.conn.execute("UPDATE Groups SET student_list = student_list || ',' || '{}' WHERE ID = {}".format(student_name, group_id))
+            self.conn.commit()
+        except sqlite3.OperationalError as w:
+            print("Cant add this {}".format(w))
 
     def close_database(self):
         self.conn.close()
+
+c = Team()
+c.add_new_group('Stefany','',1)
+c.add_student_to_team('Darek', 2)
+c.display_all_groups()

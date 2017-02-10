@@ -10,10 +10,9 @@ CREATE TABLE "Student" (
 	`Attendance_level` INTEGER,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT,
-	`Group_ID`	INTEGER
+	`Group_ID`	INTEGER,
 	`Card` TEXT
 );
-INSERT INTO `Student` (ID,Name,Surname,Age,Login,Password,Group_ID) VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL);
 CREATE TABLE "Mentor" (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -25,7 +24,7 @@ CREATE TABLE "Mentor" (
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT
 );
-INSERT INTO `Mentor` (ID,Name,Surname,Login,Password) VALUES (1,NULL,NULL,NULL,NULL);
+INSERT INTO `Mentor` (ID,Name,Surname,Email,Date_of_birth,City,Phone,Login,Password) VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 CREATE TABLE `Manager` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -37,13 +36,13 @@ CREATE TABLE `Manager` (
 	`login`	TEXT UNIQUE,
 	`password`	TEXT
 );
-INSERT INTO `Manager` (ID,name,surname,login,password) VALUES (1,'Tomasz','Kowalski','tok','1234');
-CREATE TABLE `Groups` (
+INSERT INTO `Manager` (ID,Name,Surname,Email,Date_of_birth,City,Phone,login,password) VALUES (1,'Tomasz','Kowalski',NULL,NULL,NULL,NULL,'tok','1234');
+CREATE TABLE "Groups" (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
-	`Assignment_ID`	INTEGER
+	`Student_list`	TEXT,
+	`Assignment_ID` INTEGER
 );
-INSERT INTO `Groups` (ID,Name,Assignment_ID) VALUES (1,NULL,NULL);
 CREATE TABLE `Employee` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -55,7 +54,7 @@ CREATE TABLE `Employee` (
 	`login`	TEXT UNIQUE,
 	`password`	TEXT
 );
-INSERT INTO `Employee` (ID,Name,Surname,login,password) VALUES (1,'Jan','Kowalik','jak',NULL);
+INSERT INTO `Employee` (ID,Name,Surname,Email,Date_of_birth,City,Phone,login,password) VALUES (1,'Jan','Kowalik',NULL,NULL,NULL,NULL,'jak',NULL);
 CREATE TABLE `Attendance` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Day`	INTEGER,
@@ -78,7 +77,7 @@ INSERT INTO `Assignments` (ID,Name,Description,Student_ID) VALUES (1,'Square','F
 CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Student_ID`	INTEGER,
-	`Answer_text`	TEXT
+	`Answer_text`	TEXT,
 	`grade` INTEGER
 
 );
