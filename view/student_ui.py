@@ -12,7 +12,7 @@ class StudentUI():
             print(
                 "\n/---------------------"
                 "\n| Student menu:"
-                "\n| (1) Show my grades"
+                "\n| (1) Show my grades" 
                 "\n| (2) See my overall attendance"
                 "\n| (3) Submit assignment"
                 "\n| (4) Submit team assigment"
