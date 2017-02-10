@@ -6,8 +6,8 @@ CREATE TABLE "Student" (
 	`Email` TEXT,
 	`Date_of_birth` TEXT,
 	`City` TEXT,
-	`Phone` INTEGER,
-	`Attendance_level` INTEGER,
+	`Phone` TEXT,
+	`Attendance_level` TEXT,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT,
 	`Group_ID`	INTEGER,
@@ -23,7 +23,7 @@ CREATE TABLE "Mentor" (
 	`Email` TEXT,
 	`Date_of_birth` TEXT,
 	`City` TEXT,
-	`Phone` INTEGER,
+	`Phone` TEXT,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT
 );
@@ -37,7 +37,7 @@ CREATE TABLE `Manager` (
 	`Email` TEXT,
 	`Date_of_birth` TEXT,
 	`City` TEXT,
-	`Phone` INTEGER,
+	`Phone` TEXT,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT
 );
@@ -55,7 +55,7 @@ CREATE TABLE `Employee` (
 	`Email` TEXT,
 	`Date_of_birth` TEXT,
 	`City` TEXT,
-	`Phone` INTEGER,
+	`Phone` TEXT,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT
 );
@@ -84,7 +84,7 @@ INSERT INTO `Assignments` (ID,Name,Description,Student_ID) VALUES (1,'Square','F
 CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Answer_text`	TEXT,
-	`Grade`	INTEGER,
+	`Grade`	TEXT
 	`Student_ID`	INTEGER,
 	`Assignment_id`	INTEGER
 );
