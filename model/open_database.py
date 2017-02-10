@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import OperationalError
 import os
 
-def loading_database():
+def load_database():
     """
     Its a function to remove database if its existing and create a new one using a script in sql format
 
@@ -16,7 +16,7 @@ def loading_database():
     c = conn.cursor()
 
     # Open and read the file as a single buffer
-    fd = open('user_database.sql', 'r')
+    fd = open('model/user_database.sql', 'r')
     sqlFile = fd.read()
     fd.close()
     sqlCommands = sqlFile.split(';')
@@ -30,5 +30,3 @@ def loading_database():
 
     c.close()
     conn.close()
-
-loading_database()

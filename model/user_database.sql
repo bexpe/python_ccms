@@ -10,10 +10,12 @@ CREATE TABLE "Student" (
 	`Attendance_level` INTEGER,
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT,
-	`Group_ID`	INTEGER
+	`Group_ID`	INTEGER,
 	`Card` TEXT
 );
-INSERT INTO `Student` (ID,Name,Surname,Age,Login,Password,Group_ID) VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `Student` (Name,Surname,Login,Password) VALUES ('Marek','Dupa','m@s','dupa');
+INSERT INTO `Student` (Name,Surname,Login,Password) VALUES ('Jadzia','Worek','j@s','dupa');
+INSERT INTO `Student` (Name,Surname,Login,Password) VALUES ('Kili','walis','k@s','dupa');
 CREATE TABLE "Mentor" (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -25,7 +27,9 @@ CREATE TABLE "Mentor" (
 	`Login`	TEXT UNIQUE,
 	`Password`	TEXT
 );
-INSERT INTO `Mentor` (ID,Name,Surname,Login,Password) VALUES (1,NULL,NULL,NULL,NULL);
+INSERT INTO `Mentor` (Name,Surname,Login,Password) VALUES ('Marcin','Izworski','marcin@m','dupa');
+INSERT INTO `Mentor` (Name,Surname,Login,Password) VALUES ('Przemysław','Ciąćka','przemek@m','dupa');
+INSERT INTO `Mentor` (Name,Surname,Login,Password) VALUES ('Mentor','Mentorowski','mentor@m','dupa');
 CREATE TABLE `Manager` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -34,10 +38,10 @@ CREATE TABLE `Manager` (
 	`Date_of_birth` TEXT,
 	`City` TEXT,
 	`Phone` INTEGER,
-	`login`	TEXT UNIQUE,
-	`password`	TEXT
+	`Login`	TEXT UNIQUE,
+	`Password`	TEXT
 );
-INSERT INTO `Manager` (ID,name,surname,login,password) VALUES (1,'Tomasz','Kowalski','tok','1234');
+INSERT INTO `Manager` (Name,Surname,Login,Password) VALUES ('Jurek','Jurkowski','jurek@j','dupa');
 CREATE TABLE `Groups` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -52,10 +56,12 @@ CREATE TABLE `Employee` (
 	`Date_of_birth` TEXT,
 	`City` TEXT,
 	`Phone` INTEGER,
-	`login`	TEXT UNIQUE,
-	`password`	TEXT
+	`Login`	TEXT UNIQUE,
+	`Password`	TEXT
 );
-INSERT INTO `Employee` (ID,Name,Surname,login,password) VALUES (1,'Jan','Kowalik','jak',NULL);
+INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Miriam','Niewiem','miriam@e','dupa');
+INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Kati','Niewiem','kati@e','dupa');
+INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Sprzataczka','Sprzataczkowska','lol@e','dupa');
 CREATE TABLE `Attendance` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Day`	INTEGER,
@@ -79,7 +85,7 @@ CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Student_ID`	INTEGER,
 	`Answer_text`	TEXT
-	`grade` INTEGER
+	`Grade` INTEGER
 
 );
 INSERT INTO `Answers` (ID,Student_ID,Answer_text) VALUES (1,4,'Square has four sides');
