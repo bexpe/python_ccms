@@ -1,12 +1,10 @@
 """
 LOGINS TO SYSTEM
 usertype:   email:      password
-mentor :    mentor@cc   memen
-student:    student@cc  ststu
-manager:    jurek@cc    jujer
-employee:   emp@cc      ememp
-
-O
+mentor :    mentor@m      dupa
+student:    marek@s       dupa
+manager:    jurek@j       dupa
+employee:   miriam@e      dupa
 """
 
 from view.student_ui import StudentUI
