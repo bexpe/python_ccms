@@ -15,33 +15,17 @@ class Attendance:
         self.attendance = attendance
 
     @classmethod
-    def set_attendance(cls):
+    def set_attendance(cls, student_id, date, attendance):
         """
         Creates attendance object with (id, day, attendance), and saves list to csv
         :return: None
         """
-        student_id = input('Insert student id: ')
-        date = datetime.datetime.now().date()
-        option = input('A= present, B= late C= not there: ')
-        option = option.upper()
-        if option == 'A':
-            attendance = 'present'
-        elif option == 'B':
-            attendance = 'late'
-        elif option == 'C':
-            attendance = 'absent'
-        else:
-            print("There is no such option.")
+        new_attendance = Attendance(int(student_id), date, attendance)
+        try:
+            AttendanceModel.add_attendance_to_db(new_attendance)
+        except sqlite3.IntegrityError:
+            print('Invalid data')
 
-        student = Student.check_student_in_db_by_id(student_id)
-        if student:
-            new_attendance = Attendance(int(student_id), date, attendance)
-            try:
-                AttendanceModel.add_attendance_to_db(new_attendance)
-            except sqlite3.IntegrityError:
-                print('Invalid data')
-        else:
-            print('Id is invalid')
 
     @classmethod
     def check_attendance_by_id(cls, student_id):
