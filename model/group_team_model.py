@@ -20,20 +20,14 @@ class Team:
             groups_list.append(item)
         print(groups_list)
 
-    def add_student_to_team(self, student_name):
+    def add_student_to_team(self, student_name, group_id):
         try:
-            self.conn.execute("INSERT INTO Groups(name) VALUES ('{}')".format(student_name))
+            self.conn.execute(
+                "UPDATE Groups SET student_list = student_list || ',' || '{}' WHERE ID = {}".format(student_name,
+                                                                                                    group_id))
             self.conn.commit()
-        except sqlite3.OperationalError as w:
-            print("Cant add this {}".format(w))
-
-    def edit_mentor(self, mentor_id, *args):
-        try:
-            self.c.execute("UPDATE Mentor SET Name = '{}', Surname = '{}',Email = '{}', Date_of_birth = '{}',"
-                           "City = '{}', Phone = '{}' WHERE ID = {}".format(*args, mentor_id))
-            self.conn.commit()
-        except sqlite3.OperationalError as w:
-            print("Cant edit mentor: {}".format(w))
+            except sqlite3.OperationalError as w:
+                print("Cant add this {}".format(w))
 
     def close_database(self):
         self.conn.close()
