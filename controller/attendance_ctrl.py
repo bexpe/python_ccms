@@ -33,8 +33,8 @@ class Attendance:
         else:
             print("There is no such option.")
             return None
-        student = Student.get_student_from_list_by_id(student_id)
-        if student is not None:
+        student = Student.check_student_in_db_by_id(student_id)
+        if student:
             new_attendance = Attendance(int(student_id), date, attendance)
             try:
                 AttendanceModel.add_attendance_to_db(new_attendance)
@@ -51,8 +51,8 @@ class Attendance:
         :return: attendance by student: list
         """
 
-        student = Student.get_student_from_list_by_id(student_id)
-        if student is not None:
+        student = Student.check_student_in_db_by_id(student_id)
+        if student:
             student_attendance_list = AttendanceModel.db_get_attendance_by_id(student_id)
             return student_attendance_list
 
@@ -79,22 +79,16 @@ class Attendance:
         :return: None
         """
         student_id = input('Insert student id \n')
-        student_id = Student.get_student_from_list_by_id(student_id)
-        if student_id is not None:
-            attendance_dict = cls.count_attendance_values(student_id.id)
+        student = Student.check_student_in_db_by_id(student_id)
+        if student:
+            attendance_dict = cls.count_attendance_values(student_id)
             if attendance_dict['day_sum'] == 0:
-                print('There is no attendance record for student: {}' .format(student_id.id))
+                print('There is no attendance record for student: {}' .format(student_id))
             else:
                 for key, value in attendance_dict.items():
-                    if value is not student_id.id:
+                    if value is not student_id:
                         percentage = 100 * int(value) // attendance_dict['day_sum']
                         if key is not 'id' and key is not 'day_sum':
                             print('{} : {} [day] = {} %'.format(key, value, percentage))
         else:
             print('Id is invalid')
-
-
-Attendance.set_attendance()
-Attendance.count_attendance_values(1)
-Attendance.count_attendance_values(1)
-Attendance.count_attendance_values(str(1))
