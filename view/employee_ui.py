@@ -1,5 +1,5 @@
 from controller.student_ctrl import Student
-from terminaltables import AsciiTable 
+from terminaltables import AsciiTable
 # pip3 install terminaltables
 
 

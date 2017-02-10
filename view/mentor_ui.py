@@ -240,5 +240,3 @@ class MentorUI(EmployeeUI):
                     print(" *** Bad card number *** ")
         else:
             print(" *** Student not found *** ")
-
-MentorUI.check_attendance()
