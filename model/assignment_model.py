@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class AssignmentAnswerModel:
     """
     Connects Assignment Class to database.

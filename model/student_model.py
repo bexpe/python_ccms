@@ -49,13 +49,23 @@ class StudentModel:
         except sqlite3.OperationalError as w:
             print("Cant edit mentor: {}".format(w))
 
+    @staticmethod
+    def check_student_in_db_by_id_model(student_id):
+        """
+        Check if student exists in database.
+        :param student_id:
+        :return: boolean
+        """
+        try:
+            student_model = StudentModel()
+            student = student_model.c.execute("SELECT ID FROM Student WHERE ID = {}".format(student_id))
+            student_model.conn.commit()
+            if student:
+                return True
+        except sqlite3.OperationalError as w:
+            print("Error occurred: {}".format(w))
+
     def close_database(self):
         self.conn.close()
 
-
-s = Student()
-s.get_list_of_students()
-
-s.get_student_detali("1","1")
-print(s.get_student_detali("1","1"))
 
