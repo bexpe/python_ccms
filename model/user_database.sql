@@ -62,18 +62,14 @@ CREATE TABLE `Employee` (
 INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Miriam','Niewiem','miriam@e','dupa');
 INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Kati','Niewiem','kati@e','dupa');
 INSERT INTO `Employee` (Name,Surname,Login,Password) VALUES ('Sprzataczka','Sprzataczkowska','lol@e','dupa');
+
+
 CREATE TABLE `Attendance` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`Day`	INTEGER,
-	`Month`	INTEGER,
-	`Year`	INTEGER,
-	`Status`	TEXT,
-	`Student_ID`	INTEGER
+	`Student_ID`	INTEGER,
+	 Date	INTEGER,
+	`Attendance_value` TEXT
 );
-INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (1,25,11,2016,'present',NULL);
-INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (2,26,11,2016,'late',NULL);
-INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (3,27,11,2016,'present',NULL);
-INSERT INTO `Attendance` (ID,Day,Month,Year,Status,Student_ID) VALUES (4,29,11,2016,'present',NULL);
 CREATE TABLE `Assignments` (	
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
@@ -84,7 +80,7 @@ INSERT INTO `Assignments` (ID,Name,Description,Student_ID) VALUES (1,'Square','F
 CREATE TABLE `Answers` (
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Answer_text`	TEXT,
-	`Grade`	TEXT
+	`Grade`	TEXT,
 	`Student_ID`	INTEGER,
 	`Assignment_id`	INTEGER
 );

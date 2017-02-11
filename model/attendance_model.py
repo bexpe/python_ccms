@@ -8,9 +8,9 @@ class AttendanceModel:
     @staticmethod
     def add_attendance_to_db(attendance_object):
         try:
-            connect = sqlite3.connect('baza_danych.db')
+            connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
-            cur.execute("INSERT INTO Student_Attendance(Student_id, Date, Attendance_value) VALUES(?,?,?)",
+            cur.execute("INSERT INTO Attendance(Student_ID, Date, Attendance_value) VALUES(?,?,?)",
                         (attendance_object.student_id, attendance_object.date, attendance_object.attendance))
             connect.commit()
         except sqlite3.Error:
@@ -31,7 +31,7 @@ class AttendanceModel:
         try:
             connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
-            cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", str(student_id))
+            cur.execute("SELECT Attendance_value, Date FROM Attendance WHERE Student_ID = (?)", student_id)
             connect.commit()
             attendance_list_by_student = cur.fetchall()
             return attendance_list_by_student
@@ -54,9 +54,9 @@ class AttendanceModel:
         try:
             connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
-            cur.execute("SELECT Attendance_value, COUNT(Attendance_value) from Student_Attendance "
-                        "WHERE Student_id = (?)"
-                        "GROUP BY Attendance_value ORDER BY Attendance_value ASC;", str(student_id))
+            cur.execute("SELECT Attendance_value, COUNT(Attendance_value) from Attendance "
+                        "WHERE Student_ID = (?)"
+                        "GROUP BY Attendance_value ORDER BY Attendance_value ASC;", student_id)
             connect.commit()
             counted_attendance_values = cur.fetchall()
             return counted_attendance_values
@@ -78,8 +78,8 @@ class AttendanceModel:
         try:
             connect = sqlite3.connect('baza_danych.db')
             cur = connect.cursor()
-            cur.execute("SELECT count(Attendance_value) as 'sum_attendance' from Student_Attendance "
-                        "where student_id = (?)", str(student_id))
+            cur.execute("SELECT count(Attendance_value) as 'sum_attendance' from Attendance "
+                        "where Student_ID = (?)", student_id)
             connect.commit()
             attendance_by_student_id_sum = cur.fetchall()
             return attendance_by_student_id_sum
