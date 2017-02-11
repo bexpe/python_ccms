@@ -2,6 +2,7 @@ import sqlite3
 from sqlite3 import OperationalError
 import os
 
+
 def load_database():
     """
     Its a function to remove database if its existing and create a new one using a script in sql format
