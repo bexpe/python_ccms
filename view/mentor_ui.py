@@ -21,7 +21,7 @@ class MentorUI(EmployeeUI):
                 "\n| (2) Show student details"
                 #"\n| (3) Add assignment"
                 #"\n| (4) Grade assignment"
-                #"\n| (5) Check attendance"
+                "\n| (5) Check attendance"
                 "\n| (6) Edit student"
                 "\n| (7) Remove student"
                 "\n| (8) Add student"
@@ -44,7 +44,7 @@ class MentorUI(EmployeeUI):
                 #self.grade_assignment()
                 pass
             elif mentor_option == "5":
-                #self.check_attendance()
+                self.check_attendance()
                 pass
             elif mentor_option == "6":
                 self.edit_student()
@@ -131,6 +131,7 @@ class MentorUI(EmployeeUI):
 
             if option in ('P', 'L', 'A'):
                 Attendance.set_attendance(student_id, date, attendance)
+                break
             else:
                 print(" *** Bad input *** ")
                 continue
