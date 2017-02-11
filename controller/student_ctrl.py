@@ -40,7 +40,8 @@ class Student(User):
         :param student_id:
         :return: boolean
         """
-        return StudentModel.check_student_in_db_by_id_model(student_id)
+        model = StudentModel()
+        return model.check_student_in_db_by_id_model(student_id)
 
     @staticmethod
     def remove_student_from_data_base(name, surname):
