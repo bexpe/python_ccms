@@ -55,19 +55,20 @@ class StudentModel:
             print("Cant add card {}".format(w))
 
     @staticmethod
-    def db_get_attendance_by_id(student_id):
+    def check_student_in_db_by_id_model(student_id):
         """
-        Get attendance list by student id.
+        Check if student exists in database.
         :param student_id:
-        :return: attendance_list_by_student
+        :return: boolean
         """
-        connect = sqlite3.connect('data/data.db')
-        cur = connect.cursor()
-        cur.execute("SELECT Attendance_value, Date FROM Student_Attendance WHERE Student_id = (?)", student_id)
-        connect.commit()
-
-        attendance_list_by_student = cur.fetchall()
-        return attendance_list_by_student
+        try:
+            student_model = StudentModel()
+            student = student_model.c.execute("SELECT ID FROM Student WHERE ID = {}".format(student_id))
+            student_model.conn.commit()
+            if student:
+                return True
+        except sqlite3.OperationalError as w:
+            print("Error occurred: {}".format(w))
 
     def close_database(self):
         self.conn.close()
