@@ -1,5 +1,4 @@
 import sqlite3
-import datetime
 from controller.student_ctrl import Student
 from model.attendance_model import AttendanceModel
 
