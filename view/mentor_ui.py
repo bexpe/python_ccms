@@ -45,7 +45,6 @@ class MentorUI(EmployeeUI):
                 pass
             elif mentor_option == "5":
                 self.check_attendance()
-                pass
             elif mentor_option == "6":
                 self.edit_student()
             elif mentor_option == "7":
@@ -112,7 +111,6 @@ class MentorUI(EmployeeUI):
         while True:
             student_id = input('Insert student id: ')
             student = Student.check_student_in_db_by_id(student_id)
-            print(student)
             if not student:
                 print('Invalid id')
                 continue
