@@ -21,10 +21,10 @@ class AssignmentAnswerModel:
             cur.execute("INSERT INTO Answers(Answer_text,Grade,Student_ID,Assignment_id) VALUES(?,?,?,?)",
                         (student_solution_link, grade, student_id, assignment_id))
             connect.commit()
-        except sqlite3.Error:
+        except sqlite3.Error as err:
             if connect:
                 connect.rollback()
-                print('There was a problem with SQL Data Base')
+                print('There was a problem with SQL Data Base') .format(err)
         finally:
             if connect:
                 connect.close()
@@ -45,10 +45,10 @@ class AssignmentAnswerModel:
             connect.commit()
             answer = cur.fetchall()
             return answer
-        except sqlite3.Error:
+        except sqlite3.Error as err:
             if connect:
                 connect.rollback()
-                print('There was a problem with SQL Data Base')
+                print('There was a problem with SQL Data Base: {}') .format(err)
         finally:
             if connect:
                 connect.close()
@@ -72,10 +72,10 @@ class AssignmentAnswerModel:
             connect.commit()
             answer = cur.fetchall()
             return answer
-        except sqlite3.Error:
+        except sqlite3.Error as err:
             if connect:
                 connect.rollback()
-                print('There was a problem with SQL Data Base')
+                print('There was a problem with SQL Data Base') .format(err)
         finally:
             if connect:
                 connect.close()
