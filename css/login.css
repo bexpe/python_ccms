@@ -1,0 +1,17 @@
+.login_form {
+    padding: 10px;
+    text-align: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    border: solid 2px #008484;
+    width: 400px;
+    text-transform: uppercase;
+
+}
+label{
+    color: crimson;
+    padding: 10px;
+}
