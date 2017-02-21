@@ -9,11 +9,10 @@
 .login_form {
     padding: 10px;
     text-align: left;
-    position: absolute;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
+    position: fixed;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border: solid 1px #00A388;
     border-top: solid 5px #00A388;
     width: 400px;
