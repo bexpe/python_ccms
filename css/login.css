@@ -1,0 +1,91 @@
+#colors {
+    color: #FF6138;
+    color: #FFFF9D;
+    color: #beeb9f;
+    color: #79BD8F;
+    color: #00A388;
+}
+
+.login_form {
+    padding: 10px;
+    text-align: left;
+    position: fixed;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: solid 1px #00A388;
+    border-top: solid 5px #00A388;
+    width: 400px;
+    text-transform: uppercase;
+    -webkit-box-shadow: 2px 2px 11px -3px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 11px -3px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 11px -3px rgba(0,0,0,0.75);
+}
+
+label, input, button {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    color: #00A388;
+    margin-bottom: 5px;
+}
+
+label {
+    text-align: center;
+}
+
+button, input {
+    background-color: white;
+    width: 200px;
+    height: 35px;
+    color: grey;
+    letter-spacing: 2px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input {
+    border: none;
+    border-bottom: 2px solid grey;
+}
+
+input:hover {
+    border: none;
+    border-bottom: 2px solid #00A388;
+    color: #00A388;
+}
+
+input:focus {
+    color: #00A388;
+    border: none;
+    border-bottom: 2px solid #00A388;
+    outline: none;
+}
+
+button {
+    margin-top: 20px;
+    height:25px;
+    border: none;
+    border-bottom: 2px solid #464646;
+    color: white;
+    background-color: grey;
+    outline: none;
+}
+
+button:hover {
+    background-color: #79BD8F;
+    color: white;
+}
+
+button:focus {
+    background-color: #00A388;
+}
+
+.login_form a {
+    float: right;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 80%;
+    color: #79BD8F;
+}
