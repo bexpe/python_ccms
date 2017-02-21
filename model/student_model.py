@@ -27,13 +27,14 @@ class StudentModel:
         except sqlite3.OperationalError as w:
             print("Cant remove Table from database {}".format(w))
 
-    def get_student_detail(self, name, surname):
+    def get_student_detail(self, name, surname, student_list):
         student_detail = []
         try:
             get_student = self.c.execute("SELECT name, surname, email, date_of_birth, city, phone, attendance_level, card FROM Student"
                                          " WHERE name = '{}' and surname = '{}'".format(name, surname))
-            for item in get_student:
-                student_detail.append(item)
+            for student in student_list:
+                for item in get_student:
+                    student_detail.append(item)
             self.conn.commit()
             return student_detail
         except sqlite3.OperationalError as w:
