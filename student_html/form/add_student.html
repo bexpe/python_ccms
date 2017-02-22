@@ -1,9 +1,31 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add student</title>
+    <link rel="stylesheet" type="text/css" href="../../css/forms.css" />
 </head>
+
+
 <body>
+<form class="newStudent">
+    <h1>New student</h1>
+    <div>
+        <input type="text" id="input-login" placeholder="Enter login " onchange="validateContactData(this)">
+        <input type="email" id="input-email" placeholder="Type email " onchange="validateContactData(this)">
+        <input type="text" id="input-firstName" placeholder="Enter name " onchange="validateContactData(this)">
+        <input type="text" id="input-surname" placeholder="Enter your surname " onchange="validateContactData(this)">
+            <select type="text" id="subject" name="subject" class="span3">
+            <option value="na" selected="">Class: </option>
+            <option value="service">Stefan</option>
+            <option value="suggestions">Group 1</option>
+            <option value="product">Group 2</option>
+            </select>
+            <input type="submit" value="SAVE" id="input-save" onclick="sendMessage()">
+    </div>
+</form>
 </body>
+
+
 </html>
