@@ -12,6 +12,12 @@ FFFF9D
     justify-content: center;
 }
 
+.main_container {
+    display: block;
+    border: 3px solid #79BD8F;
+    background-color: #00A388;
+}
+
 .left_menu {
     margin-right: 10px;
 }
@@ -40,24 +46,33 @@ FFFF9D
     align-items: flex-start;
     margin: 10px 15px 10px 15px;
     font-size: 12px;
+    background-color: #79BD8F;
 }
 
 .user_info_container .user_image {
-    padding-top: 4px;
+    height: 55px;
+    width: 55px;
 }
 
-.user_info_container .user_name {
+.user_info_container .user_name{
     text-align: left;
     width: 70px;
+    height: 30px;
+    display: block;
+    align-self: flex-start;
+}
+
+.user_info_container .user_name h3{
+    margin: 5px auto auto 5px;
+    font-size: 15px;
 }
 
 .user_info_container .logout_button {
     display: block;
     padding: 5px 10px 5px 10px;
     margin-left: 10px;
-    margin-bottom: 3px;
-    align-self: flex-end;
-    background-color: #79BD8F;
+    align-self: flex-start;
+    background-color: #FF6138;
 }
 
 .user_info_container .logout_button a {
@@ -67,7 +82,7 @@ FFFF9D
 
 body {  
     font-family: 'Metrophobic', sans-serif;
-    background-color: #FFFF9D
+    background-color: #BEEB9F;
 }
 
 nav {
@@ -120,10 +135,4 @@ nav li:hover {
 
 nav li:last-child {
     border-bottom: none;
-}
-
-.main_container {
-    display: block;
-    border: 3px solid #79BD8F;
-    background-color: #00A388;
 }
