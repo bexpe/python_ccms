@@ -86,3 +86,6 @@ table tbody tr:hover{
   min-width: 60px;
 }
 
+.name_column{
+  min-width: 300px;
+}
