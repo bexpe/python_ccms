@@ -1,37 +1,129 @@
+/*
+FF6138
+BEEB9F
+FFFF9D
+79BD8F
+00A388
+*/
+
 .container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.left_menu {
+    margin-right: 10px;
+}
+
+.logged_user {
+    text-align: center;
+    display: block;
+    color: white;
+    border: 3px solid #79BD8F;
+    background-color: #00A388;
+}
+
+.logged_user p {
+    display: block;
+    margin: 15px auto 0 auto;
+    display: block;
+    padding: 8px 0 8px 0;
+    background-color: #79BD8F;
+    width: 200px;
+    font-weight: bold;
+}
+
+.user_info_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 10px 15px 10px 15px;
+    font-size: 12px;
+}
+
+.user_info_container .user_image {
+    padding-top: 4px;
+}
+
+.user_info_container .user_name {
+    text-align: left;
+    width: 70px;
+}
+
+.user_info_container .logout_button {
+    display: block;
+    padding: 5px 10px 5px 10px;
+    margin-left: 10px;
+    margin-bottom: 3px;
+    align-self: flex-end;
+    background-color: #79BD8F;
+}
+
+.user_info_container .logout_button a {
+    text-decoration: none;
+    color: white;
+}
+
+body {  
     font-family: 'Metrophobic', sans-serif;
+    background-color: #FFFF9D
+}
+
+nav {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    width: 200px;
+    border: 3px solid #79BD8F;
+    background-color: #00A388;
+}
+
+header {
+    width: 200px;
+    padding: 0;
+    margin: auto;
+}
+
+header p{
+    display: block;
+    font-weight: bold;
+    color: white;
+    margin: 10px auto 10px auto;
+    padding: 8px 16px;
+    background-color: #FF6138;
 }
 
 nav ul {
     list-style-type: none;
-    margin: 0;
+    margin: auto;
     padding: 0;
     width: 200px;
-    background-color: #f1f1f1;
+    background-color: #79BD8F;
 }
 
 nav li a {
     display: block;
-    color: #000;
+    color: white;
     padding: 8px 16px;
     text-decoration: none;
+    text-align: left;
+    border-bottom: 2px solid #00A388;
 }
 
+
 /* Change the link color on hover */
-nav li a:hover {
+nav li:hover {
     background-color: #555;
     color: white;
 }
 
-ul {
-    border: 1px solid #555;
-}
-
-li {
-    text-align: center;
-    border-bottom: 1px solid #555;
-}
-
-li:last-child {
+nav li:last-child {
     border-bottom: none;
+}
+
+.main_container {
+    display: block;
+    border: 3px solid #79BD8F;
+    background-color: #00A388;
 }
