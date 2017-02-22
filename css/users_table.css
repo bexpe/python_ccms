@@ -1,0 +1,91 @@
+#colors {
+    color: #FF6138;
+    color: #ffff9d;
+    color: #beeb9f;
+    color: #79BD8F;
+    color: #00A388;
+}
+
+table {
+  /*min-width: auto;*/
+  float: right;
+  position: absolute;
+  top:10%;
+  left: 50%;
+  transform: translate(-50%);
+  display: inline-block;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+
+}
+
+.table_title{
+  font-size: 120%;
+}
+
+button{
+  margin-right: 10px;
+  padding: 5px 20px;
+
+  overflow: hidden;
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #00A388;
+  color: #ecf0f1;
+
+}
+caption{
+  font-size: 200%;
+  letter-spacing: 3px;
+  text-align: left;
+
+  ;
+}
+.add_user_button  {
+    position: fixed;
+    right: 0;
+}
+
+button:hover, button:focus {
+  background-color: #79BD8F;
+}
+table {
+  margin-top: 50px;
+  /*display: table;*/
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table, th, td {
+  padding: 10px;
+  border: none;
+
+}
+
+thead,tr {
+  border: none;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+td, th {
+  min-width: 100px;
+  padding: 15px 5px;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+
+}
+
+table tbody tr:hover{
+  background-color: #f0f0f0;
+}
+
+.id_column{
+  min-width: 60px;
+}
+
+.name_column{
+  min-width: 300px;
+}
