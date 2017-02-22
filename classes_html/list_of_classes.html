@@ -1,51 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Codecool CCMS by STEFAN team">
+    <title>Codecool CCMS</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css"/>
-
 </head>
 <body>
-<table>
-    <caption>List of classes
-    <button type="button" class="add_user_button">Add new class</button>
-        </caption>
+    <div class="container">
+            <section>
+                <p>You're logged in as:</p>
+                <div class="container">
+                    <div>
+                        <img src="../img/user_photo.img" alt="User Photo">
+                    </div>
+                    <div>
+                        <h2>Name</h2>
+                        <div class="link logout">
+                            <a class="link logout" href="login.html">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <nav>
+                <header class="nav">Classes</header>
+                <ul>
+                    <li><a href="../classes_html/attendance.html">Attendance</a></li>
+                    <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
+                    <li><a href="../classes_html/checkpoint.html">Checkpoint</a></li>
+                </ul>
+                <header class="nav">Student</header>
+                <ul>
+                    <li><a href="../student_html/student_list.html">Students list</a></li>
+                    <li><a href="../student_html/teams.html">Teams</a></li>
+                </ul>
+                <header class="nav">Assignment</header>
+                <ul>
+                    <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
+                    <li><a href="../assignment_html/grades.html">Grades</a></li>
+                </ul>
+                <header class="nav">Mentor</header>
+                <ul>
+                    <li><a href="../mentor_html/mentor_list.html">Mentor list</a></li>
+                </ul>
 
-        <thead>
-        <tr>
-            <th data-field="id" class="id_column">#</th>
-            <th data-field="name" class="name_column">Class name</th>
-            <th data-field="actions" class="">actions</th>
-        </tr>
-        </thead>
+            </nav>
+        <section class="main_container">
+            <table>
+                <caption>List of classes
+                    <button type="button" class="add_user_button">Add new class</button>
+                </caption>
 
-        <tbody>
-        <tr>
-            <td class="id_column">01</td>
-            <td class="name_column">KRK 2016.1</td>
-            <td>
-                <button type="button">Edit</button><button type="button">Remove</button>
-            </td>
+                <thead>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="name" class="name_column">Class name</th>
+                        <th data-field="actions" class="">actions</th>
+                    </tr>
+                </thead>
 
-        </tr>
-        <tr>
-            <td class="id_column">02</td>
-            <td class="name_column">KRK 2017.1</td>
-            <td>
-                <button type="button">Edit</button><button type="button">Remove</button>
-            </td>
+                <tbody>
+                    <tr>
+                        <td class="id_column">01</td>
+                        <td class="name_column">KRK 2016.1</td>
+                        <td>
+                            <button type="button">Edit</button><button type="button">Remove</button>
+                        </td>
 
-        </tr>
-        <tr>
-            <td class="id_column">03</td>
-            <td class="name_column">KRK 2017.2</td>
-            <td>
-                <button type="button">Edit</button><button type="button">Remove</button>
-            </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">02</td>
+                        <td class="name_column">KRK 2017.1</td>
+                        <td>
+                            <button type="button">Edit</button><button type="button">Remove</button>
+                        </td>
 
-        </tr>
-        </tbody>
-    </table>
+                    </tr>
+                    <tr>
+                        <td class="id_column">03</td>
+                        <td class="name_column">KRK 2017.2</td>
+                        <td>
+                            <button type="button">Edit</button><button type="button">Remove</button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
 </body>
 </html>
