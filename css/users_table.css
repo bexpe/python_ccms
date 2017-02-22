@@ -1,16 +1,18 @@
-#colors {
-    color: #FF6138;
-    color: #ffff9d;
-    color: #beeb9f;
-    color: #79BD8F;
-    color: #00A388;
-}
+.main_container{
+  height: auto;
+  background: #fff;
+  padding: 10px ;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
-.users_table{
+
+
+}
+.main_container .users_table{
   border: solid crimson 3px;
+
 }
 
-button{
+.main_container button{
   margin-right: 5px;
   padding: 5px 20px;
   overflow: hidden;
@@ -22,56 +24,53 @@ button{
 
 }
 
-caption{
+.main_container caption{
   font-size: 200%;
   letter-spacing: 3px;
   text-align: left;
 
 }
 
-.buttons{
+.main_container .buttons{
   float: right;
 }
 
-button:hover, button:focus {
+.main_container button:hover,.main_container button:focus {
   background-color: #79BD8F;
 
 }
 
+.main_container .add_user_button  {
+    float: right;
+}
 
-table {
-
+.main_container table {
+  border: none;
   border-collapse: collapse;
   border-spacing: 10px 10px;
-  position: absolute;
-  top:10%;
-  left: 50%;
-  transform: translate(-50%);
-  /*display: inline-block;*/
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
 
 }
 
-thead,tr {
+.main_container thead,tr {
 
   border-bottom: 1px solid #d0d0d0;
 }
 
-td, th {
+.main_container td, .main_container th {
   padding: 15px 15px;
   text-align: left;
   vertical-align: middle;
 }
 
-table tbody tr:hover{
+.main_container table tbody tr:hover{
   background-color: #f0f0f0;
 }
 
-.id_column{
+.main_container .id_column{
   min-width: 30px;
 }
 
-.name_column{
+.main_container .name_column{
   min-width: 300px;
 }

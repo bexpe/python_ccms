@@ -2,26 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit student</title>
+    <title>Create new team</title>
      <link rel="stylesheet" type="text/css" href="../../css/forms.css" />
 </head>
 
 
 <body>
 <form class="editStudent">
-<h1>Edit student</h1>
+<h1>Create new team</h1>
     <div>
-        <input type="text" id="input-login" placeholder="Enter login " onchange="validateContactData(this)" value="czar.ek">
-        <input type="email" id="input-email" placeholder="Type email " onchange="validateContactData(this)" value="czar.ek@gmail.com">
-        <input type="text" id="input-firstName" placeholder="Enter name " onchange="validateContactData(this)" value="Cezary">
-        <input type="text" id="input-surname" placeholder="Enter your surname " onchange="validateContactData(this)" value="Pazura">
-            <select type="text" id="subject" name="subject" class="span3">
-            <option value="na" selected="">Class: </option>
-            <option value="service">Stefan</option>
-            <option value="suggestions">Group 1</option>
-            <option value="product">Group 2</option>
-            </select>
-            <input type="submit" value="SAVE" id="input-save" onclick="sendMessage()">
+        <input type="text" id="input-login" placeholder="Enter new name of a team" onchange="validateContactData(this)">
+            <input type="submit" value="SAVE A TEAM" id="input-save" onclick="sendMessage()">
     </div>
 </form>
 </body>
