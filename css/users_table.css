@@ -35,7 +35,11 @@ button{
 
 }
 caption{
+  font-size: 200%;
+  letter-spacing: 3px;
   text-align: left;
+
+  ;
 }
 .add_user_button  {
   float: right;
@@ -58,6 +62,7 @@ table, th, td {
 }
 
 thead,tr {
+  border: none;
   border-bottom: 1px solid #d0d0d0;
 }
 
@@ -71,10 +76,10 @@ td, th {
 }
 
 table tbody tr:hover{
-  background-color: #FFFF9D;
+  background-color: #f0f0f0;
+;
 }
 
 .id_column{
   min-width: 60px;
 }
-col
