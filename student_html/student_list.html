@@ -6,6 +6,7 @@
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 
 </head>
@@ -63,7 +64,7 @@
         <section class="main_container">
             <table>
                 <caption>Students list
-                    <button type="button" class="buttons">Add student</button>
+                    <button type="button" class="buttons" id="myBtn">Add student</button>
                 </caption>
                 <thead>
                 <tr>
@@ -116,7 +117,29 @@
 
             </table>
 
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
 
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close">&times;</span>
+                    <h1>New student</h1>
+                    <input type="text" id="input-login" placeholder="Enter login " onchange="validateContactData(this)">
+                    <input type="email" id="input-email" placeholder="Type email " onchange="validateContactData(this)">
+                    <input type="text" id="input-firstName" placeholder="Enter name " onchange="validateContactData(this)">
+                    <input type="text" id="input-surname" placeholder="Enter your surname " onchange="validateContactData(this)">
+                    <select type="text" id="subject" name="subject" class="span3">
+                        <option value="service">Stefan</option>
+                        <option value="suggestions">Group 1</option>
+                        <option value="product">Group 2</option>
+                    </select>
+                    <input type="submit" value="SAVE" id="input-save" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
+            <script src="../../js/forms.js"></script>
         </section>
     </div>
 </div>
