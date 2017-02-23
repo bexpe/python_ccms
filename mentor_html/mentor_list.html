@@ -6,6 +6,7 @@
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 
 </head>
@@ -63,7 +64,7 @@
         <section class="main_container">
             <table>
                 <caption>Mentors list
-                    <button type="button" class="buttons">Add mentor</button>
+                    <button type="button" class="buttons" name="add_mentor" onclick="buttonclick(this.name)">Add mentor</button>
                 </caption>
 
                 <thead>
@@ -81,8 +82,8 @@
                     <td>das@po.pl</td>
                     <td>
             <span class="buttons">
-                <button type="button" onclick="location.href='../mentor_html/mentor_details.html'">Details</button>
-                <button type="button">Edit</button>
+                <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
             </span>
                     </td>
 
@@ -93,8 +94,8 @@
                     <td>dasfcffffffffffffffffffffffffffff@po.pl</td>
                     <td>
             <span class="buttons">
-                <button type="button" onclick="location.href='../mentor_html/mentor_details.html'">Details</button>
-                <button type="button">Edit</button>
+                <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
             </span>
 
                     </td>
@@ -106,16 +107,96 @@
                     <td>das@po.pl</td>
                     <td>
             <span class="buttons">
-                <button type="button" onclick="location.href='../mentor_html/mentor_details.html'">Details</button>
-                <button type="button">Edit</button>
+                <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
             </span>
                     </td>
 
                 </tr>
                 </tbody>
             </table>
+
+            <!-- The Modal -->
+            <div id="add_mentor_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close_add_mentor">&times;</span>
+                    <h1>New mentor</h1>
+                    <input type="text" id="input-login_add_mentor" placeholder="Enter login " onchange="validateContactData(this)">
+                    <input type="email" id="input-email_add_mentor" placeholder="Type email " onchange="validateContactData(this)">
+                    <input type="text" id="input-firstName_add_mentor" placeholder="Enter name " onchange="validateContactData(this)">
+                    <input type="text" id="input-surname_add_mentor" placeholder="Enter your surname " onchange="validateContactData(this)">
+                    <select type="text" id="subject_add_mentor" name="subject" class="span3">
+                        <option value="service">Stefan</option>
+                        <option value="suggestions">Group 1</option>
+                        <option value="product">Group 2</option>
+                    </select>
+                    <input type="submit" value="SAVE" id="input-save_add_mentor" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
+
+            <div id="details_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <div class="main_container" id="details">
+                    <span class="close_details">&times;</span>
+                    <h1>Mentor's details</h1>
+                    <table>
+                    <caption>
+                        Jon Doe
+                    <span class="buttons">
+                    <!-- name="edit" onclick="buttonclick(this.name)"><button type="button">Edit mentor</button>-->
+                        <button type="button">Remove student</button>
+                    </span>
+                    </caption>
+                    <tr>
+                        <td>Email:</td>
+                        <td>Jon@doe.com</td>
+                    </tr>
+                    <tr>
+                        <td>Adress:</td>
+                        <td>Somewhere Str 21/12 Kraków</td>
+                    </tr>
+                    <tr>
+                        <td>Phone number:</td>
+                        <td>48-123-456-789  </td>
+                    </tr>
+
+                    </table>
+                   </div>
+              </div>
+            </div>
+
+
+            <div id="edit_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close_edit">&times;</span>
+                    <h1>Edit mentor</h1>
+                    <input type="text" id="input-login_edit" placeholder="Enter login " onchange="validateContactData(this)">
+                    <input type="email" id="input-email_edit" placeholder="Type email " onchange="validateContactData(this)">
+                    <input type="text" id="input-firstName_edit" placeholder="Enter name " onchange="validateContactData(this)">
+                    <input type="text" id="input-surname_edit" placeholder="Enter your surname " onchange="validateContactData(this)">
+                    <select type="text" id="subject_edit" name="subject" class="span3">
+                        <option value="service">Stefan</option>
+                        <option value="suggestions">Group 1</option>
+                        <option value="product">Group 2</option>
+                    </select>
+                    <input type="submit" value="SAVE" id="input-save_edit" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
         </section>
     </div>
 </div>
+<script src="../js/forms.js"></script>
 </body>
 </html>

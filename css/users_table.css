@@ -46,7 +46,7 @@
   border: none;
   border-collapse: collapse;
   border-spacing: 10px 10px;
-    width: 100%;
+  width: 100%;
 
 }
 
@@ -78,3 +78,25 @@
 /*.main_container .name_column{*/
   /*min-width: 300px;*/
 /*}*/
+
+/* user details overrite css */
+
+#details {
+  background-color: #FFF;
+  width: 50%;
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  padding: 20px;
+}
+#details h1 {
+    color: #00A388;
+    font-size: 200%;
+}
+#details span{
+  color: black;
+}
+
+#details span:hover, span:focus{
+  color: #00A388;
+}
