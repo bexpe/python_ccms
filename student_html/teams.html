@@ -6,6 +6,7 @@
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 
 </head>
@@ -63,7 +64,7 @@
         <section class="main_container">
             <table>
                 <caption>Teams
-                    <button type="button" class="buttons">Create team</button>
+                    <button type="button" class="buttons" name="add_team" onclick="buttonclick(this.name)">Create team</button>
                 </caption>
                 <thead>
                 <tr>
@@ -81,8 +82,8 @@
                     <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
                     <td>
                 <span class="buttons">
-                    <button type="button">Details</button>
-                    <button type="button">Edit</button></span>
+                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                    <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
                     </td>
 
                 </tr>
@@ -92,8 +93,8 @@
                     <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
                     <td>
                 <span class="buttons">
-                    <button type="button">Details</button>
-                    <button type="button">Edit</button>
+                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                    <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
                 </span>
                     </td>
 
@@ -104,8 +105,8 @@
                     <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
                     <td>
                 <span class="buttons">
-                    <button type="button">Details</button>
-                    <button type="button">Edit</button>
+                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                    <button type="button " name="edit" onclick="buttonclick(this.name)">Edit</button>
                 </span>
                     </td>
 
@@ -113,10 +114,85 @@
                 </tbody>
 
             </table>
+            <!-- The Modal -->
+            <div id="add_team_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close_add_team">&times;</span>
+                    <h1>New team</h1>
+                    <input type="text" id="input-name_add_team" placeholder="Enter name :" onchange="validateContactData(this)">
+                    <input type="text" id="input-first_add_team" placeholder="Team member 1:" onchange="validateContactData(this)">
+                    <input type="text" id="input-second_add_team" placeholder="Team member 2:" onchange="validateContactData(this)">
+                    <input type="text" id="input-third_add_team" placeholder="Team member 3:" onchange="validateContactData(this)">
+                    <input type="text" id="input-fourth_add_team" placeholder="Team member 4:" onchange="validateContactData(this)">
+                    <input type="submit" value="SAVE" id="input-save_add_team" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
+
+            <div id="details_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <div class="main_container" id="details">
+                    <span class="close_details">&times;</span>
+                    <h1>Team's details</h1>
+                    <table>
+                    <caption>
+                        Team name
+                    <span class="buttons">
+                        <button type="button">Remove team</button>
+                    </span>
+                    </caption>
+                    <tr>
+                        <td>Name:</td>
+                        <td>Misiaczki</td>
+                    </tr>
+                    <tr>
+                        <td>Member:</td>
+                        <td>John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>Member:</td>
+                        <td>John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>Member:</td>
+                        <td>John Doe</td>
+                    </tr>
+                    <tr>
+                        <td>Member:</td>
+                        <td>John Doe</td>
+                    </tr>
+                    </table>
+                   </div>
+              </div>
+            </div>
 
 
+            <div id="edit_Modal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close_edit">&times;</span>
+                    <h1>Edit team</h1>
+                    <input type="text" id="input-name_edit_team" placeholder="Enter name :" onchange="validateContactData(this)">
+                    <input type="text" id="input-first_edit_team" placeholder="Team member 1:" onchange="validateContactData(this)">
+                    <input type="text" id="input-second_edit_team" placeholder="Team member 2:" onchange="validateContactData(this)">
+                    <input type="text" id="input-third_edit_team" placeholder="Team member 3:" onchange="validateContactData(this)">
+                    <input type="text" id="input-fourth_edit_team" placeholder="Team member 4:" onchange="validateContactData(this)">
+                    <input type="submit" value="SAVE" id="input-save_edit_team" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
         </section>
     </div>
 </div>
+<script src="../js/forms.js"></script>
 </body>
 </html>
