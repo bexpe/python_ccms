@@ -5,6 +5,7 @@
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
@@ -57,43 +58,55 @@
             </nav>
         </div>
         <div class="right_content">
-                <section class="main_container">
-                    <h1>YOUR CODE GOES HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-                    <h1>INSIDE MAIN CONTAINER</h1>
-                    (Student)
-                    <li>Show student list
-                        <ul>
-                            <li>Show student details</li>
-                            <li>Edit student</li>
-                            <li>Remove student</li>
-                            <li>Add student</li>
-                            <li>Add to team</li>
-                        </ul>
-                    </li>
-                    <li>List student teams
-                        <ul>
-                            <li>Add new team</li>
-                            <li>Edit Team</li>
-                            <li>Remove team</li>
-                        </ul>
-                    </li>
+            <section class="main_container">
+                <table>
+                    <caption>Checking attendance for <time datetime="2017-02-14">DATE</time></caption>
+                    <button type="button" class="buttons">Submit</button>
+                    <thead>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="name">Name</th>
+                        <th data-field="status">Status</th>
+                    </tr>
+                    </thead>
 
-                    (Mentor)
-                    <li>Show mentor list
-                    <ul>
-                            <li>Show mentor details</li>
-                            <li>Edit mentor</li>
-                            <li>add mentor</li>
-                            <li>Remove mentor</li>
-                    </ul>
-
-                    (Classes)
-                    <li>Checkpoint (list of checkpoints) and inside students list, then
-                        <ul>
-                        <li>Add card to student</li>
-                        </ul>
-                    </li>
-                </section>
+                    <tbody>
+                    <tr>
+                        <td class="id_column">01</td>
+                        <td>Alvin</td>
+                        <td>
+                            <form action="check_attendance_buttons">
+                                <input type="radio" name="attendance" value="present">Present
+                                <input type="radio" name="attendance" value="late">Late
+                                <input type="radio" name="attendance" value="absent">Absent
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">02</td>
+                        <td>Marian Mariański-Dupański</td>
+                        <td>
+                            <form action="check_attendance_buttons">
+                                <input type="radio" name="attendance" value="present">Present
+                                <input type="radio" name="attendance" value="late">Late
+                                <input type="radio" name="attendance" value="absent">Absent
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">03</td>
+                        <td>Jonathan</td>
+                        <td>
+                            <form action="check_attendance_buttons">
+                                <input type="radio" name="attendance" value="present">Present
+                                <input type="radio" name="attendance" value="late">Late
+                                <input type="radio" name="attendance" value="absent">Absent
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
     </div>
 </body>
