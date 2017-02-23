@@ -26,6 +26,7 @@
 }
 
 .main_container .buttons{
+  display: inline-block;
   float: right;
 }
 
