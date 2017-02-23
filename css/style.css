@@ -18,6 +18,10 @@ FFFF9D
     background-color: #00A388;
 }
 
+.right_content {
+    width: 100%;
+}
+
 .left_menu {
     margin-right: 10px;
 }
