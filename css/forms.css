@@ -86,6 +86,6 @@
     cursor: pointer;
 }
 
-.modal select, .modal #input-save {
+.modal select, .modal [id^="input-save"] {
     width: 84.5%;
 }
