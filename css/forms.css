@@ -72,15 +72,15 @@
 
 
 /* The Close Button */
-.close {
+[class^="close"] {
     color: #FFF;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+[class^="close"]:hover,
+[class^="close"]:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
