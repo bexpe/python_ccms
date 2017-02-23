@@ -48,7 +48,7 @@ FFFF9D
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin: 10px 15px 10px 15px;
+    margin: 10px 15px 15px 15px;
     font-size: 12px;
     background-color: #79BD8F;
 }
@@ -116,6 +116,7 @@ header p{
 nav ul {
     list-style-type: none;
     margin: auto;
+    margin-bottom: 5px;
     padding: 0;
     width: 200px;
     background-color: #79BD8F;
