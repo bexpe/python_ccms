@@ -1,0 +1,26 @@
+.main_container{
+    background-color: white;
+    padding: 3% ;
+}
+.main_container progress {
+    background: linear-gradient(to right, #09c, #f44);
+    height: 30px;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+}
+
+.main_container progress::-webkit-progress-bar {
+    background: linear-gradient(to left, #00cc7f, #FFFF9D,  #f44);
+    border: 1px solid #bfbfbf;
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
+
+}
+.main_container progress::-webkit-progress-value {
+    float: right;
+    background: #eaeaea;
+}
+
+.main_container h1{
+    text-align: center;
+}
