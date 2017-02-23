@@ -6,12 +6,13 @@
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
-
     <link rel="stylesheet" type="text/css" href="../css/attendance.css">
-
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
+        <div id="panda" class="panda">
+            <img src="../img/panda.gif  ">
+        </div>
 <div class="container">
     <div class="left_menu">
         <section class="logged_user">
@@ -61,48 +62,50 @@
         </nav>
     </div>
     <div class="right_content">
-        <section class="main_container">
-
-
+        <section id="main_container" class="hide">
             <div class="attendance_bar">
-
-        <progress value="25" max="100"></progress>
                 <h1>My attendance is: 75%</h1>
+                <progress value="25" max="100"></progress>
             </div>
-
             <table>
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>Date</th>
-                        <th>Day</th>
-                        <th>Status</th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>Date</th>
+                    <th>Day</th>
+                    <th>Status</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="circle_column"><div class="yellow_circle"></div></td>
-                        <td>Feb 17</td>
-                        <td>Friday</td>
-                        <td>Late</td>
-                    </tr>
-                    <tr>
-                        <td class="circle_column"><div class="red_circle"></div></td>
-                        <td>Feb 10</td>
-                        <td>Friday</td>
-                        <td>Absent</td>
-                    </tr>
-                    <tr>
-                        <td class="circle_column"><div class="red_circle"></div></td>
-                        <td>Feb 9</td>
-                        <td>Thursday</td>
-                        <td>Absent</td>
-                    </tr>
+                <tr>
+                    <td class="circle_column">
+                        <div class="yellow_circle"></div>
+                    </td>
+                    <td>Feb 17</td>
+                    <td>Friday</td>
+                    <td>Late</td>
+                </tr>
+                <tr>
+                    <td class="circle_column">
+                        <div class="red_circle"></div>
+                    </td>
+                    <td>Feb 10</td>
+                    <td>Friday</td>
+                    <td>Absent</td>
+                </tr>
+                <tr>
+                    <td class="circle_column">
+                        <div class="red_circle"></div>
+                    </td>
+                    <td>Feb 9</td>
+                    <td>Thursday</td>
+                    <td>Absent</td>
+                </tr>
                 </tbody>
             </table>
-
         </section>
     </div>
 </div>
 </body>
+<script src="../js/hide.js"></script>
 </html>

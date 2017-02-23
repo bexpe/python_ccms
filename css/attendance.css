@@ -1,6 +1,10 @@
+.hide{
+	display:none;
+}
 .main_container{
     background-color: white;
-    padding: 3% ;
+    padding: 3%;
+
 }
 .main_container progress {
     background: linear-gradient(to right, #09c, #f44);
@@ -39,4 +43,16 @@
 }
 .circle_column{
     width: 25px;
+}
+
+.panda {
+    height: 200px;
+    width: 200px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    right: 50%;
+
 }
