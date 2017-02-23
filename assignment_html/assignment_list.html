@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
@@ -47,7 +48,6 @@
                 </header>
                 <ul>
                     <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
-                    <li><a href="../assignment_html/grades.html">Grades</a></li>
                 </ul>
                 <header class="nav">
                     <p>Mentor</p>
@@ -61,9 +61,8 @@
         <div class="right_content">
                 <section class="main_container">
                 <table>
-                    <caption>Assigments
-                    <button type="button" class="buttons" name="add_assignment" onclick="buttonclick(this.name)">Add assigment</button>
-                        <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
+                    <caption>Assignments
+                    <button type="button" class="buttons" name="add_assignment" onclick="buttonclick(this.name)">Add assignment</button>
                     </caption>
                     <thead>
                     <tr>
@@ -138,7 +137,6 @@
                     </tr>
                     </tbody>
                 </table>
-
                 <div id="add_assignment_Modal" class="modal">
                 <!-- Modal content -->
                     <div class="modal-content">
@@ -156,8 +154,25 @@
                     </div>
 
             </div>
+                    <!-- The Modal -->
+                <div id="add_assignment_Modal" class="modal">
+
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                      <form class="newStudent">
+                        <span class="close_add_assignment">&times;</span>
+                        <h1>New assignment</h1>
+                        <input type="text" id="input-name_add_assignment" placeholder="Enter type:" onchange="validateContactData(this)">
+                        <input type="text" id="input-first_add_assignment" placeholder="Enter description:" onchange="validateContactData(this)">
+                        <input type="file" id="input-second_add_assignment" placeholder="Add file:" onchange="validateContactData(this)">
+                        <input type="submit" value="SAVE" id="input-save_add_assignment" onclick="sendMessage()">
+
+                      </form>
+                  </div>
+                </div>
             </section>
         </div>
     </div>
+<script src="../js/forms.js"></script>
 </body>
 </html>

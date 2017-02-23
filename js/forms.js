@@ -1,7 +1,7 @@
 function buttonclick(name){
     /*
      shows Modal on website
-     make sure the id of button is the beginning od id of modal div and add "_Modal"
+     make sure the id of button is the beginning id of modal div and add "_Modal"
      span inside modal should be named as "close_" and name added
      */
 
