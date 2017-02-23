@@ -5,6 +5,7 @@
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
@@ -58,42 +59,83 @@
         </div>
         <div class="right_content">
                 <section class="main_container">
-                    <h1>YOUR CODE GOES HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
-                    <h1>INSIDE MAIN CONTAINER</h1>
-                    (Student)
-                    <li>Show student list
-                        <ul>
-                            <li>Show student details</li>
-                            <li>Edit student</li>
-                            <li>Remove student</li>
-                            <li>Add student</li>
-                            <li>Add to team</li>
-                        </ul>
-                    </li>
-                    <li>List student teams
-                        <ul>
-                            <li>Add new team</li>
-                            <li>Edit Team</li>
-                            <li>Remove team</li>
-                        </ul>
-                    </li>
+                <table>
+                    <caption>Assigments</caption>
+                    <button type="button" class="buttons">Add assigment</button>
+                    <thead>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="name">Task name</th>
+                        <th data-field="type">Type</th>
+                        <th data-field="description">Description</th>
+                        <th data-field="grade">Grade</th>
+                    </tr>
+                    </thead>
 
-                    (Mentor)
-                    <li>Show mentor list
-                    <ul>
-                            <li>Show mentor details</li>
-                            <li>Edit mentor</li>
-                            <li>add mentor</li>
-                            <li>Remove mentor</li>
-                    </ul>
-
-                    (Classes)
-                    <li>Checkpoint (list of checkpoints) and inside students list, then
-                        <ul>
-                        <li>Add card to student</li>
-                        </ul>
-                    </li>
-                </section>
+                    <tbody>
+                    <tr>
+                        <td class="id_column">01</td>
+                        <td>Geometry OOP</td>
+                        <td>
+                            Personal
+                        </td>
+                        <td>
+                            task description
+                        </td>
+                        <td>
+                            0
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
+                                <button type="button">Submit</button>
+                                <button type="button">Submit as team</button>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">02</td>
+                        <td>CCMS project</td>
+                        <td>
+                            Team
+                        </td>
+                        <td>
+                            task description
+                        </td>
+                        <td>
+                            14%
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
+                                <button type="button">Submit</button>
+                                <button type="button">Submit as team</button>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">03</td>
+                        <td>100 doors</td>
+                        <td>
+                            Personal
+                        </td>
+                        <td>
+                            task description
+                        </td>
+                        <td>
+                            67%
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
+                                <button type="button">Submit</button>
+                                <button type="button">Submit as team</button>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
     </div>
 </body>

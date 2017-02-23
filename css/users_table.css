@@ -28,6 +28,8 @@
 .main_container .buttons{
   display: inline-block;
   float: right;
+  padding: 1%;
+
 }
 
 .main_container button:hover,.main_container button:focus {
@@ -69,10 +71,10 @@
   background-color: #f0f0f0;
 }
 
-.main_container .id_column{
-  min-width: 30px;
-}
+/*.main_container .id_column{*/
+  /*min-width: 30px;*/
+/*}*/
 
-.main_container .name_column{
-  min-width: 300px;
-}
+/*.main_container .name_column{*/
+  /*min-width: 300px;*/
+/*}*/

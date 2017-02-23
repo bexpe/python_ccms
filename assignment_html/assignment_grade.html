@@ -5,6 +5,7 @@
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
@@ -58,41 +59,63 @@
         </div>
         <div class="right_content">
                 <section class="main_container">
-                    <h1>*** not necessary ***</h1>
-                    (Student)
-                    <li>Show student list
-                        <ul>
-                            <li>Show student details</li>
-                            <li>Edit student</li>
-                            <li>Remove student</li>
-                            <li>Add student</li>
-                            <li>Add to team</li>
-                        </ul>
-                    </li>
-                    <li>List student teams
-                        <ul>
-                            <li>Add new team</li>
-                            <li>Edit Team</li>
-                            <li>Remove team</li>
-                        </ul>
-                    </li>
+                <table>
+                    <caption>100 doors task</caption>
+                    <button type="button" class="buttons">Save</button>
+                    <thead>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="name">Name</th>
+                        <th data-field="description">Answer</th>
+                    </tr>
+                    </thead>
 
-                    (Mentor)
-                    <li>Show mentor list
-                    <ul>
-                            <li>Show mentor details</li>
-                            <li>Edit mentor</li>
-                            <li>add mentor</li>
-                            <li>Remove mentor</li>
-                    </ul>
-
-                    (Classes)
-                    <li>Checkpoint (list of checkpoints) and inside students list, then
-                        <ul>
-                        <li>Add card to student</li>
-                        </ul>
-                    </li>
-                </section>
+                    <tbody>
+                    <tr>
+                        <td class="id_column">01</td>
+                        <td>Marek Dupa</td>
+                        <td>
+                            link to github
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                Grade:
+                                <input type="text" name="grade">
+                                <button type="button">Submit</button>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">02</td>
+                        <td>Jadzia Worek</td>
+                        <td>
+                            link to github
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                Grade:
+                                <input type="text" name="grade">
+                                <button type="button">Submit</button>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="id_column">03</td>
+                        <td>Andrzej Duda</td>
+                        <td>
+                            link to github
+                        </td>
+                        <td>
+                            <span class="buttons">
+                                Grade:
+                                <input type="text" name="grade">
+                                <button type="button">Submit</button>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
     </div>
 </body>
