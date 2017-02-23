@@ -8,9 +8,6 @@ function buttonclick(name){
 // Get the modal
     var modal = document.getElementById(name+"_Modal");
 
-// Get the button that opens the modal
-    var btn = document.getElementById(name);
-
 // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close_"+name)[0];
 
