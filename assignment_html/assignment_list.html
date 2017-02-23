@@ -5,6 +5,7 @@
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link rel="stylesheet" type="text/css" href="../css/users_table.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
@@ -61,7 +62,8 @@
                 <section class="main_container">
                 <table>
                     <caption>Assigments
-                    <button type="button" class="buttons">Add assigment</button>
+                    <button type="button" class="buttons" name="add_assignment" onclick="buttonclick(this.name)">Add assigment</button>
+                        <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
                     </caption>
                     <thead>
                     <tr>
@@ -136,6 +138,24 @@
                     </tr>
                     </tbody>
                 </table>
+
+                <div id="add_assignment_Modal" class="modal">
+                <!-- Modal content -->
+                    <div class="modal-content">
+                    <form class="newStudent">
+                    <span class="close_add_assignment">&times;</span>
+                    <h1>New assignment</h1>
+                    <input type="text" id="input-task_name" placeholder="New task name " onchange="validateContactData(this)">
+                    <input type="email" id="input-task_description" placeholder="New task description" onchange="validateContactData(this)">
+                    <select type="text" id="subject_add_student" name="subject" class="span3">
+                        <option value="service">Personal</option>
+                        <option value="suggestions">Team</option>
+                    </select>
+                    <input type="submit" value="SAVE" id="input-save_add_student" onclick="sendMessage()">
+                      </form>
+                    </div>
+
+            </div>
             </section>
         </div>
     </div>
