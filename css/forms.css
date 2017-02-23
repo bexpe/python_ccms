@@ -24,7 +24,7 @@
 }
 
 .modal-content input, textarea, .span3 {
-    margin-left: 45px;
+    /*margin-left: 45px;*/
     border: 0;
     outline: 0;
     padding: 1em;
@@ -84,4 +84,8 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.modal select, .modal #input-save {
+    width: 84.5%;
 }
