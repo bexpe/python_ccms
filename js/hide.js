@@ -4,14 +4,14 @@
 
 window.onload=function()  //executes when the page finishes loading
 {
-	setTimeout(func1, 5000);  //sets a timer which calls function func1 after 2,000 milliseconds = 2 secs.
-    setTimeout(func2, 5000);
+	setTimeout(hide_panda, 5000);  //sets a timer which calls function hide_panda after 5,000 milliseconds = 5 secs.
+    setTimeout(show_content, 5000);
 };
-function func1()
-{
-	document.getElementById("main_container").className="main_container";
-}
-function func2()
+function hide_panda()
 {
 	document.getElementById("panda").className="hide";
+}
+function show_content()
+{
+	document.getElementById("main_container").className="main_container";
 }

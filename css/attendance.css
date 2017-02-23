@@ -3,7 +3,8 @@
 }
 .main_container{
     background-color: white;
-    padding: 3% ;
+    padding: 3%;
+
 }
 .main_container progress {
     background: linear-gradient(to right, #09c, #f44);
@@ -53,4 +54,5 @@
     transform: translate(-50%, -50%);
     z-index: 100;
     right: 50%;
+
 }

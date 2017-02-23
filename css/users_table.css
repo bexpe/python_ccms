@@ -37,10 +37,6 @@
 
 }
 
-/*.main_container .add_user_button  {*/
-    /*float: right;*/
-/*}*/
-
 .main_container table {
 
   border: none;
@@ -62,19 +58,6 @@
 
 }
 
-/*.main_container td{*/
-  /*white-space: nowrap;*/
-/*}*/
-
-
 .main_container table tbody tr:hover{
   background-color: #f0f0f0;
 }
-
-/*.main_container .id_column{*/
-  /*min-width: 30px;*/
-/*}*/
-
-/*.main_container .name_column{*/
-  /*min-width: 300px;*/
-/*}*/
