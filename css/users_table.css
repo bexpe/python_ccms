@@ -69,10 +69,10 @@
   background-color: #f0f0f0;
 }
 
-.main_container .id_column{
-  min-width: 30px;
-}
+/*.main_container .id_column{*/
+  /*min-width: 30px;*/
+/*}*/
 
-.main_container .name_column{
-  min-width: 300px;
-}
+/*.main_container .name_column{*/
+  /*min-width: 300px;*/
+/*}*/

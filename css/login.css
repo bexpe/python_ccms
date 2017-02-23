@@ -82,9 +82,12 @@ button:focus {
     background-color: #00A388;
 }
 
-.login_form a {
+.links{
     float: right;
-    text-align: center;
+}
+
+.login_form a {
+    
     margin-top: 10px;
     font-size: 80%;
     color: #79BD8F;
