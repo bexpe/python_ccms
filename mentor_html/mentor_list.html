@@ -11,101 +11,111 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="left_menu">
-            <section class="logged_user">
-                <p>You're logged in as:</p>
-                <div class="user_info_container">
-                    <div class="user_image">
-                        <img src="../img/user.png" alt="User Photo" width="55" height="55">
-                    </div>
-                    <div class="user_name">
-                        <h3>Przemek</h3>
-                    </div>
-                    <div class="logout_button">
-                        <a id="link_logout" href="../login.html">Logout</a>
-                    </div>
+<div class="container">
+    <div class="left_menu">
+        <section class="logged_user">
+            <p>You're logged in as:</p>
+            <div class="user_info_container">
+                <div class="user_image">
+                    <img src="../img/user.png" alt="User Photo" width="55" height="55">
                 </div>
-            </section>
-            <nav>
-                <header class="nav">
-                    <p>Classes</p>
-                </header>
-                <ul>
-                    <li><a href="../classes_html/attendance.html">Attendance</a></li>
-                    <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
-                    <li><a href="../classes_html/checkpoint.html">Checkpoint</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Student</p>
-                </header>
-                <ul>
-                    <li><a href="../student_html/student_list.html">Students list</a></li>
-                    <li><a href="../student_html/teams.html">Teams</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Assignment</p>
-                </header>
-                <ul>
-                    <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
-                    <li><a href="../assignment_html/grades.html">Grades</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Mentor</p>
-                </header>
-                <ul>
-                    <li><a href="../mentor_html/mentor_list.html">Mentor list</a></li>
-                </ul>
+                <div class="user_name">
+                    <h3>Przemek</h3>
+                </div>
+                <div class="logout_button">
+                    <a id="link_logout" href="../login.html">Logout</a>
+                </div>
+            </div>
+        </section>
+        <nav>
+            <header class="nav">
+                <p>Classes</p>
+            </header>
+            <ul>
+                <li><a href="../classes_html/attendance.html">Attendance</a></li>
+                <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
+                <li><a href="../classes_html/checkpoint.html">Checkpoint</a></li>
+            </ul>
+            <header class="nav">
+                <p>Student</p>
+            </header>
+            <ul>
+                <li><a href="../student_html/student_list.html">Students list</a></li>
+                <li><a href="../student_html/teams.html">Teams</a></li>
+            </ul>
+            <header class="nav">
+                <p>Assignment</p>
+            </header>
+            <ul>
+                <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
+                <li><a href="../assignment_html/grades.html">Grades</a></li>
+            </ul>
+            <header class="nav">
+                <p>Mentor</p>
+            </header>
+            <ul>
+                <li><a href="../mentor_html/mentor_list.html">Mentor list</a></li>
+            </ul>
 
-            </nav>
-        </div>
-        <div class="right_content">
-            <section class="main_container">
-<table>
-    <caption>Mentors list
-        <button type="button" class="buttons">Add mentor</button>
-    </caption>
-
-    <thead>
-    <tr>
-        <th data-field="id" class="id_column">#</th>
-        <th data-field="name">Name</th>
-        <th data-field="email">Email</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <tr>
-        <td class="id_column">01</td>
-        <td>Alvin</td>
-        <td>das@po.pl</td>
-        <td>
-            <span class="buttons"><button type="button">Edit</button></span>
-        </td>
-
-    </tr>
-    <tr>
-        <td class="id_column">02</td>
-        <td>Alan</td>
-        <td>dasfcffffffffffffffffffffffffffff@po.pl</td>
-        <td>
-            <span class="buttons"><button type="button">Edit</button></span>
-        </td>
-
-    </tr>
-    <tr>
-        <td class="id_column">03</td>
-        <td>Jonathan</td>
-        <td>das@po.pl</td>
-        <td>
-            <span class="buttons"><button type="button">Edit</button></span>
-        </td>
-
-    </tr>
-    </tbody>
-</table>
-            </section>
-        </div>
+        </nav>
     </div>
+    <div class="right_content">
+        <section class="main_container">
+            <table>
+                <caption>Mentors list
+                    <button type="button" class="buttons">Add mentor</button>
+                </caption>
+
+                <thead>
+                <tr>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="email">Email</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td class="id_column">01</td>
+                    <td>Alvin</td>
+                    <td>das@po.pl</td>
+                    <td>
+            <span class="buttons">
+                <button type="button">Details</button>
+                <button type="button">Edit</button>
+            </span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="id_column">02</td>
+                    <td>Alan</td>
+                    <td>dasfcffffffffffffffffffffffffffff@po.pl</td>
+                    <td>
+            <span class="buttons">
+                <button type="button">Details</button>
+                <button type="button">Edit</button>
+            </span>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="id_column">03</td>
+                    <td>Jonathan</td>
+                    <td>das@po.pl</td>
+                    <td>
+            <span class="buttons">
+                <button type="button">Details</button>
+                <button type="button">Edit</button>
+            </span>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
 </body>
 </html>
