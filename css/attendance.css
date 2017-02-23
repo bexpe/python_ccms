@@ -1,3 +1,6 @@
+.hide{
+	display:none;
+}
 .main_container{
     background-color: white;
     padding: 3% ;
@@ -39,4 +42,15 @@
 }
 .circle_column{
     width: 25px;
+}
+
+.panda {
+    height: 200px;
+    width: 200px;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    right: 50%;
 }
