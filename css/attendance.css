@@ -24,3 +24,9 @@
 .main_container h1{
     text-align: center;
 }
+.main_container .circle{
+    background: #f00;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
