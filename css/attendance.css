@@ -24,9 +24,19 @@
 .main_container h1{
     text-align: center;
 }
-.main_container .circle{
-    background: #f00;
-    width: 200px;
-    height: 200px;
+.main_container .red_circle {
+    background: #ff4444;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
+}
+
+.main_container .yellow_circle {
+    background: #dcda46;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.circle_column{
+    width: 25px;
 }
