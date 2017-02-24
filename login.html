@@ -7,15 +7,22 @@
     <link rel="stylesheet" type="text/css" href="css/login.css"/>
 </head>
 <body>
+<div class="card">
     <form name="form" class="login_form">
+
+
         <label>Login to your account:</label>
-        <input type="email" placeholder="Give your email"/>
+        <input id="email" type="email" placeholder="Give your email"/>
         <input type="password" placeholder="Give your password"/>
-        <button type="submit">login</button>
         <span class="links">
-        <a href="index.html">       Index</a>
-        <a href="login.html">Reset password</a>
+
             </span>
-    </form>
+
+        </form>
+        <input type="submit" value="LOGIN" id="login_butt" onclick=location.href='index.html'>
+
+</div>
 </body>
+<script src="/js/login.js"></script>
+
 </html>
