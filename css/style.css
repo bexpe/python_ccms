@@ -141,3 +141,10 @@ nav li:hover {
 nav li:last-child {
     border-bottom: none;
 }
+
+.main_container {
+    padding-top: 90px;
+    text-align: center;
+    color: white;
+    font-size: 45px;
+}
