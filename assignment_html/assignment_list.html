@@ -90,8 +90,8 @@
                         <td>
                             <span class="buttons">
                                 <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
-                                <button type="button">Submit</button>
-                                <button type="button">Submit as team</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
                             </span>
                         </td>
                     </tr>
@@ -110,8 +110,8 @@
                         <td>
                             <span class="buttons">
                                 <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
-                                <button type="button">Submit</button>
-                                <button type="button">Submit as team</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
                             </span>
                         </td>
                     </tr>
@@ -130,30 +130,14 @@
                         <td>
                             <span class="buttons">
                                 <button type="button" onclick="location.href='../assignment_html/assignment_grade.html'">Grade</button>
-                                <button type="button">Submit</button>
-                                <button type="button">Submit as team</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
+                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
                             </span>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <div id="add_assignment_Modal" class="modal">
-                <!-- Modal content -->
-                    <div class="modal-content">
-                    <form class="newStudent">
-                    <span class="close_add_assignment">&times;</span>
-                    <h1>New assignment</h1>
-                    <input type="text" id="input-task_name" placeholder="New task name " onchange="validateContactData(this)">
-                    <input type="email" id="input-task_description" placeholder="New task description" onchange="validateContactData(this)">
-                    <select type="text" id="subject_add_student" name="subject" class="span3">
-                        <option value="service">Personal</option>
-                        <option value="suggestions">Team</option>
-                    </select>
-                    <input type="submit" value="SAVE" id="input-save_add_student" onclick="sendMessage()">
-                      </form>
-                    </div>
 
-            </div>
                     <!-- The Modal -->
                 <div id="add_assignment_Modal" class="modal">
 
@@ -162,10 +146,28 @@
                       <form class="newStudent">
                         <span class="close_add_assignment">&times;</span>
                         <h1>New assignment</h1>
-                        <input type="text" id="input-name_add_assignment" placeholder="Enter type:" onchange="validateContactData(this)">
+                        <input type="text" id="input-name_add_assignment" placeholder="New task name:" onchange="validateContactData(this)">
                         <input type="text" id="input-first_add_assignment" placeholder="Enter description:" onchange="validateContactData(this)">
+                        <select type="text" id="subject_add_student" name="subject" class="span3">
+                        <option value="service">Personal</option>
+                        <option value="suggestions">Team</option>
+                        </select>
                         <input type="file" id="input-second_add_assignment" placeholder="Add file:" onchange="validateContactData(this)">
                         <input type="submit" value="SAVE" id="input-save_add_assignment" onclick="sendMessage()">
+
+                      </form>
+                  </div>
+                </div>
+
+                <div id="submit_assignment_Modal" class="modal">
+
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                      <form class="newStudent">
+                        <span class="close_submit_assignment">&times;</span>
+                        <h1>Submit assignment</h1>
+                        <input type="file" id="input-second_submit_assignment" placeholder="Add file:" onchange="validateContactData(this)">
+                        <input type="submit" value="SUBMIT" id="input-save_submit_assignment" onclick="sendMessage()">
 
                       </form>
                   </div>
