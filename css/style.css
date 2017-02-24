@@ -141,3 +141,10 @@ nav li:hover {
 nav li:last-child {
     border-bottom: none;
 }
+
+.codecool_logo {
+    padding-top: 90px;
+    text-align: center;
+    color: white;
+    font-size: 45px;
+}
