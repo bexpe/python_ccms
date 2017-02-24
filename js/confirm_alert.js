@@ -3,7 +3,7 @@
  */
 function confirmAlert() {
     var x;
-    if (confirm("Remove - are you sure?") == true) {
+    if (confirm("Remove - Are you sure?") == true) {
         x = "Remove";
     } else {
         x = "Cancel";
