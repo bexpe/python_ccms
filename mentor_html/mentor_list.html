@@ -145,7 +145,8 @@
                         Jon Doe
                     <span class="buttons">
                     <!-- name="edit" onclick="buttonclick(this.name)"><button type="button">Edit mentor</button>-->
-                        <button type="button">Remove student</button>
+                        <button type="button" name="confirm" onclick="buttonclick(this,name)">Remove mentor</button>
+
                     </span>
                     </caption>
                     <tr>
@@ -166,9 +167,7 @@
               </div>
             </div>
 
-
             <div id="edit_Modal" class="modal">
-
               <!-- Modal content -->
               <div class="modal-content">
                   <form class="newStudent">
@@ -182,6 +181,21 @@
                   </form>
               </div>
             </div>
+
+            <div id="confirm_Modal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent">
+                    <span class="close_confirm">&times;</span>
+                    <h1>Do you want to keep changes? </h1>
+
+                    <input type="submit" value="YES" id="input-save_add_mentor" onclick="sendMessage()">
+                    <input type="submit" value="NO" id="input-save_add_mentor" onclick="sendMessage()">
+
+                  </form>
+              </div>
+            </div>
+
         </section>
     </div>
 </div>
