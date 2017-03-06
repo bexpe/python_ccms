@@ -8,10 +8,10 @@ def load_database():
     Its a function to remove database if its existing and create a new one using a script in sql format
 
     """
-    try:
-        os.remove('baza_danych.db')
-    except OSError:
-        pass
+    # try:
+    #     os.remove('baza_danych.db') # it was said that deleting database every time we open a file is not proper
+    # except OSError:
+    #     pass
 
     conn = sqlite3.connect('baza_danych.db')
     c = conn.cursor()

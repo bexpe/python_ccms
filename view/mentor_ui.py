@@ -54,7 +54,7 @@ class MentorUI(EmployeeUI):
             elif mentor_option == "9":
                 self.create_student_team()
             elif mentor_option == "10":
-                #self.add_student_to_team()
+                self.add_student_to_team()
                 pass
             elif mentor_option == "11":
                 self.list_students_groups()

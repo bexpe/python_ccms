@@ -32,3 +32,7 @@ class Mentor(Employee):
     def remove_mentor_from_data_base(mentor_name, mentor_surname):
         model = Mentor_model()
         model.remove_mentor_from_database(mentor_name, mentor_surname)
+
+    @staticmethod
+    def get_team_by_name(team_name):
+
