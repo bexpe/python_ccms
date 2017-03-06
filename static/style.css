@@ -34,15 +34,15 @@ FFFF9D
     background-color: #00A388;
 }
 
-.logged_user p {
-    display: block;
-    margin: 15px auto 0 auto;
-    display: block;
-    padding: 8px 0 8px 0;
-    background-color: #79BD8F;
-    width: 200px;
-    font-weight: bold;
-}
+    .logged_user p {
+        display: block;
+        margin: 15px auto 0 auto;
+        display: block;
+        padding: 8px 0 8px 0;
+        background-color: #79BD8F;
+        width: 200px;
+        font-weight: bold;
+    }
 
 .user_info_container {
     display: flex;

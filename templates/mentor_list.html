@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
-    <link rel="stylesheet" type="text/css" href="../css/forms.css">
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../static/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 
 </head>
@@ -18,13 +18,13 @@
             <p>You're logged in as:</p>
             <div class="user_info_container">
                 <div class="user_image">
-                    <img src="../img/user.png" alt="User Photo" width="55" height="55">
+                    <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
                 </div>
                 <div class="user_name">
                     <h3>Przemek</h3>
                 </div>
                 <div class="logout_button">
-                    <a id="link_logout" href="../login.html">Logout</a>
+                    <a id="link_logout" href="login.html">Logout</a>
                 </div>
             </div>
         </section>
@@ -35,7 +35,7 @@
             <ul>
                 <li><a href="../classes_html/attendance.html">Attendance</a></li>
                 <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
-                <li><a href="../classes_html/checkpoint.html">Checkpoint</a></li>
+                <li><a href="checkpoint.html">Checkpoint</a></li>
             </ul>
             <header class="nav">
                 <p>Student</p>
@@ -67,11 +67,11 @@
                 </caption>
 
                 <thead>
-                <tr>
-                    <th data-field="id" class="id_column">#</th>
-                    <th data-field="name">Name</th>
-                    <th data-field="email">Email</th>
-                </tr>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="name">Name</th>
+                        <th data-field="email">Email</th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -105,10 +105,10 @@
                     <td>Jonathan</td>
                     <td>das@po.pl</td>
                     <td>
-            <span class="buttons">
-                <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-            </span>
+                        <span class="buttons">
+                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
+                        </span>
                     </td>
 
                 </tr>
@@ -183,7 +183,7 @@
         </section>
     </div>
 </div>
-<script src="../js/forms.js"></script>
-<script src="../js/confirm_alert.js"></script>
+<script src="../static/js/forms.js"></script>
+<script src="../static/js/confirm_alert.js"></script>
 </body>
 </html>
