@@ -1,5 +1,8 @@
-import model.user
-
+from model.user import User
 
 class Student(User):
-    pass
+    def __init__(self, user_id, name, surname, email, date_of_birth, city, phone, login, password, team_id, card):
+        super().__init__(user_id, name, surname, email, date_of_birth, city, phone, login, password)
+        self.team_id = team_id
+        self.card = card
+
