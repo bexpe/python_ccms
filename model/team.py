@@ -4,9 +4,9 @@ from model.database import *
 class Team:
 
     def __init__(self, team_id, team_name):
-        self.db = Database()
         self.team_id = team_id
         self.team_name = team_name
+
     @classmethod
     def add_new_team(cls, name):
         db = Database()
@@ -18,14 +18,25 @@ class Team:
 
     def edit_team(self, team_id, edit_new_name):
         db = Database()
-
-        z = self.db.set("UPDATE Teams SET Name = (?) WHERE ID=(?)", (edit_new_name, team_id))
+        query = """UPDATE Teams SET Name = (?) WHERE ID=(?)""", (edit_new_name, team_id)
+        db.set(query)
+        db.close()
 
     def remove_team(self, team_id):
-        self.db.set("DELETE FROM Teams WHERE ID=(?)", (team_id,))
+        db = Database()
+        query = """DELETE FROM Teams WHERE ID=(?)""", (team_id,)
+        db.set(query)
+        db.close()
 
     def get_team_details(self, team_id):
-        self.db.get("SELECT * FROM Teams WHERE ID=(?)", (team_id,))
+        team_details = []
+        db = Database()
+        query = """SELECT * FROM Teams WHERE ID=(?)""", (team_id,)
+        for team in db.get(query):
+            team_object = Team(team[0], team[1])
+            team_details.append(team_object)
+        db.close()
+        return team_details
 
     @classmethod
     def get_list_of_teams(cls):
@@ -39,10 +50,12 @@ class Team:
         return list_of_teams
 
     def add_student_to_team(self, student_id, team_id):
+        db = Database
         self.db.get(" Teams ")
+        db.close()
+        pass
 
-
-edit = Team()
-edit.edit_team(1, 'xd')
-edit.add_new_team('chvhv')
-print(edit.get_list_of_teams())
+# edit = Team(0, 'Stefany')
+# edit.edit_team(1, 'xd')
+# edit.add_new_team('chvhv')
+# print(edit.get_list_of_teams())
