@@ -16,10 +16,12 @@ class Student(User):
         db = Database()
         query = """SELECT * FROM Student;"""
         for person in db.get(query):
-            person_object = Student(person[0], person[1], person[2], person[3], person[4], person[5], person[6], person[7], person[8], person[9])
+            person_object = Student(person[0], person[1], person[2], person[3], person[4], person[5], person[6], person[7], person[9], person[10])
             list_of_students.append(person_object)
 
         db.close()
         return list_of_students
 
 
+
+print(Student.get_list_of_students())
