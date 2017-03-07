@@ -7,6 +7,4 @@ class User():
         self.date_of_birth = date_of_birth
         self.city = city
         self.phone = phone
-
         self.login = login
-        self.password = password
