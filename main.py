@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from model.student import Student
+from model.mentor import Mentor
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/teams')
-def (error):
+def gdyuasguydg(error):
     """Closes the database again at the end of the request."""
     #Todo.close_database()
     pass
@@ -33,6 +34,11 @@ def redirect_url():
 def student_list():
     students = Student.get_list_of_students()
     return render_template('student_list.html', students=students)
+
+@app.route('/mentor_list.html')
+def mentor_list():
+    mentors = Mentor.get_list_of_mentors()
+    return render_template('mentor_list.html', students=mentors)
 
 
 if __name__ == "__main__":

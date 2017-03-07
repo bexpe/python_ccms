@@ -16,6 +16,7 @@ class Mentor(User):
     def get_mentor_details(self, idx):
         pass
 
+    @classmethod
     def get_list_of_mentors(cls):
         list_of_mentors = []
         db = Database()
@@ -45,14 +46,14 @@ class Mentor(User):
     def add_new_mentor(self, mentor_object):
         db = Database()
         query = """INSERT INTO Mentor(Name, Surname, Email, Date_of_birth, City, Phone, Login) VALUES (?,?,?,?,?,?,?);"""
-        person = db.get(query, (
-                                mentor_object.name,
-                                mentor_object.surname,
-                                mentor_object.email,
-                                mentor_object.date_of_birth,
-                                mentor_object.city,
-                                mentor_object.phone,
-                                mentor_object.login,
-                                mentor_object.user_id
-                                )
+        db.get(query, (
+                        mentor_object.name,
+                        mentor_object.surname,
+                        mentor_object.email,
+                        mentor_object.date_of_birth,
+                        mentor_object.city,
+                        mentor_object.phone,
+                        mentor_object.login,
+                        mentor_object.user_id
                         )
+                )
