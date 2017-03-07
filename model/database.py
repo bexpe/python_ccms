@@ -10,12 +10,12 @@ class Database:
     def close(self):
         self.conn.close()
 
-    def set(self, command, values):
+    def set(self, command, values=None):
         self.cursor.execute(command, values)
         self.conn.commit()
 
-    def get(self, command):
-        self.cursor.execute(command)
+    def get(self, command, values=(0,)):
+        self.cursor.execute(command, values)
         data = self.cursor.fetchall()
         return data
 
