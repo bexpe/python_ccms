@@ -11,3 +11,4 @@ __pycache__/
 
 my_test.py
 
+model/database.db
