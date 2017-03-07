@@ -52,7 +52,7 @@ class AttendanceModel:
         :return: counted_attendance_values (object)
         """
         try:
-            connect = sqlite3.connect('../../database.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+            connect = sqlite3.connect('baza_danych.db', detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
             cur = connect.cursor()
             cur.execute("SELECT Attendance_value, COUNT(Attendance_value) from Attendance "
                         "WHERE Student_ID = (?)"
@@ -90,5 +90,3 @@ class AttendanceModel:
         finally:
             if connect:
                 connect.close()
-
-print(AttendanceModel.db_get_count_attendance_values("1"))
