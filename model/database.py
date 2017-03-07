@@ -10,8 +10,8 @@ class Database:
     def close(self):
         self.conn.close()
 
-    def set(self, command):
-        self.cursor.execute(command)
+    def set(self, command, values):
+        self.cursor.execute(command, values)
         self.conn.commit()
 
     def get(self, command):
