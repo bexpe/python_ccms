@@ -14,8 +14,11 @@ class Database:
         self.cursor.execute(command, values)
         self.conn.commit()
 
-    def get(self, command):
-        self.cursor.execute(command)
+    def get(self, command, values=None):
+        if values is None:
+            self.cursor.execute(command)
+        else:
+            self.cursor.execute(command, values)
         data = self.cursor.fetchall()
         return data
 

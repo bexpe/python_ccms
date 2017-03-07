@@ -10,6 +10,11 @@ def index():
     """
     return render_template('index.html')
 
+@app.route('/teams')
+def (error):
+    """Closes the database again at the end of the request."""
+    #Todo.close_database()
+    pass
 
 @app.teardown_appcontext
 def close_db(error):
