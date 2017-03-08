@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/attendance")
 def index():
     """ Shows list of todo items stored in the database.
     """
-    return render_template('index.html')
+    return render_template('attendance.html')
 
 
 @app.teardown_appcontext
