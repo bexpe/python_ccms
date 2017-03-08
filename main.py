@@ -44,7 +44,8 @@ def mentor_list():
 
 @app.route('/edit/<int:user_id>')
 def edit_mentor(user_id):
-    return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id))
+    mentor_url = "mentor_list"
+    return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
 
 @app.route('/add.html')
 def add_mentor():
