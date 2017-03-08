@@ -1,67 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Codecool CCMS by STEFAN team">
-    <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
-    <link rel="stylesheet" type="text/css" href="../static/attendance.css">
-    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
-</head>
-<body>
-        <div id="panda" class="panda">
-            <img src="../static/img/panda.gif  ">
-        </div>
-<div class="container">
-    <div class="left_menu">
-        <section class="logged_user">
-            <p>You're logged in as:</p>
-            <div class="user_info_container">
-                <div class="user_image">
-                    <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
-                </div>
-                <div class="user_name">
-                    <h3>Przemek</h3>
-                </div>
-                <div class="logout_button">
-                    <a id="link_logout" href="login.html">Logout</a>
-                </div>
-            </div>
-        </section>
-        <nav>
-            <header class="nav">
-                <p>Classes</p>
-            </header>
-            <ul>
-                <li><a href="../classes_html/attendance.html">Attendance</a></li>
-                <li><a href="check_attendance.html">Check attendance</a></li>
-                <li><a href="checkpoint.html">Checkpoint</a></li>
-            </ul>
-            <header class="nav">
-                <p>Student</p>
-            </header>
-            <ul>
-                <li><a href="../student_html/student_list.html">Students list</a></li>
-                <li><a href="teams.html">Teams</a></li>
-            </ul>
-            <header class="nav">
-                <p>Assignment</p>
-            </header>
-            <ul>
-                <li><a href="assignment_list.html">Assignment list</a></li>
-            </ul>
-            <header class="nav">
-                <p>Mentor</p>
-            </header>
-            <ul>
-                <li><a href="mentor_list.html">Mentor list</a></li>
-            </ul>
-
-        </nav>
-    </div>
-    <div class="right_content">
-        <section id="main_container" class="hide">
+{% extends "layout.html" %}
+{% block content %}
             <div class="attendance_bar">
                 <h1>My attendance is: 75%</h1>
                 <progress value="25" max="100"></progress>
@@ -71,40 +9,19 @@
                 <tr>
                     <th></th>
                     <th>Date</th>
-                    <th>Day</th>
                     <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for row in rows %}
                 <tr>
                     <td class="circle_column">
                         <div class="yellow_circle"></div>
                     </td>
-                    <td>Feb 17</td>
-                    <td>Friday</td>
-                    <td>Late</td>
-                </tr>
-                <tr>
-                    <td class="circle_column">
-                        <div class="red_circle"></div>
-                    </td>
-                    <td>Feb 10</td>
-                    <td>Friday</td>
-                    <td>Absent</td>
-                </tr>
-                <tr>
-                    <td class="circle_column">
-                        <div class="red_circle"></div>
-                    </td>
-                    <td>Feb 9</td>
-                    <td>Thursday</td>
-                    <td>Absent</td>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    {% endfor %}
                 </tr>
                 </tbody>
             </table>
-        </section>
-    </div>
-</div>
-</body>
-<script src="../static/js/hide.js"></script>
-</html>
+{% endblock %}
