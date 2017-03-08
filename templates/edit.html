@@ -1,0 +1,20 @@
+{% extends "mentor_list.html" %}
+{% block edit %}
+<!-- The Modal -->
+<div id="add_mentor_Modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+      <form class="newStudent">
+        <span class="close_add_mentor">&times;</span>
+        <h1>New mentor</h1>
+        <input type="text" id="input-login_add_mentor" placeholder="Enter login " onchange="validateContactData(this)">
+        <input type="email" id="input-email_add_mentor" placeholder="Type email " onchange="validateContactData(this)">
+        <input type="text" id="input-firstName_add_mentor" placeholder="Enter name " onchange="validateContactData(this)">
+        <input type="text" id="input-surname_add_mentor" placeholder="Enter your surname " onchange="validateContactData(this)">
+        <input type="submit" value="SAVE" id="input-save_add_mentor" onclick="sendMessage()">
+
+      </form>
+  </div>
+</div>
+{% endblock %}

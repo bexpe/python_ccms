@@ -27,37 +27,6 @@ class Student(User):
     def get_student_details(self):
         return self.__dict__
 
-    def edit_student(self, student_object):
-        db = Database()
-        query = """UPDATE Student SET Name=(?), Surname=(?), Email=(?), Date_of_birth=(?), City=(?), Phone=(?), Login=(?), Team_ID=(?)  WHERE id =(?);"""
-        db.get(query, (
-            student_object.name,
-            student_object.surname,
-            student_object.email,
-            student_object.date_of_birth,
-            student_object.city,
-            student_object.phone,
-            student_object.login,
-            student_object.team_id,
-            student_object.user_id
-        )
-               )
-
-    def add_new_student(self, student_object):
-        db = Database()
-        query = """INSERT INTO Mentor(Name, Surname, Email, Date_of_birth, City, Phone, Login) VALUES (?,?,?,?,?,?,?);"""
-        db.get(query, (
-            student_object.name,
-            student_object.surname,
-            student_object.email,
-            student_object.date_of_birth,
-            student_object.city,
-            student_object.phone,
-            student_object.login,
-            student_object.user_id
-        )
-               )
-
     def save(self):
         db = Database()
         values = (
