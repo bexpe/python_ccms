@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect
-
+from model.student import Student
+from model.mentor import Mentor
+from model.team import Team
 
 app = Flask(__name__)
 
@@ -28,6 +30,9 @@ def redirect_url():
         request.referrer or \
         url_for('index')
 
+@app.route('/teams.html')
+def teams():
+    return render_template('teams.html', teams=Team.get_list_of_teams())
 
 if __name__ == "__main__":
     app.run()

@@ -1,6 +1,5 @@
 from model.database import *
 
-
 class Team:
 
     def __init__(self, team_id, team_name):
@@ -51,9 +50,15 @@ class Team:
 
     def add_student_to_team(self, student_id, team_id):
         db = Database
-        self.db.get(" Teams ")
+        student_list_in_team = []
+        query1 = """SELECT Name, Surname FROM Students WHERE ID= (?)""", (student_id,)
+        student = db.get(query1)
+
+        student_list_in_team.append(student)
+        query2 = """ UPDATE Teams SET Members= student_list_in_team WHERE ID= (?)""", (team_id,)
+        db.set(query2)
         db.close()
-        pass
+        return student_list_in_team
 
 # edit = Team(0, 'Stefany')
 # edit.edit_team(1, 'xd')
