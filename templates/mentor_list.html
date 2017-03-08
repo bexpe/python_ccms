@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="../static/users_table.css">
 
             <table>
-                <caption>Students list
+                <caption>Mentor List
                     <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)">Add student</button>
                 </caption>
                 <thead>
@@ -18,7 +18,7 @@
 
                 <tbody>
 
-                {% for person in students %}
+                {% for person in mentors %}
                 <tr>
                     <td class="id_column">{{ person.user_id }}</td>
                     <td>{{ person.name }} {{person.surname}}</td>
@@ -26,9 +26,9 @@
                     <td>{{ person.phone }}</td>
                     <td>
                         <span class="buttons">
-                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                            <button type="button" name="add_to_team" onclick="buttonclick(this.name)">Add to team</button>
+                            <button type="button" name="details"><a href="{{ url_for('details', user_id=person.user_id) }}">Details</a></button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit', user_id=person.user_id) }}">Edit</a></button>
+                            <button type="button" name="add_to_team" onclick="buttonclick(this.name)"><a href="{{ url_for('add', user_id=person.user_id) }}">Add to team</a></button>
                         </span>
                     </td>
 

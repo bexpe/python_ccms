@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from model.student import Student
 from model.mentor import Mentor
 import sys
@@ -43,6 +43,9 @@ def student_list():
 def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
+@app.route('/edit/user_id')
+def edit():
+    return "dupa"
 
 if __name__ == "__main__":
     check_run_args()
