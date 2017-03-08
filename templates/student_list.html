@@ -4,7 +4,7 @@
 
             <table>
                 <caption>Students list
-                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)">Add student</button>
+                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)"> <a href="{{ url_for('add_student') }}">Add student</a></button>
                 </caption>
                 <thead>
                 <tr>
@@ -26,8 +26,9 @@
                     <td>{{ person.phone }}</td>
                     <td>
                         <span class="buttons">
-                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
+                            <button type="button" name="details"><a href="{{ url_for('details_student', user_id=person.user_id) }}">Details</a></button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit_student', user_id=person.user_id) }}">Edit</a></button>
+
                             <button type="button" name="add_to_team" onclick="buttonclick(this.name)">Add to team</button>
                         </span>
                     </td>
