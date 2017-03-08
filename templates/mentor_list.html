@@ -4,7 +4,7 @@
 
             <table>
                 <caption>Mentor List
-                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)">Add student</button>
+                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)"> <a href="{{ url_for('add_mentor') }}">Add student</a></button>
                 </caption>
                 <thead>
                 <tr>
@@ -26,9 +26,8 @@
                     <td>{{ person.phone }}</td>
                     <td>
                         <span class="buttons">
-                            <button type="button" name="details"><a href="{{ url_for('details', user_id=person.user_id) }}">Details</a></button>
-                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit', user_id=person.user_id) }}">Edit</a></button>
-                            <button type="button" name="add_to_team" onclick="buttonclick(this.name)"><a href="{{ url_for('add', user_id=person.user_id) }}">Add to team</a></button>
+                            <button type="button" name="details"><a href="{{ url_for('details_mentor', user_id=person.user_id) }}">Details</a></button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit_mentor', user_id=person.user_id) }}">Edit</a></button>
                         </span>
                     </td>
 
@@ -39,52 +38,7 @@
             </table>
             {% block edit %}{% endblock %}
 
-            <!--<div id="details_Modal" class="modal">-->
 
-              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
-              <!--<div class="modal-content">-->
-                  <!--<div class="main_container" id="details">-->
-                    <!--<span class="close_details">&times;</span>-->
-                    <!--<h1>Mentor's details</h1>-->
-                    <!--<table>-->
-                    <!--<caption>-->
-                        <!--Jon Doe-->
-                    <!--<span class="buttons">-->
-                        <!--<button type="button" onclick="confirmAlert()"> Remove mentor </button>-->
-                    <!--</span>-->
-                    <!--</caption>-->
-                    <!--<tr>-->
-                        <!--<td>Email:</td>-->
-                        <!--<td>Jon@doe.com</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>Adress:</td>-->
-                        <!--<td>Somewhere Str 21/12 Kraków</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>Phone number:</td>-->
-                        <!--<td>48-123-456-789  </td>-->
-                    <!--</tr>-->
-
-                    <!--</table>-->
-                   <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-
-            <!--<div id="edit_Modal" class="modal">-->
-              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
-              <!--<div class="modal-content">-->
-                  <!--<form class="newStudent">-->
-                    <!--<span class="close_edit">&times;</span>-->
-                    <!--<h1>Edit mentor</h1>-->
-                    <!--<input type="text" id="input-login_edit" placeholder="Enter login " onchange="validateContactData(this)" value="mar.izw">-->
-                    <!--<input type="email" id="input-email_edit" placeholder="Type email " onchange="validateContactData(this)" value="marcin.izworski@codecool.com">-->
-                    <!--<input type="text" id="input-firstName_edit" placeholder="Enter name " onchange="validateContactData(this)" value="Marcin">-->
-                    <!--<input type="text" id="input-surname_edit" placeholder="Enter your surname " onchange="validateContactData(this)" value="Izworski">-->
-                    <!--<input type="submit" value="SAVE" id="input-save_edit" onclick="sendMessage()">-->
-                  <!--</form>-->
-              <!--</div>-->
-            <!--</div>-->
 
         <!--</section>-->
     <!--</div>-->

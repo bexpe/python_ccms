@@ -43,16 +43,16 @@ def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
 @app.route('/edit/<int:user_id>')
-def edit(user_id):
-    return render_template('edit.html')
+def edit_mentor(user_id):
+    return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id))
 
-@app.route('/add/<int:user_id>')
-def add(user_id):
-    return render_template('edit.html')
+@app.route('/add.html')
+def add_mentor():
+    return render_template('add.html')
 
 @app.route('/details/<int:user_id>')
-def details(user_id):
-    return render_template('edit.html', Mentor.get_mentor_by_id(user_id))
+def details_mentor(user_id):
+    return render_template('details.html', person=Mentor.get_mentor_by_id(user_id))
 
 if __name__ == "__main__":
     check_run_args()

@@ -1,0 +1,35 @@
+{% extends "mentor_list.html" %}
+{% block edit %}
+<!-- The Modal -->
+<div id="details_Modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="main_container" id="details">
+          <span class="close_details"><a href="{{ url_for('mentor_list') }} ">&times;</a></span>
+          <h1>Mentor's details</h1>
+          <table>
+          <caption>
+              Jon Doe
+          <span class="buttons">
+              <button type="button" onclick="confirmAlert()"> Remove mentor </button>
+          </span>
+          </caption>
+          <tr>
+              <td>Email:</td>
+              <td>Jon@doe.com</td>
+          </tr>
+          <tr>
+              <td>Adress:</td>
+              <td>Somewhere Str 21/12 Kraków</td>
+          </tr>
+          <tr>
+              <td>Phone number:</td>
+              <td>48-123-456-789  </td>
+          </tr>
+
+          </table>
+         </div>
+    </div>
+</div>
+{% endblock %}
