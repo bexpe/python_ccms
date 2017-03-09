@@ -21,12 +21,14 @@
                 <tr>
                     <td class="id_column">{{ team.team_id }}</td>
                     <td>{{ team.team_name }}</td>
-                    <td>{{ team.Members }}</td>
+                    <td>{{ team.members | join(', ') }}</td>
 
                     <td>
                         <span class="buttons">
-                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                            <!--<button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Edit</button>-->
+                            <button type="button" name="details" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Details</button>
+                            <a href="{{  url_for('remove', team_id=team.team_id)  }}">
+                                <button type="button" name="remove" onclick="buttonclick(this.name)">Remove</button></a>
+
                         </span>
                     </td>
 

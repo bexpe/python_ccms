@@ -29,6 +29,7 @@ def close_db(error):
     #Todo.close_database()
     pass
 
+
 def redirect_url():
     """Return link to previous page"""
     return request.args.get('next') or \
@@ -50,20 +51,23 @@ def mentor_list():
 def create_team():
     # if request.method == 'GET':
     if request.method == 'POST':
-        car_name = request.form['cars']
-        print(car_name)
         team_name = request.form['new_team_name']
+        chosen_members = []
         member1 = request.form['member1']
-        print(request.form.getlist('member1'))
         member2 = request.form['member2']
         member3 = request.form['member3']
         member4 = request.form['member4']
-
-        member = [member1, member2, member3, member4]
-        print(member)
+        if member1:
+            chosen_members.append(Student.get_student_by_id(member1))
+        if member2:
+            chosen_members.append(Student.get_student_by_id(member2))
+        if member3:
+            chosen_members.append(Student.get_student_by_id(member3))
+        if member4:
+            chosen_members.append(Student.get_student_by_id(member4))
         if len(team_name) > 0:
-            Team.add_new_team(team_name, member)
-        return redirect(url_for('display_teams'))
+            Team.add_new_team(team_name, chosen_members)
+        return redirect('teams.html')
     return render_template('team_create.html', student_list=Student.get_list_of_students())
 
 
@@ -72,15 +76,15 @@ def display_teams():
     return render_template('teams.html', teams=Team.get_list_of_teams())
 
 
+@app.route("/remove/<int:team_id>")
+def remove(team_id):
+    Team.remove_team(team_id)
+    return redirect('teams.html')
+
+
 @app.route('/team_details/<int:team_id>')
 def team_details(team_id):
     return render_template('team_details.html', person=Team.get_team_details(team_id))
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

@@ -52,3 +52,10 @@ class Student(User):
                                 person[9], person[10])
         db.close()
         return person_object
+
+    def set_team_id(self, student_id, team_id):
+        student = Student.get_student_by_id(student_id)
+        student.team_id = team_id
+        student.save()
+
+# jacek".set_team_id(2)

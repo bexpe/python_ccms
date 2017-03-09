@@ -14,7 +14,7 @@
                         <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="new_team_name">
                         <span type="text" id="input-member1"  name="member1">Member nr 1</span>
                         <select name="member1">
-                            <option selected='selected' value='None'>nobody</option>
+                            <option selected='selected' value=''>nobody</option>
                             {% for student in student_list %}
                             <option value="{{ student.user_id }}">{{ student.name }} {{ student.surname }}</option>
                             {% endfor %}
@@ -22,7 +22,7 @@
 
                       <span type="text" id="input-member2"  name="member2">Member nr 2</span>
                       <select name="member2">
-                          <option selected='selected' value='None'>nobody</option>
+                          <option selected='selected' value=''>nobody</option>
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
@@ -30,7 +30,7 @@
 
                       <span type="text" id="input-member3"  name="member3">Member nr 3</span>
                       <select name="member3">
-                          <option selected='selected' value='None'>nobody</option>
+                          <option selected='selected' value=''>nobody</option>
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
@@ -38,7 +38,7 @@
 
                       <span type="text" id="input-member4"  name="member4">Member nr 4</span>
                       <select name="member4">
-                          <option selected='selected' value='None'>nobody</option>
+                          <option selected='selected' value=''>nobody</option>
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
@@ -51,31 +51,6 @@
 
 
 
-                <!--<select name="member1">-->
-                    <!--{% for student in student_list %}-->
-                        <!--<option value={{ student.id }}>{{ student.name }} {{ student.surname }}</option>-->
-                    <!--{% endfor %}-->
-                <!--</select>-->
-
-                <tbody>
-
-                {% for inputs in teams %}
-                <tr>
-                    <td class="id_column">{{ team.team_id }}</td>
-                    <td>{{ team.team_name }}</td>
-                    <td>{{ team.Members }}</td>
-
-                    <td>
-                        <span class="buttons">
-                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                        </span>
-                    </td>
-
-                </tr>
-                {% endfor %}
-
-                </tbody>
             </table>
 
 {% endblock %}
