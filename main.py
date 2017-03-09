@@ -15,6 +15,7 @@ app = Flask(__name__)
 # Attendance funcionality
 ################################################
 
+
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
     user = session['user']
@@ -64,7 +65,7 @@ def attendance(student_id):
 @app.route('/student_list.html')
 def student_list():
     user = session['user']
-    return render_template('student_list.html',user=user, students=Student.get_list_of_students())
+    return render_template('student_list.html', user=user, students=Student.get_list_of_students())
 
 
 @app.route('/check_attendance', methods=["POST", 'GET'])
@@ -90,10 +91,12 @@ def late(student_id):
     Attendance.set_attendance(student_id, "Spozniony")
     return redirect(url_for('check_attendance'))
 
+
 @app.route('/check_everyone_attendance')
 def check_everyone_attendance():
     user = session['user']
     return render_template('check_everyone_attendance.html', user=user, rows=Attendance.check_everyone_attendance())
+
 
 @app.route('/attendance_by_data', methods=['GET', 'POST'])
 def data():
@@ -109,6 +112,7 @@ def data():
 # Attendance funcionality END
 ################################################
 
+
 def check_run_args():
     try:
         if sys.argv[1] == '-d':
@@ -120,10 +124,14 @@ def check_run_args():
 
 @app.route('/')
 def index():
-    if 'user' in session:
-        user = session['user']
-        return render_template('index.html', user=user)
-    return redirect(url_for('login'))
+    user = session['user']
+    return render_template('index.html', user=user)
+
+
+@app.before_request
+def before_request():
+    if 'user' not in session and request.endpoint != 'login':
+        return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -143,8 +151,10 @@ def login():
 
 @app.route("/assigments")
 def assigments():
-    assigments_list = Assigment.get_list_of_assigments()
     user = session['user']
+    if user['type'] not in ('Mentor', 'Student'):
+        return redirect(url_for('index'))
+    assigments_list = Assigment.get_list_of_assigments()
     if user['type'] == 'Student':
         student = Student.get_student_by_id(user['id'])
         return render_template('assignment_list.html', assigments_list=assigments_list, user=user, student=student)
@@ -153,6 +163,9 @@ def assigments():
 
 @app.route("/submit_assigment/<assigment_id>", methods=['GET', 'POST'])
 def submit_assigment(assigment_id):
+    user = session['user']
+    if user['type'] != 'Student':
+        return redirect(url_for('index'))
     user = session['user']
     if request.method == 'GET':
         return render_template('submit_assigment.html', assigment_id=assigment_id, user=user)
@@ -165,6 +178,8 @@ def submit_assigment(assigment_id):
 @app.route("/grade_assigment/<assigment_id>")
 def grade_assigment(assigment_id):
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     assigment = Assigment.get_assigment_by_id(assigment_id)
     if assigment.task_type == 'Personal':
         students_list = Student.get_list_of_students()
@@ -176,6 +191,9 @@ def grade_assigment(assigment_id):
 
 @app.route("/grade_answer/<answer_id>", methods=['POST'])
 def grade_answer(answer_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     answer = Answer.get_answer_by_id(answer_id)
     date_now = datetime.now()
     grade_date = "{}-{}-{}".format(date_now.year, date_now.month, date_now.day)
@@ -188,6 +206,8 @@ def grade_answer(answer_id):
 @app.route("/add_assigment", methods=['GET', 'POST'])
 def add_new_assigment():
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     if request.method == 'GET':
         return render_template('add_assigment.html', user=user)
     else:
@@ -199,7 +219,6 @@ def add_new_assigment():
 ################################################
 # Assigments funcionality END
 ################################################
-
 
 
 @app.route('/logout')
@@ -215,4 +234,3 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 if __name__ == "__main__":
     check_run_args()
     app.run(debug=True, port=1111)
-
