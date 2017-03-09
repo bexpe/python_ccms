@@ -1,6 +1,5 @@
 from model.database import Database
 
-
 class Assigment:
 
     def __init__(self, id, name, task_type, answers):
@@ -27,8 +26,8 @@ class Assigment:
                          (assigment_data[0],))  # get answers for assigment with a[0]-id
         answers = [Answer(d[0], d[1], d[2], d[3], d[4], d[5], d[6]) for d in answers]
         assigment_object = Assigment(assigment_data[0], assigment_data[1], assigment_data[2], answers)
-        return assigment_object
         db.close()
+        return assigment_object
 
     @staticmethod
     def add_new_assigment(name, task_type):
@@ -46,8 +45,8 @@ class Assigment:
                              (a[0],))  # get answers for assigment with a[0]-id
             answers = [Answer(d[0], d[1], d[2], d[3], d[4], d[5], d[6]) for d in answers]
             assigments_objects_list.append(Assigment(a[0], a[1], a[2], answers))
-        return assigments_objects_list
         db.close()
+        return assigments_objects_list
 
 
 class Answer:
@@ -77,7 +76,6 @@ class Answer:
     @classmethod
     def submit_team_answer(cls, answer_text, student_id, assigment_id):
         db = Database()
-        # get student by id
         team_id = db.get("SELECT Team_ID FROM Student WHERE id=(?)", (student_id,))[0][0]
         is_answer_exist = db.get(
             "SELECT EXISTS (SELECT * FROM Answers WHERE Team_ID=(?) AND Assignment_ID=(?))", (team_id, assigment_id))
@@ -99,5 +97,14 @@ class Answer:
             cls.submit_team_answer(answer_text, student_id, assigment_id)
         db.close()
 
-    def grade_answer(self, new_grade):
-        self.grade = new_grade
+    @classmethod
+    def get_answer_by_id(cls, id):
+        db = Database()
+        task_data = db.get("SELECT * FROM Answers WHERE id=(?)", (id,))[0]
+        return Answer(*task_data)
+        db.close()
+
+    def save(self):
+        db = Database()
+        db.set("UPDATE Answers SET Grade=(?),Grade_date=(?) WHERE ID=(?)", (self.grade, self.grade_date,self.id))
+        db.close()

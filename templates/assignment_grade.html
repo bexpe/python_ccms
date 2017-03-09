@@ -6,29 +6,41 @@
     <tr>
         <th data-field="id" class="id_column">#</th>
         <th data-field="name">Name</th>
-        <th data-field="description">Answer</th>
+        <th data-field="answer">Answer</th>
+        <th data-field="grade">Grade</th>
+        <th data-field="grade">Grade date</th>
     </tr>
     </thead>
 
     <tbody>
     <!-- lista studenciaków -->
     {% if assigment.task_type == "Personal" %}
-        <tr>
-            <td class="id_column">01</td>
-            <td>
-              name
-            </td>
-            <td>
-              {{assigment.get_student_answer(1).answer_text}}
-            </td>
-            <td>
-                <form action="/grade_assigment/{{ assigment.id }}" method="post">
-                    Grade:
-                    <input type="text" name="grade">
-                    <input type="submit" value="SAVE">
-                </span>
-            </td>
-        </tr>
+        {% for student in students_list %}
+            {% if assigment.get_student_answer(student.user_id) %}
+            <tr>
+                <td class="id_column">{{ student.user_id }}</td>
+                <td>
+                  {{ student.name }} {{ student.surname }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).answer_text }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).grade }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).grade_date }}
+                </td>
+                <td>
+                    <form action={{ url_for('grade_answer', answer_id=assigment.get_student_answer(student.user_id).id) }} method="post">
+                        Grade:
+                        <input type="text" name="grade">
+                        <input type="submit" value="SAVE">
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
     {% else %}
     <!-- lista team -->
       <tr>
@@ -40,11 +52,17 @@
               {{assigment.get_team_answer(1).answer_text}}
             </td>
             <td>
-                <form action="/grade_assigment/{{ assigment.id }}" method="post">
+              {{assigment.get_team_answer(1).grade}}
+            </td>
+            <td>
+              {{assigment.get_team_answer(1).grade_date}}
+            </td>
+            <td>
+                <form action={{ url_for('grade_answer', answer_id=assigment.get_team_answer(1).id) }} method="post">
                     Grade:
                     <input type="text" name="grade">
                     <input type="submit" value="SAVE">
-                </span>
+                </form>
             </td>
         </tr>
     {% endif %}

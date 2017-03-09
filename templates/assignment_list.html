@@ -2,36 +2,46 @@
 {% block content %}
 <table>
     <caption>Assignments
-    <button type="button" class="buttons" name="add_assignment" onclick="location.href='/add_assigment'">Add assignment</button>
+    {% if user['type'] == 'Mentor' %}
+    <button type="button" class="buttons" name="add_assignment" onclick="location.href='{{ url_for('add_new_assigment') }}'">Add assignment</button> 
+    {% endif %}
     </caption>
     <thead>
     <tr>
         <th data-field="id" class="id_column">#</th>
         <th data-field="name">Task name</th>
         <th data-field="type">Type</th>
+        {% if user['type'] == 'Student' %}
         <th data-field="grade">Grade</th>
+        {% endif %}
     </tr>
     </thead>
 
     <tbody>
-    {% for assigment in assigments %}
+    {% for assigment in assigments_list %}
     <tr>
         <td class="id_column">{{assigment.id}}</td>
         <td>{{assigment.name}}</td>
         <td>
             {{assigment.task_type}}
         </td>
+        {% if user['type'] == 'Student' %}
         <td>
             {% if assigment.task_type == "Personal" %}
-              {{assigment.get_student_answer(student_id).grade}}
+              {{assigment.get_student_answer(student.user_id).grade}}
             {% else %}
-              {{assigment.get_team_answer(1).grade}}
+              {{assigment.get_team_answer(student.team_id).grade}}
             {% endif %}
         </td>
+        {% endif %}
         <td>
             <span class="buttons">
-                <button type="button" onclick="location.href='/grade_assigment/{{ assigment.id }}'">Grade</button>
-                <button type="button" onclick="location.href='/submit_assigment/{{ assigment.id }}'">Submit</button>
+                {% if user['type'] == 'Mentor' %}
+                <button type="button" onclick="location.href='{{ url_for('grade_assigment', assigment_id=assigment.id) }}'">Grade</button>
+                {% endif %}
+                {% if user['type'] == 'Student' %}
+                <button type="button" onclick="location.href='{{ url_for('submit_assigment', assigment_id=assigment.id) }}'">Submit</button>
+                {% endif %} 
             </span>
         </td>
     </tr>
