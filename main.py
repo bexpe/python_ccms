@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, redirect, url_for, session, escape
 from model.attendance import *
-from model.student import *
-app = Flask(__name__)
+from model.student import Student
+from model.mentor import Mentor
+from model.user import User
+import sys
 
-@app.route('/list')
-def list():
-    return render_template("xd.html", rows=Attendance.check_everyone_attendance())
+app = Flask(__name__)
 
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
@@ -78,7 +78,6 @@ def late(student_id):
     Attendance.set_attendance(student_id, "Spozniony")
     return redirect(url_for('check_attendance'))
 
-
 @app.route('/attendance_by_data', methods=['GET', 'POST'])
 def data():
     if request.method == "POST":
@@ -88,19 +87,46 @@ def data():
         return redirect(url_for('attendance_data', student_id=student_id, start_date=start_date, end_date=end_date))
     return render_template('attendance_by_data.html')
 
+def check_run_args():
+    try:
+        if sys.argv[1] == '-d':
+            from dump_db import dump_db
+            dump_db()  # clearing db and inserting testing rows
+    except IndexError:
+        pass
 
-@app.teardown_appcontext
-def close_db(error):
-    """Closes the database again at the end of the request."""
-    #Todo.close_database()
-    pass
 
-def redirect_url():
-    """Return link to previous page"""
-    return request.args.get('next') or \
-        request.referrer or \
-        url_for('index')
+@app.route('/')
+def index():
+    if 'user' in session:
+        user = session['user']
+        return render_template('index.html', user=user)
+    return redirect(url_for('login'))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = User.login(request.form['email'], request.form['password'])
+        if user:
+            session['user'] = user
+            return redirect(url_for('index'))
+        return redirect(url_for('login'))
+    return render_template("login.html")
+
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
+# set the secret key.  keep this really secret:
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    check_run_args()
+    app.run(debug=True, port=1111)
+

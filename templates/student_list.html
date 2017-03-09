@@ -1,10 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
 
             <table>
-                <caption>Students list
-                    <button type="button" class="buttons">Submit</button>
+                <caption>Mentor List
+                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)"> <a href="{{ url_for('add_student') }}">Add student</a></button>
                 </caption>
                 <thead>
                 <tr>
@@ -21,14 +20,14 @@
                 {% for person in students %}
                 <tr>
                     <td class="id_column">{{ person.user_id }}</td>
-                    <td>{{ person.name }} {{person.surname}}</td>
+                    <td>{{ person.name }} {{ person.surname }}</td>
                     <td>{{ person.email }}</td>
                     <td>{{ person.phone }}</td>
                     <td>
                         <span class="buttons">
-                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                            <button type="button" name="add_to_team" onclick="buttonclick(this.name)">Add to team</button>
+                            <button type="button" name="details"><a href="{{ url_for('details_student', user_id=person.user_id) }}">Details</a></button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit_student', user_id=person.user_id) }}">Edit</a></button>
+                            <button type="button" name="add_to_team" onclick="buttonclick(this.name)"><a href="{{ url_for('add_to_team', user_id=person.user_id) }}">Add to team</a></button>
                         </span>
                     </td>
 
@@ -37,4 +36,104 @@
                 </tbody>
 
             </table>
+
 {% endblock %}
+
+            <!--&lt;!&ndash; The Modal &ndash;&gt;-->
+            <!--<div id="add_student_Modal" class="modal">-->
+
+              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
+              <!--<div class="modal-content">-->
+                  <!--<form class="newStudent">-->
+                    <!--<span class="close_add_student">&times;</span>-->
+                    <!--<h1>New student</h1>-->
+                    <!--<input type="text" id="input-login_add_student" placeholder="Enter login " onchange="validateContactData(this)">-->
+                    <!--<input type="email" id="input-email_add_student" placeholder="Type email " onchange="validateContactData(this)">-->
+                    <!--<input type="text" id="input-firstName_add_student" placeholder="Enter name " onchange="validateContactData(this)">-->
+                    <!--<input type="text" id="input-surname_add_student" placeholder="Enter your surname " onchange="validateContactData(this)">-->
+                    <!--<select type="text" id="subject_add_student" name="subject" class="span3">-->
+                        <!--<option value="service">Stefan</option>-->
+                        <!--<option value="suggestions">Group 1</option>-->
+                        <!--<option value="product">Group 2</option>-->
+                    <!--</select>-->
+                    <!--<input type="submit" value="SAVE" id="input-save_add_student" onclick="sendMessage()">-->
+
+                  <!--</form>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div id="details_Modal" class="modal">-->
+
+              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
+              <!--<div class="modal-content">-->
+                  <!--<div class="main_container" id="details">-->
+                    <!--<span class="close_details">&times;</span>-->
+                    <!--<h1>Student's details</h1>-->
+                    <!--<table>-->
+                    <!--<caption>-->
+                        <!--Jon Doe-->
+                    <!--<span class="buttons">-->
+                        <!--<button type="button" onclick="confirmAlert()"> Remove student </button>-->
+                    <!--</span>-->
+                    <!--</caption>-->
+                    <!--<tr>-->
+                        <!--<td>Email:</td>-->
+                        <!--<td>Jon@doe.com</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Adress:</td>-->
+                        <!--<td>Somewhere Str 21/12 Kraków</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>Phone number:</td>-->
+                        <!--<td>48-123-456-789  </td>-->
+                    <!--</tr>-->
+
+                    <!--</table>-->
+                   <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div id="edit_Modal" class="modal">-->
+
+              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
+              <!--<div class="modal-content">-->
+                  <!--<form class="newStudent">-->
+                    <!--<span class="close_edit">&times;</span>-->
+                    <!--<h1>Edit student</h1>-->
+                    <!--<input type="text" id="input-login_edit" placeholder="Enter login " onchange="validateContactData(this)" value="czar.ek">-->
+                    <!--<input type="email" id="input-email_edit" placeholder="Type email " onchange="validateContactData(this)" value="czar.ek@gmail.com">-->
+                    <!--<input type="text" id="input-firstName_edit" placeholder="Enter name " onchange="validateContactData(this)" value="Cezary">-->
+                    <!--<input type="text" id="input-surname_edit" placeholder="Enter surname " onchange="validateContactData(this)" value="Pazura">-->
+                    <!--<select type="text" id="subject_edit" name="subject" class="span3">-->
+                        <!--<option value="service">Stefan</option>-->
+                        <!--<option value="suggestions">Group 1</option>-->
+                        <!--<option value="product">Group 2</option>-->
+                    <!--</select>-->
+                    <!--<input type="submit" value="SAVE" id="input-save_edit" onclick="sendMessage()">-->
+
+                  <!--</form>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div id="add_to_team_Modal" class="modal">-->
+
+              <!--&lt;!&ndash; Modal content &ndash;&gt;-->
+              <!--<div class="modal-content">-->
+                  <!--<form class="newStudent">-->
+                    <!--<span class="close_add_to_team">&times;</span>-->
+                    <!--<h1>Which team would you like to add to?</h1>-->
+                    <!--<select type="text" id="subject_add_to_team" name="subject" class="span3">-->
+                        <!--<option value="service">Stefan</option>-->
+                        <!--<option value="suggestions">Group 1</option>-->
+                        <!--<option value="product">Group 2</option>-->
+                    <!--</select>-->
+                    <!--<input type="submit" value="SAVE" id="input-save_add_to_team" onclick="sendMessage()">-->
+
+                  <!--</form>-->
+              <!--</div>-->
+            <!--</div>-->
+
+<!--<script src="../static/js/forms.js"></script>-->
+<!--<script src="../static/js/confirm_alert.js"></script>-->
