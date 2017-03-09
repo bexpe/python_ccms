@@ -28,7 +28,6 @@ def index():
 def login():
     if request.method == 'POST':
         user = User.login(request.form['email'], request.form['password'])
-        user = {'id':'1', 'name':'marek', 'type': 'Student'}
         if user:
             session['user'] = user
             return redirect(url_for('index'))
