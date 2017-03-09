@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+     <link rel="stylesheet" type="text/css" href="../static/attendance.css">
+    <div class="data_form">
+<form method="post" action="/attendance_by_data">
+    <table>
+        <tr>Start date:
+  <input type="date" name="start"></tr>
+    <tr>End date:
+        <input type="date" name="end"></tr>
+    <tr>Student ID:
+        <input type="number" name="student_id"></tr>
+  <input type="submit" value="send">
+        </table>
+</form>
+    </div>
+
+{% endblock %}

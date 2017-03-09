@@ -12,6 +12,7 @@ class User():
         self.city = city
         self.phone = phone
         self.login = login
+        self.login = login
 
     @classmethod
     def login(cls, login, passw):
