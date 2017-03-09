@@ -5,6 +5,11 @@ FFFF9D
 79BD8F
 00A388
 */
+a:-webkit-any-link {
+    color: white;
+    text-decoration: none;
+    cursor: auto;
+}
 
 .container {
     margin-top: 10px;

@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="description" content="Codecool CCMS by STEFAN team">
     <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='forms.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='users_table.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 </head>
 <body>
@@ -55,9 +57,11 @@
                 </nav>
             </div>
             <div class="right_content">
+                {% block modal %}
                 <section class="main_container">
                     {% block content %}{% endblock %}
                 </section>
+                {% endblock %}
         </div>
     </div>
 </body>

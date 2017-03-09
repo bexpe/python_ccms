@@ -31,35 +31,12 @@ class Mentor(User):
         db.close()
         return list_of_mentors
 
-    def edit_mentor(self, mentor_object):
+    def delete(self):
         db = Database()
-        query = """UPDATE Mentor SET Name=(?), Surname=(?), Email=(?), Date_of_birth=(?), City=(?), Phone=(?), Login=(?) WHERE id =(?);"""
-        db.get(query, (
-            mentor_object.name,
-            mentor_object.surname,
-            mentor_object.email,
-            mentor_object.date_of_birth,
-            mentor_object.city,
-            mentor_object.phone,
-            mentor_object.login,
-            mentor_object.user_id
-        )
-               )
+        query = """DELETE FROM Mentor WHERE id =(?)"""
+        db.set(query, (self.user_id,))
+        db.close()
 
-    def add_new_mentor(self, mentor_object):
-        db = Database()
-        query = """INSERT INTO Mentor(Name, Surname, Email, Date_of_birth, City, Phone, Login) VALUES (?,?,?,?,?,?,?);"""
-        db.get(query, (
-            mentor_object.name,
-            mentor_object.surname,
-            mentor_object.email,
-            mentor_object.date_of_birth,
-            mentor_object.city,
-            mentor_object.phone,
-            mentor_object.login,
-            mentor_object.user_id
-        )
-               )
     def save(self):
         db = Database()
         values = (
