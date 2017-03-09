@@ -6,10 +6,10 @@
       <form class="newStudent">
 
         {% if url == 'mentor_list' %}
-        <span class="close_edit"><a href="{{ url_for('mentor_list') }} ">&times;</a></span>
+        <a href="{{ url_for('mentor_list') }} "><span class="close_edit">&times;</span></a>
         <h1>Edit mentor</h1>
         {% elif url == 'student_list' %}
-        <span class="close_edit"><a href="{{ url_for('student_list') }} ">&times;</a></span>
+        <a href="{{ url_for('student_list') }} "><span class="close_edit">&times;</span></a>
         <h1>Edit student</h1>
         {% endif %}
 

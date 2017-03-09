@@ -6,7 +6,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="main_container" id="details">
-          <span class="close_details"><a href="{{ url_for('mentor_list') }} ">&times;</a></span>
+          <a href="{{ url_for('mentor_list') }} "><span class="close_details">&times;</span></a>
           <h1>Mentor's details</h1>
           <table>
           <caption>
@@ -17,15 +17,15 @@
           </caption>
           <tr>
               <td>Email:</td>
-              <td>Jon@doe.com</td>
+              <td>{{ person.email }}</td>
           </tr>
           <tr>
               <td>Adress:</td>
-              <td>Somewhere Str 21/12 Kraków</td>
+              <td>{{ person.city }}</td>
           </tr>
           <tr>
               <td>Phone number:</td>
-              <td>48-123-456-789  </td>
+              <td> {{ person.phone }}</td>
           </tr>
 
           </table>
