@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect
-# from model.student import Student
+from model.student import Student
 from model.mentor import Mentor
 from model.team import Team
 import sys
@@ -11,7 +11,7 @@ def check_run_args():
     try:
         if sys.argv[1] == '-d':
             from dump_db import dump_db
-            dump_db() # clearing db and inserting testing rows
+            dump_db()  # clearing db and inserting testing rows
     except IndexError:
         pass
 
