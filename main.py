@@ -46,9 +46,25 @@ def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
 
+@app.route('/create_team.html')
+def create_team():
+    return render_template('create_team.html')
+
+
 @app.route('/teams.html')
-def teams():
+def display_teams():
     return render_template('teams.html', teams=Team.get_list_of_teams())
+
+
+@app.route('/team_details/<int:team_id>')
+def team_details(team_id):
+    return render_template('team_details.html', person=Team.get_team_details(team_id))
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
