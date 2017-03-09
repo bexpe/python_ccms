@@ -3,26 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="static/style.css"/>
+    <link rel="stylesheet" type="text/css" href="static/login.css"/>
 </head>
 <body>
 <div class="card">
-    <form name="form" class="login_form">
-
-
+    <form action="/login" method="post">
         <label>Login to your account:</label>
-        <input id="email" type="email" placeholder="Give your email" tabindex="1" required autofocus/>
-        <input type="password" placeholder="Give your password"/>
-        <span class="links">
-
-            </span>
-
-        </form>
-        <input type="submit" value="LOGIN" id="login_butt" onclick=location.href='index.html'>
-
+        <input name="email" type="email" placeholder="Give your email" tabindex="1" required autofocus/>
+        <input type="password" name="password" placeholder="Give your password"/>
+        <input type="submit" value="LOGIN">
+    </form>
 </div>
 </body>
-<script src="/static/js/login.js"></script>
-
+<!-- <script src="/static/js/login.js"></script> -->
 </html>
