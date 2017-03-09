@@ -1,3 +1,6 @@
+from model.database import Database
+
+
 class User():
     def __init__(self, user_id, name, surname, email, date_of_birth, city, phone, login):
         self.user_id = user_id
@@ -8,3 +11,9 @@ class User():
         self.city = city
         self.phone = phone
         self.login = login
+
+    @classmethod
+    def login(cls, email, passw):
+        db = Database()
+        #db.get("SELECT ")
+        db.close()
