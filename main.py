@@ -46,9 +46,21 @@ def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
 
-@app.route('/create_team.html')
+@app.route('/team_create.html', methods=['POST', 'GET'])
 def create_team():
-    return render_template('create_team.html')
+    if request.method == 'GET':
+        return render_template('team_create.html', student_list = Student.get_list_of_students())
+    if request.method == 'POST':
+        team_name = request.form['new_team_name']
+        member1 = request.form['member1']
+        member2 = request.form['member2']
+        member3 = request.form['member3']
+        member4 = request.form['member4']
+
+        member = [member1, member2, member3, member4]
+        if len(team_name) > 0:
+            Team.add_new_team(team_name, member)
+        return redirect('teams.html')
 
 
 @app.route('/teams.html')

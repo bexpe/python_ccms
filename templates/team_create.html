@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/forms.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
+    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
+            <table>
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <form class="newStudent" method="POST">
+                    <span class="close_add_team">&times;</span>
+                    <h1>New team</h1>
+                    <input type="text" id="input-name_add_team" placeholder="Enter name :" onchange="validateContactData(this)" name="new_team_name">
+                    <input type="text" id="input-first_add_team" placeholder="Team member 1:" onchange="validateContactData(this)" name="member1">
+                    <input type="text" id="input-second_add_team" placeholder="Team member 2:" onchange="validateContactData(this)" name="member2">
+                    <input type="text" id="input-third_add_team" placeholder="Team member 3:" onchange="validateContactData(this)" name="member3">
+                    <input type="text" id="input-fourth_add_team" placeholder="Team member 4:" onchange="validateContactData(this)" name="member4">
+                      <button type="submit" id="input-save_add_team">SAVE NEW TEAM</button>
+
+                  </form>
+              </div>
+            </div>
+
+                <select name="member1">
+                    {% for student in student_list %}
+                        <option value={{ student.id }}>{{ student.name }} {{ student.surname }}</option>
+                    {{% endfor %}}
+                </select>
+
+                <tbody>
+
+                {% for inputs in teams %}
+                <tr>
+                    <td class="id_column">{{ team.team_id }}</td>
+                    <td>{{ team.team_name }}</td>
+                    <td>{{ team.Members }}</td>
+
+                    <td>
+                        <span class="buttons">
+                            <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
+                        </span>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+{% endblock %}

@@ -2,16 +2,18 @@ from model.database import *
 
 class Team:
 
-    def __init__(self, team_id, team_name):
+    def __init__(self, team_id, team_name, members):
         self.team_id = team_id
         self.team_name = team_name
+        self.members = members
 
     @classmethod
-    def add_new_team(cls, name):
+    def add_new_team(cls, name, members):
         db = Database()
-        new_team = Team(0, name)
-        query = """INSERT INTO Teams(Name) VALUES (?)""", (new_team.name,)
-        db.set(query)
+        new_team = Team(None, name, members)
+        query = """INSERT INTO Teams(Name, Members)  VALUES (?, ?)"""
+        values = [new_team.team_name, str(new_team.members)]
+        db.set(query, values)
         db.close()
         return new_team
 
@@ -32,7 +34,7 @@ class Team:
         db = Database()
         query = """SELECT * FROM Teams WHERE ID=(?)""", (team_id,)
         for team in db.get(query):
-            team_object = Team(team[0], team[1])
+            team_object = Team(team[0], team[1], team[2])
             team_details.append(team_object)
         db.close()
         return team_details
@@ -43,14 +45,14 @@ class Team:
         db = Database()
         query = """SELECT * FROM Teams"""
         for team in db.get(query):
-            team_object = Team(team[0], team[1])
+            team_object = Team(team[0], team[1], team[2])
             list_of_teams.append(team_object)
         db.close()
         return list_of_teams
 
     def add_student_to_team(self, student_id, team_id):
         db = Database
-        student_list_in_team = []
+        student_list_in_team = self.members
         query1 = """SELECT Name, Surname FROM Students WHERE ID= (?)""", (student_id,)
         student = db.get(query1)
 
