@@ -42,7 +42,7 @@ def student_list():
 def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
-@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
+@app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
 def edit_mentor(user_id):
     mentor_url = "mentor_list"
     if request.method == "POST":
@@ -55,10 +55,10 @@ def edit_mentor(user_id):
         phone = None
         new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
         new_mentor.save()
-        return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
-    else:
-        return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
+        return redirect(url_for(mentor_url))
+    return render_template('edit_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
 
+@app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
 def edit_student(user_id):
     student_url = "student_list"
     if request.method == "POST":
@@ -73,11 +73,10 @@ def edit_student(user_id):
         card = None
         new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id, card)
         new_student.save()
-        return render_template('edit.html', person=Student.get_student_by_id(user_id), url=student_url)
-    else:
-        return render_template('edit.html', person=Student.get_student_by_id(user_id), url=student_url)
+        return redirect(url_for(student_url))
+    return render_template('edit_student.html', person=Student.get_student_by_id(user_id), url=student_url)
 
-@app.route('/add.html', methods=['GET', 'POST'])
+@app.route('/add_mentor.html', methods=['GET', 'POST'])
 def add_mentor():
     mentor_url = "mentor_list"
     if request.method == "POST":
@@ -92,9 +91,9 @@ def add_mentor():
         new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
         new_mentor.save()
         return redirect(url_for(mentor_url))
-    else:
-        return render_template('add.html', url=mentor_url)
+    return render_template('add_mentor.html', url=mentor_url)
 
+@app.route('/add_student.html', methods=['GET', 'POST'])
 def add_student():
     student_url = "student_list"
     if request.method == "POST":
@@ -111,29 +110,33 @@ def add_student():
         new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id, card)
         new_student.save()
         return redirect(url_for(student_url))
-    else:
-        return render_template('add.html', url=student_url)
+    return render_template('add_student.html', url=student_url)
 
-@app.route('/details/<int:user_id>')
+@app.route('/details_mentor/<int:user_id>')
 def details_mentor(user_id):
     mentor_url = "mentor_list"
-    return render_template('details.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
+    return render_template('details_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
 
+@app.route('/details_student/<int:user_id>')
 def details_student(user_id):
     student_url = "student_list"
-    return render_template('details.html', person=Student.get_student_by_id(user_id), url=student_url)
+    return render_template('details_student.html', person=Student.get_student_by_id(user_id), url=student_url)
 
-@app.route('/remove/<int:user_id>')
+@app.route('/remove_mentor/<int:user_id>')
 def remove_mentor(user_id):
     mentor = Mentor.get_mentor_by_id(user_id)
     mentor.delete()
     return redirect(url_for('mentor_list'))
 
+@app.route('/remove_student/<int:user_id>')
 def remove_student(user_id):
     student = Student.get_student_by_id(user_id)
     student.delete()
     return redirect(url_for('student_list'))
 
+@app.route('/add_to_team/<int:user_id>')
+def add_to_team(user_id):
+    pass
 
 if __name__ == "__main__":
     check_run_args()
