@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 from model.student import Student
 from model.mentor import Mentor
 from model.team import Team
@@ -48,19 +48,23 @@ def mentor_list():
 
 @app.route('/team_create.html', methods=['POST', 'GET'])
 def create_team():
-    if request.method == 'GET':
-        return render_template('team_create.html', student_list = Student.get_list_of_students())
+    # if request.method == 'GET':
     if request.method == 'POST':
+        car_name = request.form['cars']
+        print(car_name)
         team_name = request.form['new_team_name']
         member1 = request.form['member1']
+        print(request.form.getlist('member1'))
         member2 = request.form['member2']
         member3 = request.form['member3']
         member4 = request.form['member4']
 
         member = [member1, member2, member3, member4]
+        print(member)
         if len(team_name) > 0:
             Team.add_new_team(team_name, member)
-        return redirect('teams.html')
+        return redirect(url_for('display_teams'))
+    return render_template('team_create.html', student_list=Student.get_list_of_students())
 
 
 @app.route('/teams.html')

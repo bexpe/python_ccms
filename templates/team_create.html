@@ -6,27 +6,56 @@
     <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
             <table>
-              <!-- Modal content -->
-              <div class="modal-content">
-                  <form class="newStudent" method="POST">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                  <form class="newStudent" method="POST" action="{{url_for('create_team')}}">
                     <span class="close_add_team">&times;</span>
                     <h1>New team</h1>
-                    <input type="text" id="input-name_add_team" placeholder="Enter name :" onchange="validateContactData(this)" name="new_team_name">
-                    <input type="text" id="input-first_add_team" placeholder="Team member 1:" onchange="validateContactData(this)" name="member1">
-                    <input type="text" id="input-second_add_team" placeholder="Team member 2:" onchange="validateContactData(this)" name="member2">
-                    <input type="text" id="input-third_add_team" placeholder="Team member 3:" onchange="validateContactData(this)" name="member3">
-                    <input type="text" id="input-fourth_add_team" placeholder="Team member 4:" onchange="validateContactData(this)" name="member4">
+                        <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="new_team_name">
+                        <span type="text" id="input-member1"  name="member1">Member nr 1</span>
+                        <select name="member1">
+                            <option selected='selected' value='None'>nobody</option>
+                            {% for student in student_list %}
+                            <option value="{{ student.user_id }}">{{ student.name }} {{ student.surname }}</option>
+                            {% endfor %}
+                        </select>
+
+                      <span type="text" id="input-member2"  name="member2">Member nr 2</span>
+                      <select name="member2">
+                          <option selected='selected' value='None'>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
+
+                      <span type="text" id="input-member3"  name="member3">Member nr 3</span>
+                      <select name="member3">
+                          <option selected='selected' value='None'>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
+
+                      <span type="text" id="input-member4"  name="member4">Member nr 4</span>
+                      <select name="member4">
+                          <option selected='selected' value='None'>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
                       <button type="submit" id="input-save_add_team">SAVE NEW TEAM</button>
 
                   </form>
               </div>
             </div>
 
-                <select name="member1">
-                    {% for student in student_list %}
-                        <option value={{ student.id }}>{{ student.name }} {{ student.surname }}</option>
-                    {{% endfor %}}
-                </select>
+
+
+                <!--<select name="member1">-->
+                    <!--{% for student in student_list %}-->
+                        <!--<option value={{ student.id }}>{{ student.name }} {{ student.surname }}</option>-->
+                    <!--{% endfor %}-->
+                <!--</select>-->
 
                 <tbody>
 
