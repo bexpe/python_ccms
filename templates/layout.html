@@ -22,37 +22,37 @@
                             <h3>{{ user['name'] }}</h3>
                         </div>
                         <div class="logout_button">
-                            <a id="link_logout" href="login.html">Logout</a>
+                            <a id="link_logout" href="{{ url_for('logout') }}">Logout</a>
                         </div>
                     </div>
                 </section>
                 <nav id="main-nav">
-                    <header class="nav">
-                        <p>Classes</p>
-                    </header>
                     <ul>
+                    {% if user['type'] == 'Student' %}
+                        <header class="nav">
+                            <p>Student</p>
+                        </header>
                         <li><a href="classes_html/attendance.html">Attendance</a></li>
+                        <li><a href="assignment_list.html">Assignment list</a></li>
+                    {% elif user['type'] == 'Mentor' %}
+                        <header class="nav">
+                            <p>Mentor</p>
+                        </header>
                         <li><a href="classes_html/check_attendance.html">Check attendance</a></li>
-                        <li><a href="checkpoint.html">Checkpoint</a></li>
-                    </ul>
-                    <header class="nav">
-                        <p>Student</p>
-                    </header>
-                    <ul>
                         <li><a href="student_list.html">Students list</a></li>
                         <li><a href="teams.html">Teams</a></li>
-                    </ul>
-                    <header class="nav">
-                        <p>Assignment</p>
-                    </header>
-                    <ul>
                         <li><a href="assignment_list.html">Assignment list</a></li>
-                    </ul>
-                    <header class="nav">
-                        <p>Mentor</p>
-                    </header>
-                    <ul>
+                    {% elif user['type'] == 'Manager' %}
+                        <header class="nav">
+                            <p>Manager</p>
+                        </header>
                         <li><a href="mentor_list.html">Mentor list</a></li>
+                    {% elif user['type'] == 'Employee' %}
+                        <header class="nav">
+                            <p>Employee</p>
+                            <li><a href="student_list.html">Students list</a></li>
+                        </header>
+                    {% endif %}
                     </ul>
                 </nav>
             </div>

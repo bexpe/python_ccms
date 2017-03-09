@@ -15,5 +15,5 @@ class User():
     @classmethod
     def login(cls, email, passw):
         db = Database()
-        #db.get("SELECT ")
         db.close()
+        return None
