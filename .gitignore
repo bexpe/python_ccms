@@ -10,4 +10,7 @@ __pycache__/
 .DS_Store
 
 my_test.py
+database.db
 
+
+model/database.db
