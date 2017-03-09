@@ -1,180 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Codecool CCMS by STEFAN team">
-    <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/forms.css">
-    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
-    <link rel="stylesheet" type="text/css" href="../static/forms.css">
-    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="left_menu">
-            <section class="logged_user">
-                <p>You're logged in as:</p>
-                <div class="user_info_container">
-                    <div class="user_image">
-                        <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
-                    </div>
-                    <div class="user_name">
-                        <h3>Przemek</h3>
-                    </div>
-                    <div class="logout_button">
-                        <a id="link_logout" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </section>
-            <nav>
-                <header class="nav">
-                    <p>Classes</p>
-                </header>
-                <ul>
-                    <li><a href="../classes_html/attendance.html">Attendance</a></li>
-                    <li><a href="check_attendance.html">Check attendance</a></li>
-                    <li><a href="checkpoint.html">Checkpoint</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Student</p>
-                </header>
-                <ul>
-                    <li><a href="student_list.html">Students list</a></li>
-                    <li><a href="teams.html">Teams</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Assignment</p>
-                </header>
-                <ul>
-                    <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Mentor</p>
-                </header>
-                <ul>
-                    <li><a href="mentor_list.html">Mentor list</a></li>
-                </ul>
+{% extends "layout.html" %}
+{% block content %}
+<table>
+    <caption>Assignments
+    <button type="button" class="buttons" name="add_assignment" onclick="location.href='/add_assigment'">Add assignment</button>
+    </caption>
+    <thead>
+    <tr>
+        <th data-field="id" class="id_column">#</th>
+        <th data-field="name">Task name</th>
+        <th data-field="type">Type</th>
+        <th data-field="grade">Grade</th>
+    </tr>
+    </thead>
 
-            </nav>
-        </div>
-        <div class="right_content">
-                <section class="main_container">
-                <table>
-                    <caption>Assignments
-                    <button type="button" class="buttons" name="add_assignment" onclick="buttonclick(this.name)">Add assignment</button>
-                    </caption>
-                    <thead>
-                    <tr>
-                        <th data-field="id" class="id_column">#</th>
-                        <th data-field="name">Task name</th>
-                        <th data-field="type">Type</th>
-                        <th data-field="description">Description</th>
-                        <th data-field="grade">Grade</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td class="id_column">01</td>
-                        <td>Geometry OOP</td>
-                        <td>
-                            Personal
-                        </td>
-                        <td>
-                            task description
-                        </td>
-                        <td>
-                            0
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                <button type="button" onclick="location.href='assignment_grade.html'">Grade</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">02</td>
-                        <td>CCMS project</td>
-                        <td>
-                            Team
-                        </td>
-                        <td>
-                            task description
-                        </td>
-                        <td>
-                            14%
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                <button type="button" onclick="location.href='assignment_grade.html'">Grade</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">03</td>
-                        <td>100 doors</td>
-                        <td>
-                            Personal
-                        </td>
-                        <td>
-                            task description
-                        </td>
-                        <td>
-                            67%
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                <button type="button" onclick="location.href='assignment_grade.html'">Grade</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit</button>
-                                <button type="button" name="submit_assignment" onclick="buttonclick(this.name)">Submit as team</button>
-                            </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                    <!-- The Modal -->
-                <div id="add_assignment_Modal" class="modal">
-
-                  <!-- Modal content -->
-                  <div class="modal-content">
-                      <form class="newStudent">
-                        <span class="close_add_assignment">&times;</span>
-                        <h1>New assignment</h1>
-                        <input type="text" id="input-name_add_assignment" placeholder="New task name:" onchange="validateContactData(this)">
-                        <input type="text" id="input-first_add_assignment" placeholder="Enter description:" onchange="validateContactData(this)">
-                        <select type="text" id="subject_add_student" name="subject" class="span3">
-                        <option value="service">Personal</option>
-                        <option value="suggestions">Team</option>
-                        </select>
-                        <input type="file" id="input-second_add_assignment" placeholder="Add file:" onchange="validateContactData(this)">
-                        <input type="submit" value="SAVE" id="input-save_add_assignment" onclick="sendMessage()">
-
-                      </form>
-                  </div>
-                </div>
-
-                <div id="submit_assignment_Modal" class="modal">
-
-                  <!-- Modal content -->
-                  <div class="modal-content">
-                      <form class="newStudent">
-                        <span class="close_submit_assignment">&times;</span>
-                        <h1>Submit assignment</h1>
-                        <input type="file" id="input-second_submit_assignment" placeholder="Add file:" onchange="validateContactData(this)">
-                        <input type="submit" value="SUBMIT" id="input-save_submit_assignment" onclick="sendMessage()">
-
-                      </form>
-                  </div>
-                </div>
-            </section>
-        </div>
-    </div>
-<script src="../static/js/forms.js"></script>
-</body>
-</html>
+    <tbody>
+    {% for assigment in assigments %}
+    <tr>
+        <td class="id_column">{{assigment.id}}</td>
+        <td>{{assigment.name}}</td>
+        <td>
+            {{assigment.task_type}}
+        </td>
+        <td>
+            {% if assigment.task_type == "Personal" %}
+              {{assigment.get_student_answer(student_id).grade}}
+            {% else %}
+              {{assigment.get_team_answer(1).grade}}
+            {% endif %}
+        </td>
+        <td>
+            <span class="buttons">
+                <button type="button" onclick="location.href='/grade_assigment/{{ assigment.id }}'">Grade</button>
+                <button type="button" onclick="location.href='/submit_assigment/{{ assigment.id }}'">Submit</button>
+            </span>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <form action="/add_assigment" method="post">
+      <h1>New assignment</h1>
+      <input type="text" name="task-name" placeholder="New task name:">
+      <select type="text" name="task-type">
+        <option value="Personal">Personal</option>
+        <option value="Team">Team</option>
+      </select>
+      <input type="submit" value="SAVE">
+    </form>
+</div>
+{% endblock %}
