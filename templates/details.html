@@ -6,13 +6,15 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="main_container" id="details">
+          {% if url == 'mentor_list' %}
           <a href="{{ url_for('mentor_list') }} "><span class="close_details">&times;</span></a>
           <h1>Mentor's details</h1>
           <table>
           <caption>
-              Jon Doe
+              {{ person.name +' '+ person.surname}}
           <span class="buttons">
-              <button type="button" onclick="confirmAlert()"> Remove mentor </button>
+              <button type="button" onclick="confirmAlert()"><a href="{{ url_for('remove_mentor', user_id=person.user_id) }}">Remove Mentor</a></button>
+          {% endif %}
           </span>
           </caption>
           <tr>

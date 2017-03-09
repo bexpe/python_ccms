@@ -42,18 +42,52 @@ def student_list():
 def mentor_list():
     return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors())
 
-@app.route('/edit/<int:user_id>')
+@app.route('/edit/<int:user_id>', methods=['GET', 'POST'])
 def edit_mentor(user_id):
     mentor_url = "mentor_list"
-    return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
+    if request.method == "POST":
+        login = request.form['login']
+        email = request.form['email']
+        name = request.form['name']
+        surname = request.form['surname']
+        date_of_birth = None
+        city = None
+        phone = None
+        new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
+        new_mentor.save()
+        return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
+    else:
+        return render_template('edit.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
 
-@app.route('/add.html')
+@app.route('/add.html', methods=['GET', 'POST'])
 def add_mentor():
-    return render_template('add.html')
+    mentor_url = "mentor_list"
+    if request.method == "POST":
+        user_id = None
+        login = request.form['login']
+        email = request.form['email']
+        name = request.form['name']
+        surname = request.form['surname']
+        date_of_birth = None
+        city = None
+        phone = None
+        new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
+        new_mentor.save()
+        return redirect(url_for('mentor_list'))
+    else:
+        return render_template('add.html', url=mentor_url)
 
 @app.route('/details/<int:user_id>')
 def details_mentor(user_id):
-    return render_template('details.html', person=Mentor.get_mentor_by_id(user_id))
+    mentor_url = "mentor_list"
+    return render_template('details.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url)
+
+@app.route('/remove/<int:user_id>')
+def remove_mentor(user_id):
+    mentor = Mentor.get_mentor_by_id(user_id)
+    mentor.delete()
+    return redirect(url_for('mentor_list'))
+
 
 if __name__ == "__main__":
     check_run_args()

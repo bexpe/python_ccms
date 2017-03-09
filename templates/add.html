@@ -5,14 +5,16 @@
 
   <!-- Modal content -->
   <div class="modal-content">
-      <form class="newStudent">
+      <form class="newStudent" METHOD="POST">
+      {% if url == 'mentor_list' %}
         <a href="{{ url_for('mentor_list') }} "><span class="close_edit">&times;</span></a>
         <h1>New mentor</h1>
-        <input type="text" id="input-login_add_mentor" placeholder="Enter login " onchange="validateContactData(this)">
-        <input type="email" id="input-email_add_mentor" placeholder="Type email " onchange="validateContactData(this)">
-        <input type="text" id="input-firstName_add_mentor" placeholder="Enter name " onchange="validateContactData(this)">
-        <input type="text" id="input-surname_add_mentor" placeholder="Enter your surname " onchange="validateContactData(this)">
-        <input type="submit" value="SAVE" id="input-save_add_mentor" onclick="sendMessage()">
+      {% endif %}
+        <input type="text" id="input-login_add_mentor" name='login' placeholder="Enter login " onchange="validateContactData(this)">
+        <input type="email" id="input-email_add_mentor" name='email' placeholder="Type email " onchange="validateContactData(this)">
+        <input type="text" id="input-firstName_add_mentor" name='name' placeholder="Enter name " onchange="validateContactData(this)">
+        <input type="text" id="input-surname_add_mentor" name='surname' placeholder="Enter your surname " onchange="validateContactData(this)">
+        <input type="submit" value="SAVE" id="input-save_add_mentor">
 
       </form>
   </div>

@@ -31,6 +31,12 @@ class Mentor(User):
         db.close()
         return list_of_mentors
 
+    def delete(self):
+        db = Database()
+        query = """DELETE FROM Mentor WHERE id =(?)"""
+        db.set(query, (self.user_id,))
+        db.close()
+
     def save(self):
         db = Database()
         values = (
