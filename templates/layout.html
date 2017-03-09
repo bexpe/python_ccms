@@ -35,7 +35,7 @@
                             </header>
                         </ul>
                         <ul>
-                            <li><a href="classes_html/attendance.html">Attendance</a></li>
+                            <li><a href={{ url_for('attendance', student_id=user['id']) }}>Attendance</a></li>
                             <li><a href="assignment_list.html">Assignment list</a></li>
                         </ul>
                     {% elif user['type'] == 'Mentor' %}
@@ -45,7 +45,9 @@
                             </header>
                         </ul>
                         <ul>
-                            <li><a href="classes_html/check_attendance.html">Check attendance</a></li>
+                            <li><a href={{ url_for('check_attendance') }}>Check attendance</a></li>
+                            <li><a href={{ url_for('check_everyone_attendance') }}>Check everyone attendance</a></li>
+                            <li><a href="attendance_by_data">Check attendance by data</a></li>
                             <li><a href="student_list.html">Students list</a></li>
                             <li><a href="teams.html">Teams</a></li>
                             <li><a href="assignment_list.html">Assignment list</a></li>
