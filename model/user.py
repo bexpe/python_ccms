@@ -13,7 +13,27 @@ class User():
         self.login = login
 
     @classmethod
-    def login(cls, email, passw):
+    def login(cls, login, passw):
         db = Database()
-        #db.get("SELECT ")
+
+        query = ("""
+        SELECT * from (SELECT id, name, Login, Password, 'student' as user_type FROM Student
+                        UNION
+                        SELECT id, Name, Login, Password, 'mentor' as user_type FROM Mentor
+                        UNION
+                        SELECT id, Name, Login, Password, 'employee' as user_type FROM Employee
+                        UNION
+                        SELECT id, Name, Login, Password, 'manager' as user_type FROM Manager)
+                        where  Login = ? and  Password = ?
+                    """)
+        # awesome query, I love union <3
+
+        values = ((login, passw))
+
+        user = db.get(query, values)
+        if not user:
+            return
+        user = db.get(query, values)[0]
         db.close()
+        user_dict = {'id': user[0], 'name': user[1], 'type': user[4]}
+        return user_dict
