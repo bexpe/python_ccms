@@ -41,6 +41,12 @@
     height: 20px;
     border-radius: 50%;
 }
+.main_container .green_circle {
+    background: #1cdc45;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
 .circle_column{
     width: 25px;
 }
@@ -55,4 +61,8 @@
     z-index: 100;
     right: 50%;
 
+}
+
+.data_form {
+    background-color: darkmagenta;
 }

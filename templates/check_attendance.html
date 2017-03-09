@@ -22,9 +22,9 @@
                     <td>{{ person.name }} {{person.surname}}</td>
                     <td>
                         <span class="buttons">
-                            <a href="{{ url_for('obecny', student_id = person.user_id)}}" name="obecny">obecny</a>
-                            <a href="{{ url_for('absent', student_id = person.user_id)}}" name="nieobecny">nieobecny</a>
-                            <a href="{{ url_for('late', student_id = person.user_id)}}" name="late">spozniony</a>
+                            <button type="button" onclick="location.href='{{ url_for('present', student_id = person.user_id)}}'">Present</button>
+                            <button type="button" onclick="location.href='{{ url_for('absent', student_id = person.user_id)}}'">Absent</button>
+                            <button type="button" onclick="location.href='{{ url_for('late', student_id = person.user_id)}}'">Late</button>
                         </span>
                     </td>
 

@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../static/attendance.css">
             <div class="attendance_bar">
-                <h1>My attendance is: 75%</h1>
-                <progress value="25" max="100"></progress>
+                {{ data }}
+                <h1>My attendance is: {{ attendence_lvl }}%</h1>
+                <progress value="{{ 100 - attendence_lvl }}" max="100"></progress>
             </div>
             <table>
                 <thead>
@@ -15,8 +18,15 @@
                 <tbody>
                 {% for row in rows %}
                 <tr>
+
                     <td class="circle_column">
+                    {% if row[1] == 'Spozniony' %}
                         <div class="yellow_circle"></div>
+                    {% elif row[1] == 'Obecny' %}
+                        <div class="green_circle"></div>
+                    {% else %}
+                        <div class="red_circle"></div>
+                    {% endif %}
                     </td>
                     <td>{{ row[0] }}</td>
                     <td>{{ row[1] }}</td>

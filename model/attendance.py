@@ -6,9 +6,8 @@ class Attendance:
     @staticmethod
     def get_student_attendance(student_id):
         db = Database()
-        attendance = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Student_ID=(?)", (student_id,))
+        attendance = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Student_ID=(?) ORDER BY Date", (student_id,))
         db.close()
-        print(attendance)
         return attendance
 
     @staticmethod
@@ -18,9 +17,9 @@ class Attendance:
         db.close()
 
     @staticmethod
-    def check_attendance(data_start, data_end, student_id):
+    def check_attendance_by_date(data_start, data_end, student_id):
         db = Database()
-        check = db.get("SELECT * FROM Attendance WHERE Date BETWEEN (?) AND (?) AND Student_ID = (?)", (data_start, data_end, student_id))
+        check = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Date BETWEEN (?) AND (?) AND Student_ID = (?)", (data_start, data_end, student_id))
         db.close()
         return check
 
