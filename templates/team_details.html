@@ -2,43 +2,35 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="../static/users_table.css">
 
-        <div id="details_Modal" class="modal">
-
-          <div class="modal-content">
-              <div class="main_container" id="details">
-                <span class="close_details">&times;</span>
-                <h1>Team's details</h1>
-                <table>
-                <caption>
-                    Team name
-                <span class="buttons">
-                    <button type="button" onclick="confirmAlert()">Remove team</button>
-                </span>
+            <table>
+                <caption>Teams
+                    <button type="button" class="buttons" name="add_team" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Create new team</a></button>
                 </caption>
+                <thead>
                 <tr>
-                    <td>Name:</td>
-                    <td>Misiaczki</td>
-                </tr>
-                <tr>
-                    <td>Member:</td>
-                    <td>John Doe</td>
-                </tr>
-                <tr>
-                    <td>Member:</td>
-                    <td>John Doe</td>
-                </tr>
-                <tr>
-                    <td>Member:</td>
-                    <td>John Doe</td>
-                </tr>
-                <tr>
-                    <td>Member:</td>
-                    <td>John Doe</td>
-                </tr>
-                </table>
-               </div>
-          </div>
-        </div>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="email">Members</th>
 
-</body>
-</html>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for team in teams %}
+                    {% if team.team_id == team_id %}
+                    <tr>
+                        <td class="id_column">{{ team.team_id }}</td>
+                        <td>{{ team.team_name }}</td>
+                        <td>{{ team.members | join(', ') }}</td>
+
+                        <td>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+{% endblock %}</html>

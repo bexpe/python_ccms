@@ -26,7 +26,3 @@ class Database:
         data = self.cursor.fetchall()
         return data
 
-# db = Database()
-# db.command("sdasdasd")
-# db.close_database()
-# db.get("select ")
