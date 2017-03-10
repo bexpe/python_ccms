@@ -187,8 +187,8 @@ def grade_assigment(assigment_id):
         students_list = Student.get_list_of_students()
         return render_template('assignment_grade.html', assigment=assigment, students_list=students_list, user=user)
     elif assigment.task_type == 'Team':
-        #team_list = Team.get_list_of_teams()
-        return render_template('assignment_grade.html', assigment=assigment, user=user)
+        team_list = Team.get_list_of_teams()
+        return render_template('assignment_grade.html', assigment=assigment, team_list=team_list, user=user)
 
 
 @app.route("/grade_answer/<answer_id>", methods=['POST'])

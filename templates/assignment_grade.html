@@ -42,29 +42,32 @@
             {% endif %}
         {% endfor %}
     {% else %}
-    <!-- lista team -->
-      <tr>
-            <td class="id_column">01</td>
-            <td>
-              team name
-            </td>
-            <td>
-              {{assigment.get_team_answer(1).answer_text}}
-            </td>
-            <td>
-              {{assigment.get_team_answer(1).grade}}
-            </td>
-            <td>
-              {{assigment.get_team_answer(1).grade_date}}
-            </td>
-            <td>
-                <form action={{ url_for('grade_answer', answer_id=assigment.get_team_answer(1).id) }} method="post">
-                    Grade:
-                    <input type="text" name="grade">
-                    <input type="submit" value="SAVE">
-                </form>
-            </td>
-        </tr>
+        {% for team in team_list %}
+            {% if assigment.get_team_answer(team.team_id) %}
+            <tr>
+                <td class="id_column">01</td>
+                <td>
+                  {{ team.team_name }}
+                </td>
+                <td>
+                  {{assigment.get_team_answer(team.team_id).answer_text}}
+                </td>
+                <td>
+                  {{assigment.get_team_answer(team.team_id).grade}}
+                </td>
+                <td>
+                  {{assigment.get_team_answer(team.team_id).grade_date}}
+                </td>
+                <td>
+                    <form action={{ url_for('grade_answer', answer_id=assigment.get_team_answer(team.team_id).id) }} method="post">
+                        Grade:
+                        <input type="text" name="grade">
+                        <input type="submit" value="SAVE">
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     </tbody>
 </table>
