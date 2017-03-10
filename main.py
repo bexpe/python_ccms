@@ -458,4 +458,3 @@ def team_details(team_id):
 if __name__ == "__main__":
     check_run_args()
     app.run(debug=True, port=1111)
->>>>>>> kobuz
