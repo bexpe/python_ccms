@@ -13,7 +13,10 @@ class Attendance:
     @staticmethod
     def set_attendance(student_id, attendance):
         db = Database()
-        db.set("INSERT INTO Attendance Values (null,(?), date('now'), (?))", (student_id, attendance))
+        if db.get("SELECT Attendance_value from Attendance WHERE Student_ID = (?) AND Date = date('now')", (student_id,)):
+            db.set("UPDATE Attendance SET Attendance_value = (?) WHERE Student_ID = (?) and Date = date('now')", (attendance, student_id))
+        else:
+            db.set("INSERT INTO Attendance Values (null,(?), date('now'), (?))", (student_id, attendance))
         db.close()
 
     @staticmethod
