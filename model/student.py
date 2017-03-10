@@ -42,6 +42,12 @@ class Student(User):
         db.set(query, values)
         db.close()
 
+    def delete(self):
+        db = Database()
+        query = """DELETE FROM Student WHERE id =(?)"""
+        db.set(query, (self.user_id,))
+        db.close()
+
     @classmethod
     def get_student_by_id(cls, idx):
         db = Database()

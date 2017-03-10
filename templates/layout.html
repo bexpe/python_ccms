@@ -48,7 +48,7 @@
                             <li><a href={{ url_for('check_attendance') }}>Check attendance</a></li>
                             <li><a href={{ url_for('check_everyone_attendance') }}>Check everyone attendance</a></li>
                             <li><a href="/attendance_by_data">Check attendance by data</a></li>
-                            <li><a href="student_list.html">Students list</a></li>
+                            <li><a href={{ url_for('student_list') }}>Students list</a></li>
                             <li><a href={{ url_for('display_teams') }}>Teams</a></li>
                             <li><a href={{ url_for('assigments') }}>Assignment list</a></li>
                         </ul>
@@ -59,7 +59,7 @@
                             </header>
                         </ul>
                         <ul>
-                            <li><a href="mentor_list.html">Mentor list</a></li>
+                            <li><a href={{ url_for('mentor_list') }}>Mentor list</a></li>
                         </ul>
                     {% elif user['type'] == 'Employee' %}
                         <ul>
@@ -68,7 +68,7 @@
                             </header>
                         </ul>
                         <ul>
-                            <li><a href="student_list.html">Students list</a></li>
+                            <li><a href={{ url_for('student_list') }}>Students list</a></li>
                         </ul>
                     {% endif %}
 

@@ -4,14 +4,8 @@
   <!-- Modal content -->
   <div class="modal-content">
       <form class="newStudent" METHOD="POST">
-
-        {% if url == 'mentor_list' %}
-        <a href="{{ url_for('mentor_list') }} "><span class="close_edit">&times;</span></a>
-        <h1>Edit mentor</h1>
-        {% elif url == 'student_list' %}
         <a href="{{ url_for('student_list') }} "><span class="close_edit">&times;</span></a>
         <h1>Edit student</h1>
-        {% endif %}
 
         {% if person.login == None %}
         <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
