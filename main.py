@@ -19,6 +19,8 @@ app = Flask(__name__)
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     attendance = Attendance.check_attendance_by_date(start_date, end_date, student_id)
     attendance_lvl = 0
     x = 0
@@ -41,9 +43,11 @@ def attendance_data(student_id, start_date, end_date):
 
 @app.route('/attendance/<student_id>')
 def attendance(student_id):
+    user = session['user']
+    if user['type'] != 'Mentor' and user['id'] != student_id:
+        student_id = user['id']
     attendance = Attendance.get_student_attendance(student_id)
     attendance_lvl = 0
-    user = session['user']
     x = 0
     for i in attendance:
         if i[1] == "Obecny":
@@ -71,23 +75,34 @@ def student_list():
 @app.route('/check_attendance', methods=["POST", 'GET'])
 def check_attendance():
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     return render_template('check_attendance.html', students=Student.get_list_of_students(), user=user)
 
 
 @app.route('/present/<student_id>')
 def present(student_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     Attendance.set_attendance(student_id, "Obecny")
     return redirect(url_for('check_attendance'))
 
 
 @app.route('/absent/<student_id>')
 def absent(student_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     Attendance.set_attendance(student_id, "Nieobecny")
     return redirect(url_for('check_attendance'))
 
 
 @app.route('/late/<student_id>')
 def late(student_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     Attendance.set_attendance(student_id, "Spozniony")
     return redirect(url_for('check_attendance'))
 
@@ -95,12 +110,16 @@ def late(student_id):
 @app.route('/check_everyone_attendance')
 def check_everyone_attendance():
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     return render_template('check_everyone_attendance.html', user=user, rows=Attendance.check_everyone_attendance())
 
 
 @app.route('/attendance_by_data', methods=['GET', 'POST'])
 def data():
     user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
     if request.method == "POST":
         start_date = request.form.get("start")
         end_date = request.form.get("end")
