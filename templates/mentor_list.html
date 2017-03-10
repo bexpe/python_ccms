@@ -3,7 +3,9 @@
 
             <table>
                 <caption>Mentor List
+                    {% if user['type'] == 'Manager'%}
                     <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)"> <a href="{{ url_for('add_mentor') }}">Add student</a></button>
+                    {% endif %}
                 </caption>
                 <thead>
                 <tr>
@@ -24,10 +26,12 @@
                     <td>{{ person.email }}</td>
                     <td>{{ person.phone }}</td>
                     <td>
+                        {% if user['type'] == 'Manager'%}
                         <span class="buttons">
                             <button type="button" name="details"><a href="{{ url_for('details_mentor', user_id=person.user_id) }}">Details</a></button>
                             <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit_mentor', user_id=person.user_id) }}">Edit</a></button>
                         </span>
+                        {% endif %}
                     </td>
 
                 {% endfor %}
