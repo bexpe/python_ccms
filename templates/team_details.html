@@ -1,10 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+
+        <div id="details_Modal" class="modal">
+
+          <div class="modal-content">
+              <div class="main_container" id="details">
+                <span class="close_details">&times;</span>
+                <h1>Team's details</h1>
+                <table>
+                <caption>
+                    Team name
+                <span class="buttons">
+                    <button type="button" onclick="confirmAlert()">Remove team</button>
+                </span>
+                </caption>
+                <tr>
+                    <td>Name:</td>
+                    <td>Misiaczki</td>
+                </tr>
+                <tr>
+                    <td>Member:</td>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <td>Member:</td>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <td>Member:</td>
+                    <td>John Doe</td>
+                </tr>
+                <tr>
+                    <td>Member:</td>
+                    <td>John Doe</td>
+                </tr>
+                </table>
+               </div>
+          </div>
+        </div>
 
 </body>
 </html>
