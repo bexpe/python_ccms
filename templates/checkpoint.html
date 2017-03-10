@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Codecool CCMS by STEFAN team">
+    <title>Codecool CCMS</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../static/forms.css">
+    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="left_menu">
+            <section class="logged_user">
+                <p>You're logged in as:</p>
+                <div class="user_info_container">
+                    <div class="user_image">
+                        <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
+                    </div>
+                    <div class="user_name">
+                        <h3>Przemek</h3>
+                    </div>
+                    <div class="logout_button">
+                        <a id="link_logout" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </section>
+            <nav>
+                <header class="nav">
+                    <p>Classes</p>
+                </header>
+                <ul>
+                    <li><a href="attendance.html">Attendance</a></li>
+                    <li><a href="check_attendance.html">Check attendance</a></li>
+                    <li><a href="../classes_html/checkpoint.html">Checkpoint</a></li>
+                </ul>
+                <header class="nav">
+                    <p>Student</p>
+                </header>
+                <ul>
+                    <li><a href="student_list.html">Students list</a></li>
+                    <li><a href="teams.html">Teams</a></li>
+                </ul>
+                <header class="nav">
+                    <p>Assignment</p>
+                </header>
+                <ul>
+                    <li><a href="assignment_list.html">Assignment list</a></li>
+                </ul>
+                <header class="nav">
+                    <p>Mentor</p>
+                </header>
+                <ul>
+                    <li><a href="mentor_list.html">Mentor list</a></li>
+                </ul>
+
+            </nav>
+        </div>
+        <div class="right_content">
+            <section class="main_container">
+                <table>
+                    <caption>Checkpoints list
+                        <button type="button" class="buttons" name="add_checkpoint" onclick="buttonclick(this.name)">Add checkpoint</button>
+                    </caption>
+                    <thead>
+                    <tr>
+                        <th data-field="id" class="id_column">#</th>
+                        <th data-field="data">Data</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td class="id_column">01</td>
+                        <td>2017-03-30</td>
+                        <td>
+                        <span class="buttons">
+                            <button type="button" onclick="location.href='check_checkpoint.html'">Check students</button>
+                        </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="id_column">02</td>
+                        <td>2017-02-30</td>
+                        <td>
+                        <span class="buttons">
+                            <button type="button" onclick="location.href='check_checkpoint.html'">Check students</button>
+                        </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td class="id_column">03</td>
+                        <td>2016-12-5</td>
+                        <td>
+                        <span class="buttons">
+                            <button type="button" onclick="location.href='check_checkpoint.html'">Check students</button>
+                        </span>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- The Modal -->
+                <div id="add_checkpoint_Modal" class="modal">
+
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                      <form class="newStudent">
+                        <span class="close_add_checkpoint">&times;</span>
+                        <h1>New checkpoint</h1>
+                        <input type="date" id="input-date" placeholder="Date:" onchange="validateContactData(this)">
+                        <input type="submit" value="SAVE" id="input-save_checkpoint" onclick="sendMessage()">
+
+                      </form>
+                  </div>
+                </div>
+            </section>
+        </div>
+    </div>
+<script src="../static/js/forms.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+<form action="/submit_assigment/{{ assigment_id }}" method="post">
+    <h1>Submit assignment</h1>
+    <input type="text" name="github_link" placeholder="Link to github: ">
+    <input type="submit" value="SUBMIT" id="submit_student_assigment" onclick="">
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+
+            <table>
+                <caption>Students list
+                </caption>
+                <thead>
+                <tr>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="actions">Actions</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for person in students %}
+                <tr>
+                    <td class="id_column">{{ person.user_id }}</td>
+                    <td>{{ person.name }} {{person.surname}}</td>
+                    <td>
+                        <span class="buttons">
+                            <button type="button" onclick="location.href='{{ url_for('present', student_id = person.user_id)}}'">Present</button>
+                            <button type="button" onclick="location.href='{{ url_for('absent', student_id = person.user_id)}}'">Absent</button>
+                            <button type="button" onclick="location.href='{{ url_for('late', student_id = person.user_id)}}'">Late</button>
+                        </span>
+                    </td>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+{% endblock %}

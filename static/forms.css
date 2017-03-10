@@ -1,0 +1,91 @@
+.modal-content h1 {
+    letter-spacing: 5px;
+    margin-bottom: 50px;
+    color: #FFF;
+}
+
+.modal-content form {
+    padding: 30px;
+    text-align: left;
+    position: fixed;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: solid 1px #00A388;
+    border-top: solid 5px #00A388;
+    width: 600px;
+    border-top: solid 5px #00A388;
+    background-color: #00A388;
+}
+
+.modal-content .span3 {
+    background-color: white;
+    color: darkgrey;
+}
+
+.modal-content input, textarea, .span3 {
+    /*margin-left: 45px;*/
+    border: 0;
+    outline: 0;
+    padding: 1em;
+    border-radius(15 px);
+    display: block;
+    width: 80%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow(0 1 px 1 px rgba(black, 0.1));
+    resize: none;
+}
+
+.modal-content button:hover {
+    background-color: #79BD8F;
+    color: white;
+}
+
+.modal-content button:focus {
+    background-color: #00A388;
+}
+
+
+.modal-content textarea {
+    height: 130px;
+}
+
+.modal-content #input-save {
+    color: #00A388;
+    font-weight: bold;
+}
+
+/* The Modal (background) */
+.modal {
+    /*display: none; !* Hidden by default *!*/
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+/* The Close Button */
+[class^="close"] {
+    color: #FFF;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+[class^="close"]:hover,
+[class^="close"]:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal select, .modal [id^="input-save"] {
+    width: 84.5%;
+}

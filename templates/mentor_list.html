@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+            <table>
+                <caption>Mentor List
+                    {% if user['type'] == 'Manager'%}
+                    <button type="button" class="buttons" name="add_student" onclick="buttonclick(this.name)"> <a href="{{ url_for('add_mentor') }}">Add mentor</a></button>
+                    {% endif %}
+                </caption>
+                <thead>
+                <tr>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="email">Email</th>
+                    <th data-field="phone_number">Phone</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for person in mentors %}
+                <tr>
+                    <td class="id_column">{{ person.user_id }}</td>
+                    <td>{{ person.name }} {{ person.surname }}</td>
+                    <td>{{ person.email }}</td>
+                    <td>{{ person.phone }}</td>
+                    <td>
+                        {% if user['type'] == 'Manager'%}
+                        <span class="buttons">
+                            <button type="button" name="details"><a href="{{ url_for('details_mentor', user_id=person.user_id) }}">Details</a></button>
+                            <button type="button" name="edit" onclick="buttonclick(this.name)"><a href="{{ url_for('edit_mentor', user_id=person.user_id) }}">Edit</a></button>
+                        </span>
+                        {% endif %}
+                    </td>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+{% endblock %}

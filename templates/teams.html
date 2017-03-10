@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+
+            <table>
+                <caption>Teams
+                    <button type="button" class="buttons" name="add_team" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Create new team</a></button>
+                </caption>
+                <thead>
+                <tr>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="email">Members</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for team in teams %}
+                <tr>
+                    <td class="id_column">{{ team.team_id }}</td>
+                    <td>{{ team.team_name }}</td>
+                    <td>{{ team.members | join(', ') }}</td>
+
+                    <td>
+                        <span class="buttons">
+                            
+                            <a href="{{  url_for('remove', team_id=team.team_id)  }}">
+                                <button type="button" name="remove" onclick="buttonclick(this.name)">Remove</button></a>
+
+                        </span>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+{% endblock %}

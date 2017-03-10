@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../static/attendance.css">
+            <table>
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in rows %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td class="circle_column">
+                    {% if row[3] == 'Spozniony' %}
+                        <div class="yellow_circle"></div>
+                    {% elif row[3] == 'Obecny' %}
+                        <div class="green_circle"></div>
+                    {% else %}
+                        <div class="red_circle"></div>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+{% endblock %}
