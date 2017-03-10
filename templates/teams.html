@@ -1,69 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Codecool CCMS by STEFAN team">
-    <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+{% extends "layout.html" %}
+{% block content %}
     <link rel="stylesheet" type="text/css" href="../static/users_table.css">
-    <link rel="stylesheet" type="text/css" href="../static/forms.css">
-    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
 
-</head>
-<body>
-
-<div class="container">
-    <div class="left_menu">
-        <section class="logged_user">
-            <p>You're logged in as:</p>
-            <div class="user_info_container">
-                <div class="user_image">
-                    <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
-                </div>
-                <div class="user_name">
-                    <h3>Przemek</h3>
-                </div>
-                <div class="logout_button">
-                    <a id="link_logout" href="login.html">Logout</a>
-                </div>
-            </div>
-        </section>
-        <nav>
-            <header class="nav">
-                <p>Classes</p>
-            </header>
-            <ul>
-                <li><a href="../classes_html/attendance.html">Attendance</a></li>
-                <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
-                <li><a href="checkpoint.html">Checkpoint</a></li>
-            </ul>
-            <header class="nav">
-                <p>Student</p>
-            </header>
-            <ul>
-                <li><a href="../student_html/student_list.html">Students list</a></li>
-                <li><a href="../student_html/teams.html">Teams</a></li>
-            </ul>
-            <header class="nav">
-                <p>Assignment</p>
-            </header>
-            <ul>
-                <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
-            </ul>
-            <header class="nav">
-                <p>Mentor</p>
-            </header>
-            <ul>
-                <li><a href="mentor_list.html">Mentor list</a></li>
-            </ul>
-
-        </nav>
-    </div>
-    <div class="right_content">
-        <section class="main_container">
             <table>
                 <caption>Teams
-                    <button type="button" class="buttons" name="add_team" onclick="buttonclick(this.name)">Create team</button>
+                    <button type="button" class="buttons" name="add_team" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Create new team</a></button>
                 </caption>
                 <thead>
                 <tr>
@@ -75,125 +16,26 @@
                 </thead>
 
                 <tbody>
+
+                {% for team in teams %}
                 <tr>
-                    <td class="id_column">01</td>
-                    <td>Muchomorki</td>
-                    <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
+                    <td class="id_column">{{ team.team_id }}</td>
+                    <td>{{ team.team_name }}</td>
+                    <td>{{ team.members | join(', ') }}</td>
+
                     <td>
-                <span class="buttons">
-                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                    <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                </span>
+                        <span class="buttons">
+                            <button type="button" name="details" onclick="buttonclick(this.name)"><a href="{{ url_for('create_team') }}">Details</button>
+                            <a href="{{  url_for('remove', team_id=team.team_id)  }}">
+                                <button type="button" name="remove" onclick="buttonclick(this.name)">Remove</button></a>
+
+                        </span>
                     </td>
 
                 </tr>
-                <tr>
-                    <td class="id_column">02</td>
-                    <td>Grzybki</td>
-                    <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
-                    <td>
-                <span class="buttons">
-                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                    <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                </span>
-                    </td>
+                {% endfor %}
 
-                </tr>
-                <tr>
-                    <td class="id_column">03</td>
-                    <td>Misiaczki</td>
-                    <td>Team Member1, Team Member2, Team Member3, Team Member4 </td>
-                    <td>
-                <span class="buttons">
-                    <button type="button" name="details" onclick="buttonclick(this.name)">Details</button>
-                    <button type="button" name="edit" onclick="buttonclick(this.name)">Edit</button>
-                </span>
-                    </td>
-
-                </tr>
                 </tbody>
-
             </table>
-            <!-- The Modal -->
-            <div id="add_team_Modal" class="modal">
 
-              <!-- Modal content -->
-              <div class="modal-content">
-                  <form class="newStudent">
-                    <span class="close_add_team">&times;</span>
-                    <h1>New team</h1>
-                    <input type="text" id="input-name_add_team" placeholder="Enter name :" onchange="validateContactData(this)">
-                    <input type="text" id="input-first_add_team" placeholder="Team member 1:" onchange="validateContactData(this)">
-                    <input type="text" id="input-second_add_team" placeholder="Team member 2:" onchange="validateContactData(this)">
-                    <input type="text" id="input-third_add_team" placeholder="Team member 3:" onchange="validateContactData(this)">
-                    <input type="text" id="input-fourth_add_team" placeholder="Team member 4:" onchange="validateContactData(this)">
-                    <input type="submit" value="SAVE" id="input-save_add_team" onclick="sendMessage()">
-
-                  </form>
-              </div>
-            </div>
-
-            <div id="details_Modal" class="modal">
-
-              <!-- Modal content -->
-              <div class="modal-content">
-                  <div class="main_container" id="details">
-                    <span class="close_details">&times;</span>
-                    <h1>Team's details</h1>
-                    <table>
-                    <caption>
-                        Team name
-                    <span class="buttons">
-                        <button type="button" onclick="confirmAlert()">Remove team</button>
-                    </span>
-                    </caption>
-                    <tr>
-                        <td>Name:</td>
-                        <td>Misiaczki</td>
-                    </tr>
-                    <tr>
-                        <td>Member:</td>
-                        <td>John Doe</td>
-                    </tr>
-                    <tr>
-                        <td>Member:</td>
-                        <td>John Doe</td>
-                    </tr>
-                    <tr>
-                        <td>Member:</td>
-                        <td>John Doe</td>
-                    </tr>
-                    <tr>
-                        <td>Member:</td>
-                        <td>John Doe</td>
-                    </tr>
-                    </table>
-                   </div>
-              </div>
-            </div>
-
-
-            <div id="edit_Modal" class="modal">
-
-              <!-- Modal content -->
-              <div class="modal-content">
-                  <form class="newStudent">
-                    <span class="close_edit">&times;</span>
-                    <h1>Edit team</h1>
-                    <input type="text" id="input-name_edit_team" placeholder="Enter name :" onchange="validateContactData(this)">
-                    <input type="text" id="input-first_edit_team" placeholder="Team member 1:" onchange="validateContactData(this)">
-                    <input type="text" id="input-second_edit_team" placeholder="Team member 2:" onchange="validateContactData(this)">
-                    <input type="text" id="input-third_edit_team" placeholder="Team member 3:" onchange="validateContactData(this)">
-                    <input type="text" id="input-fourth_edit_team" placeholder="Team member 4:" onchange="validateContactData(this)">
-                    <input type="submit" value="SAVE" id="input-save_edit_team" onclick="sendMessage()">
-
-                  </form>
-              </div>
-            </div>
-        </section>
-    </div>
-</div>
-<script src="../static/js/forms.js"></script>
-<script src="../static/js/confirm_alert.js"></script>
-</body>
-</html>
+{% endblock %}

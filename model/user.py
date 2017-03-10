@@ -12,7 +12,6 @@ class User():
         self.city = city
         self.phone = phone
         self.login = login
-        self.login = login
 
     @classmethod
     def login(cls, login, passw):
@@ -38,3 +37,4 @@ class User():
         db.close()
         user_dict = {'id': user[0], 'name': user[1], 'type': user[4]}
         return user_dict
+

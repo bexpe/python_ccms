@@ -4,6 +4,7 @@ from model.assigment import Answer
 from model.attendance import *
 from model.student import Student
 from model.mentor import Mentor
+from model.team import Team
 from model.user import User
 import sys
 from datetime import datetime
@@ -14,7 +15,6 @@ app = Flask(__name__)
 ################################################
 # Attendance funcionality
 ################################################
-
 
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
@@ -132,6 +132,7 @@ def data():
 ################################################
 
 
+
 def check_run_args():
     try:
         if sys.argv[1] == '-d':
@@ -151,6 +152,7 @@ def index():
 def before_request():
     if 'user' not in session and request.endpoint != 'login':
         return redirect(url_for('login'))
+        #return render_template("login.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -246,8 +248,60 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
 
+
 # set the secret key.  keep this really secret:
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+
+@app.route('/team_create.html', methods=['POST', 'GET'])
+def create_team():
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
+    if request.method == 'POST':
+        team_name = request.form['new_team_name']
+        chosen_members = []
+        member1 = request.form['member1']
+        member2 = request.form['member2']
+        member3 = request.form['member3']
+        member4 = request.form['member4']
+        if member1:
+            chosen_members.append(Student.get_student_by_id(member1))
+        if member2:
+            chosen_members.append(Student.get_student_by_id(member2))
+        if member3:
+            chosen_members.append(Student.get_student_by_id(member3))
+        if member4:
+            chosen_members.append(Student.get_student_by_id(member4))
+        if len(team_name) > 0:
+            Team.add_new_team(team_name, chosen_members)
+        return redirect('teams.html')
+    return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
+
+
+@app.route('/teams.html')
+def display_teams():
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
+    return render_template('teams.html', teams=Team.get_list_of_teams(), user=user)
+
+
+@app.route("/remove/<int:team_id>")
+def remove(team_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
+    Team.remove_team(team_id)
+    return redirect('teams.html')
+
+
+@app.route('/team_details/<int:team_id>')
+def team_details(team_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
+    return render_template('team_details.html', person=Team.get_team_details(team_id), user=user)
 
 
 if __name__ == "__main__":

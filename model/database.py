@@ -16,6 +16,7 @@ class Database:
         else:
             self.cursor.execute(command, values)
         self.conn.commit()
+        return self.cursor.lastrowid
 
     def get(self, command, values=None):
         if values is None:
