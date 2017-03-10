@@ -132,6 +132,7 @@ def index():
 def before_request():
     if 'user' not in session and request.endpoint != 'login':
         return redirect(url_for('login'))
+        #return render_template("login.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
