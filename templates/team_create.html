@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="../static/forms.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
+    <link rel="stylesheet" type="text/css" href="../css/forms.css">
+    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
+            <table>
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                  <form class="newStudent" method="POST" action="{{url_for('create_team')}}">
+                    <span class="close_add_team">&times;</span>
+                    <h1>New team</h1>
+                        <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="new_team_name">
+                        <span type="text" id="input-member1"  name="member1">Member nr 1</span>
+                        <select name="member1">
+                            <option selected='selected' value=''>nobody</option>
+                            {% for student in student_list %}
+                            <option value="{{ student.user_id }}">{{ student.name }} {{ student.surname }}</option>
+                            {% endfor %}
+                        </select>
+
+                      <span type="text" id="input-member2"  name="member2">Member nr 2</span>
+                      <select name="member2">
+                          <option selected='selected' value=''>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
+
+                      <span type="text" id="input-member3"  name="member3">Member nr 3</span>
+                      <select name="member3">
+                          <option selected='selected' value=''>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
+
+                      <span type="text" id="input-member4"  name="member4">Member nr 4</span>
+                      <select name="member4">
+                          <option selected='selected' value=''>nobody</option>
+                          {% for student in student_list %}
+                          <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
+                          {% endfor %}
+                      </select>
+                      <button type="submit" id="input-save_add_team">SAVE NEW TEAM</button>
+
+                  </form>
+              </div>
+            </div>
+
+
+
+            </table>
+
+{% endblock %}
