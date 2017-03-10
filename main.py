@@ -69,7 +69,8 @@ def attendance(student_id):
 @app.route('/student_list.html')
 def student_list():
     user = session['user']
-    return render_template('student_list.html', user=user, students=Student.get_list_of_students())
+    if user['type'] in ('Mentor', 'Employee'):
+        return render_template('student_list.html', user=user, students=Student.get_list_of_students())
 
 
 @app.route('/check_attendance', methods=["POST", 'GET'])
