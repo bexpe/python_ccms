@@ -1,111 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Codecool CCMS by STEFAN team">
-    <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
+{% extends "layout.html" %}
+{% block content %}
     <link rel="stylesheet" type="text/css" href="../static/users_table.css">
-    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="left_menu">
-            <section class="logged_user">
-                <p>You're logged in as:</p>
-                <div class="user_info_container">
-                    <div class="user_image">
-                        <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
-                    </div>
-                    <div class="user_name">
-                        <h3>Przemek</h3>
-                    </div>
-                    <div class="logout_button">
-                        <a id="link_logout" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </section>
-            <nav>
-                <header class="nav">
-                    <p>Classes</p>
-                </header>
-                <ul>
-                    <li><a href="attendance.html">Attendance</a></li>
-                    <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
-                    <li><a href="checkpoint.html">Checkpoint</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Student</p>
-                </header>
-                <ul>
-                    <li><a href="../student_html/student_list.html">Students list</a></li>
-                    <li><a href="teams.html">Teams</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Assignment</p>
-                </header>
-                <ul>
-                    <li><a href="../assignment_html/assignment_list.html">Assignment list</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Mentor</p>
-                </header>
-                <ul>
-                    <li><a href="mentor_list.html">Mentor list</a></li>
-                </ul>
 
-            </nav>
-        </div>
-        <div class="right_content">
-            <section class="main_container">
-                <table>
-                    <caption>Checking attendance for <input type="date" id="attendance_date" name="usr_time" min="2016-10-01" max="2020-08-14" value="2017-02-23"></caption>
-                    <caption>
-                    <h6>Class:
-                        <select name="class_list">
-                            <option value="class">KRK 2016.1</option>
-                            <option value="class">KRK 2016.2</option>
-                            <option value="class">KRK 2016.3</option>
-                            <option value="class">KRK 2016.4</option>
-                        </select>
-                        </h6>
-                    </caption>
+            <table>
+                <caption>Students list
                     <button type="button" class="buttons">Submit</button>
-                    <thead>
-                    <tr>
-                        <th data-field="id" class="id_column">#</th>
-                        <th data-field="name">Name</th>
-                        <th data-field="status">Status</th>
-                    </tr>
-                    </thead>
+                </caption>
+                <thead>
+                <tr>
+                    <th data-field="id" class="id_column">#</th>
+                    <th data-field="name">Name</th>
+                    <th data-field="actions">Actions</th>
+                </tr>
+                </thead>
 
-                    <tbody>
-                    <tr>
-                        <td class="id_column">01</td>
-                        <td>Alvin</td>
-                        <td>
-                            <img id="number" class="attendance_button" src="../static/img/b_green.png" width="35" height="35" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">02</td>
-                        <td>Marian Mariański-Dupański</td>
-                        <td>
-                            <img class="attendance_button" src="../static/img/b_green.png" width="35" height="35" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">03</td>
-                        <td>Jonathan</td>
-                        <td>
-                            <img class="attendance_button" src="../static/img/b_green.png" width="35" height="35" />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-<script src="../static/js/attendance_buttons.js"></script>
-</body>
-</html>
+                <tbody>
+
+                {% for person in students %}
+                <tr>
+                    <td class="id_column">{{ person.user_id }}</td>
+                    <td>{{ person.name }} {{person.surname}}</td>
+                    <td>
+                        <span class="buttons">
+                            <button type="button" onclick="location.href='{{ url_for('present', student_id = person.user_id)}}'">Present</button>
+                            <button type="button" onclick="location.href='{{ url_for('absent', student_id = person.user_id)}}'">Absent</button>
+                            <button type="button" onclick="location.href='{{ url_for('late', student_id = person.user_id)}}'">Late</button>
+                        </span>
+                    </td>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+{% endblock %}

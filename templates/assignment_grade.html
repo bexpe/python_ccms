@@ -1,121 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Codecool CCMS by STEFAN team">
-    <title>Codecool CCMS</title>
-    <link rel="stylesheet" type="text/css" href="../static/style.css">
-    <link rel="stylesheet" type="text/css" href="../static/users_table.css">
-    <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="left_menu">
-            <section class="logged_user">
-                <p>You're logged in as:</p>
-                <div class="user_info_container">
-                    <div class="user_image">
-                        <img src="../static/img/user.png" alt="User Photo" width="55" height="55">
-                    </div>
-                    <div class="user_name">
-                        <h3>Przemek</h3>
-                    </div>
-                    <div class="logout_button">
-                        <a id="link_logout" href="login.html">Logout</a>
-                    </div>
-                </div>
-            </section>
-            <nav>
-                <header class="nav">
-                    <p>Classes</p>
-                </header>
-                <ul>
-                    <li><a href="../classes_html/attendance.html">Attendance</a></li>
-                    <li><a href="../classes_html/check_attendance.html">Check attendance</a></li>
-                    <li><a href="checkpoint.html">Checkpoint</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Student</p>
-                </header>
-                <ul>
-                    <li><a href="../student_html/student_list.html">Students list</a></li>
-                    <li><a href="teams.html">Teams</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Assignment</p>
-                </header>
-                <ul>
-                    <li><a href="assignment_list.html">Assignment list</a></li>
-                </ul>
-                <header class="nav">
-                    <p>Mentor</p>
-                </header>
-                <ul>
-                    <li><a href="mentor_list.html">Mentor list</a></li>
-                </ul>
+{% extends "layout.html" %}
+{% block content %}
+<table>
+    <caption>{{ assigment.name }}</caption>
+    <thead>
+    <tr>
+        <th data-field="id" class="id_column">#</th>
+        <th data-field="name">Name</th>
+        <th data-field="answer">Answer</th>
+        <th data-field="grade">Grade</th>
+        <th data-field="grade">Grade date</th>
+    </tr>
+    </thead>
 
-            </nav>
-        </div>
-        <div class="right_content">
-                <section class="main_container">
-                <table>
-                    <caption>100 doors task</caption>
-                    <button type="button" class="buttons">Save</button>
-                    <thead>
-                    <tr>
-                        <th data-field="id" class="id_column">#</th>
-                        <th data-field="name">Name</th>
-                        <th data-field="description">Answer</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr>
-                        <td class="id_column">01</td>
-                        <td>Marek Dupa</td>
-                        <td>
-                            link to github
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                Grade:
-                                <input type="text" name="grade">
-                                <button type="button">Submit</button>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">02</td>
-                        <td>Jadzia Worek</td>
-                        <td>
-                            link to github
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                Grade:
-                                <input type="text" name="grade">
-                                <button type="button">Submit</button>
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="id_column">03</td>
-                        <td>Andrzej Duda</td>
-                        <td>
-                            link to github
-                        </td>
-                        <td>
-                            <span class="buttons">
-                                Grade:
-                                <input type="text" name="grade">
-                                <button type="button">Submit</button>
-                            </span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </div>
-</body>
-</html>
+    <tbody>
+    <!-- lista studenciaków -->
+    {% if assigment.task_type == "Personal" %}
+        {% for student in students_list %}
+            {% if assigment.get_student_answer(student.user_id) %}
+            <tr>
+                <td class="id_column">{{ student.user_id }}</td>
+                <td>
+                  {{ student.name }} {{ student.surname }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).answer_text }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).grade }}
+                </td>
+                <td>
+                  {{ assigment.get_student_answer(student.user_id).grade_date }}
+                </td>
+                <td>
+                    <form action={{ url_for('grade_answer', answer_id=assigment.get_student_answer(student.user_id).id) }} method="post">
+                        Grade:
+                        <input type="text" name="grade">
+                        <input type="submit" value="SAVE">
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <!-- lista team -->
+      <tr>
+            <td class="id_column">01</td>
+            <td>
+              team name
+            </td>
+            <td>
+              {{assigment.get_team_answer(1).answer_text}}
+            </td>
+            <td>
+              {{assigment.get_team_answer(1).grade}}
+            </td>
+            <td>
+              {{assigment.get_team_answer(1).grade_date}}
+            </td>
+            <td>
+                <form action={{ url_for('grade_answer', answer_id=assigment.get_team_answer(1).id) }} method="post">
+                    Grade:
+                    <input type="text" name="grade">
+                    <input type="submit" value="SAVE">
+                </form>
+            </td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}
