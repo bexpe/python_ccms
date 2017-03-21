@@ -1,4 +1,6 @@
 import re
+
+
 class ValidateInternal:
 
     @staticmethod
@@ -45,11 +47,11 @@ class ValidateInternal:
         """
         if ValidateInternal.is_empty(user_input):
             return False
-        validated_str = ValidateInternal.del_spaces(user_input)
-        validated_str = ValidateInternal.del_script(validated_str)
-        validated_str = ValidateInternal.str_length(validated_str)
+        user_input = ValidateInternal.del_spaces(user_input)
+        user_input = ValidateInternal.del_script(user_input)
+        user_input = ValidateInternal.str_length(user_input)
 
-        return validated_str
+        return user_input
 
     @staticmethod
     def login_input(user_input):
@@ -57,8 +59,8 @@ class ValidateInternal:
         Validate login input
         :return: user_input/False
         """
-        validated_str = ValidateInternal.initial_check(user_input)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(user_input)
+        if user_input:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
@@ -66,7 +68,6 @@ class ValidateInternal:
                 return False
             print(user_input + '  allowed')
             return user_input
-            return validated_str
         return False
 
     @staticmethod
@@ -75,10 +76,15 @@ class ValidateInternal:
         Validate email input
         :return: user_input/False
         """
-        validated_str = ValidateInternal.initial_check(user_input)
-        if validated_str:
-            # TODO: YOUR CODE GOES HERE
-            return validated_str
+        user_input = ValidateInternal.initial_check(user_input)
+        if user_input:
+            if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
+                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
+                # after . not allowed upper- case in the end but .edu.com allowed!
+                print(user_input + ' not allowed')
+                return False
+            print(user_input + '  allowed')
+            return user_input
         return False
 
     @staticmethod
@@ -87,10 +93,16 @@ class ValidateInternal:
         Validate name input
         :return: user_input/False
         """
-        validated_str = ValidateInternal.initial_check(user_input)
-        if validated_str:
-            # TODO: YOUR CODE GOES HERE
-            return validated_str
+        user_input = ValidateInternal.initial_check(user_input)
+        if user_input:
+            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
+            # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
+            # no upper-case at the end of a string allowed
+
+            if not regex.match(user_input):
+                print(user_input + '  not allowed')
+                return False
+            return user_input
         return False
 
     @staticmethod
@@ -99,10 +111,15 @@ class ValidateInternal:
         Validate surname input
         :return: user_input/False
         """
-        validated_str = ValidateInternal.initial_check(user_input)
-        if validated_str:
-            # TODO: YOUR CODE GOES HERE
-            return validated_str
+        user_input = ValidateInternal.initial_check(user_input)
+        if user_input:
+            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
+            # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
+            # no upper-case at the end of a string allowed
+
+            if not regex.match(user_input):
+                return False
+            return user_input
         return False
 
     @staticmethod
@@ -112,8 +129,8 @@ class ValidateInternal:
         :param user_input:
         :return: user_input/False
         """
-        validated_str = ValidateInternal.initial_check(user_input)
-        if validated_str:
-            # TODO: YOUR CODE GOES HERE
-            return validated_str
+        user_input = ValidateInternal.initial_check(user_input)
+        if user_input:
+            if re.match(r'[A-Za-z0-9@#$%^&+=]{4,}', user_input):
+            return user_input
         return False
