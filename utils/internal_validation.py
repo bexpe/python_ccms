@@ -131,6 +131,8 @@ class ValidateInternal:
         """
         user_input = ValidateInternal.initial_check(user_input)
         if user_input:
-            if re.match(r'[A-Za-z0-9@#$%^&+=]{4,}', user_input):
-            return user_input
+            if re.match(r'[A-Za-z0-9@#$%^&+=]{4,}', user_input):  # all upper and lower case allowed with special
+                # signs not shorter than 4 characters
+
+                return user_input
         return False

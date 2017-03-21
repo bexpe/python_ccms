@@ -42,8 +42,10 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input:
-            #TODO: YOUR CODE GOES HERE
-            return user_input
+            if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
+                # signs not shorter than 1 character
+
+                return user_input
         return False
 
 
@@ -68,8 +70,10 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input:
-            #TODO: YOUR CODE GOES HERE
-            return user_input
+            if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
+                # signs not shorter than 1 character
+
+                return user_input
         return False
 
 
