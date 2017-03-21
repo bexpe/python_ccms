@@ -14,7 +14,7 @@ DROP TABLE If EXISTS Student;
 DROP TABLE If EXISTS Teams;
 
 CREATE TABLE "Mentor" (
-	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`User_ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Surname`	TEXT,
 	`Email` TEXT,
@@ -28,7 +28,7 @@ INSERT INTO "Mentor" VALUES(1,'Marcin','Izworski',NULL,NULL,NULL,NULL,'marcin@m'
 INSERT INTO "Mentor" VALUES(2,'Przemysław','Ciąćka',NULL,NULL,NULL,NULL,'przemek@m','dupa');
 INSERT INTO "Mentor" VALUES(3,'Mentor','Mentorowski',NULL,NULL,NULL,NULL,'mentor@m','dupa');
 CREATE TABLE `Manager` (
-	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`User_ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Surname`	TEXT,
 	`Email` TEXT,
@@ -40,7 +40,7 @@ CREATE TABLE `Manager` (
 );
 INSERT INTO "Manager" VALUES(1,'Jurek','Jurkowski',NULL,NULL,NULL,NULL,'jurek@j','dupa');
 CREATE TABLE `Employee` (
-	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`User_ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Surname`	TEXT,
 	`Email` TEXT,
@@ -72,7 +72,7 @@ CREATE TABLE "Teams" (
 );
 INSERT INTO "Teams" VALUES(1,NULL);
 CREATE TABLE "Student" (
-	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`User_ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
 	`Surname`	TEXT,
 	`Email`	TEXT,
