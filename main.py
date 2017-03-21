@@ -118,8 +118,13 @@ def edit_mentor(user_id):
             date_of_birth = None
             city = None
             phone = None
-            new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
-            new_mentor.save()
+            mentor = Mentor.get_mentor_by_id(user_id)
+            mentor.login = login
+            mentor.email = email
+            mentor.name = name
+            mentor.surname = surname
+
+            mentor.update()
             return redirect(url_for(mentor_url))
         return render_template('edit_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url, user=user)
     return redirect(url_for('error.html'))
