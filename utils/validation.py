@@ -16,8 +16,9 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input:
-            #TODO: YOUR CODE GOES HERE
-            return user_input
+            if re.match('(\d{4})[/.-](\d{2})[/.-](\d{2})$', user_input):
+                # allows xxxx-xx-xx, xxxx/xx/xx and xxxx.xx.xx formats
+                return user_input
         return False
 
 
@@ -29,8 +30,8 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input:
-            #TODO: YOUR CODE GOES HERE
-            return user_input
+            if re.match(r'^[0-9]{1,}$', user_input):  # all number, at least one
+                return user_input
         return False
 
 
@@ -57,8 +58,8 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input:
-            #TODO: YOUR CODE GOES HERE
-            return user_input
+            if re.match(r'^[0-9]{1,3}$', user_input):  # allows numbers, only 1-3 digits
+                return user_input
         return False
 
 
