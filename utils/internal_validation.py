@@ -4,7 +4,7 @@ import re
 class ValidateInternal:
 
     @staticmethod
-    def is_empty(user_input):
+    def empty(user_input):
         """
         Validate if user_input is empty
         :param user_input:
@@ -45,8 +45,7 @@ class ValidateInternal:
         Check if user_input is empty, delete spaces and del elements inside script tag
         :return: user_input/False
         """
-        if ValidateInternal.is_empty(user_input):
-            return False
+        user_input = ValidateInternal.empty(user_input)
         user_input = ValidateInternal.del_spaces(user_input)
         user_input = ValidateInternal.del_script(user_input)
         user_input = ValidateInternal.str_length(user_input)
@@ -64,9 +63,7 @@ class ValidateInternal:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
-                print(user_input + ' not allowed')
                 return False
-            print(user_input + '  allowed')
             return user_input
         return False
 
@@ -81,9 +78,7 @@ class ValidateInternal:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
-                print(user_input + ' not allowed')
                 return False
-            print(user_input + '  allowed')
             return user_input
         return False
 
@@ -100,7 +95,6 @@ class ValidateInternal:
             # no upper-case at the end of a string allowed
 
             if not regex.match(user_input):
-                print(user_input + '  not allowed')
                 return False
             return user_input
         return False
