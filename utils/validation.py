@@ -1,6 +1,7 @@
 from utils.internal_validation import ValidateInternal
 from utils.logging_form_validation_class import LoggingFormValidation
 from utils.student_form_validation_class import  StudentFormValidation
+import re
 
 class Validate:
     """
@@ -13,10 +14,10 @@ class Validate:
         Validate date input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
             #TODO: YOUR CODE GOES HERE
-            return validated_str
+            return user_input
         return False
 
 
@@ -26,10 +27,10 @@ class Validate:
         Validate student id input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
             #TODO: YOUR CODE GOES HERE
-            return validated_str
+            return user_input
         return False
 
 
@@ -39,10 +40,10 @@ class Validate:
         Validate team name input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
             #TODO: YOUR CODE GOES HERE
-            return validated_str
+            return user_input
         return False
 
 
@@ -52,10 +53,10 @@ class Validate:
         Validate grade input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
             #TODO: YOUR CODE GOES HERE
-            return validated_str
+            return user_input
         return False
 
 
@@ -65,10 +66,10 @@ class Validate:
         Validate assignment input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
             #TODO: YOUR CODE GOES HERE
-            return validated_str
+            return user_input
         return False
 
 
@@ -78,10 +79,29 @@ class Validate:
         Validate submit link input
         :return: string/False
         """
-        validated_str = ValidateInternal.initial_check(string)
-        if validated_str:
-            #TODO: YOUR CODE GOES HERE
-            return validated_str
+        user_input = ValidateInternal.initial_check(string)
+        if user_input:
+            if user_input.startswith('http'):
+                if not re.match(r'^(http|https)://(.+)\.(.+)',
+                                user_input):  # looking for http/s on the beginning with // and:
+                    return False
+
+                k = re.match(r'^(http|https)://(.+)\.(.+)', user_input)  # assigning to variable k this matching regex
+                link_name = 'assignment_link'
+                user_input = re.sub(r'^(http|https)://(.+)\.(.+)', '<a href = "' + k.string + '">' + link_name + '</a>',
+                                    user_input)  # swapping a link for a html url with href
+                return user_input
+
+
+            elif user_input.startswith('www'):
+                if not re.match(r'^www.(.+)\.(.+)$', user_input):  # looking for www. on the beginning
+                    return False
+
+                k = re.match(r'^www.(.+)\.(.+)$', user_input)  # assigning to variable
+                link_name = 'assignment_link'
+                user_input = re.sub(r'^www.(.*)\.(.*)', '<a href = "http://' + k.group(1) + '.' + k.group(2) + '">' +
+                                    link_name + '</a>', user_input)
+                return user_input
         return False
 
 
