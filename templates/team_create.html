@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
     <link rel="stylesheet" type="text/css" href="../static/forms.css">
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
-    <link rel="stylesheet" type="text/css" href="../css/users_table.css">
-    <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
             <table>
                   <!-- Modal content -->
-                  <div class="modal-content">
+{#                  <div class="modal-content">#}
                   <form class="newStudent" method="POST" action="{{url_for('create_team')}}">
                     <span class="close_add_team">&times;</span>
                     <h1>New team</h1>
@@ -46,8 +43,8 @@
                       <button type="submit" id="input-save_add_team">SAVE NEW TEAM</button>
 
                   </form>
-              </div>
-            </div>
+{#                  </div>#}
+
 
 
 
