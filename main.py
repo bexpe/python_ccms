@@ -1,4 +1,14 @@
 from flask import Flask, render_template, request, redirect, session, url_for, escape
+import sys
+from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+db = SQLAlchemy(app)
+
+
 from model.assigment import Assigment
 from model.assigment import Answer
 from model.attendance import *
@@ -6,11 +16,6 @@ from model.student import Student
 from model.mentor import Mentor
 from model.team import Team
 from model.user import User
-import sys
-from datetime import datetime
-
-app = Flask(__name__)
-
 
 ################################################
 # Attendance funcionality
@@ -135,8 +140,14 @@ def edit_student(user_id):
             phone = None
             team_id = None
             card = None
-            new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id, card)
-            new_student.save()
+            student = Student.get_student_by_id(user_id)
+            student.login = login
+            student.email = email
+            student.name = name
+            student.surname = surname
+
+            student.update()
+            db.session.commit()
             return redirect(url_for(student_url))
         return render_template('edit_student.html', person=Student.get_student_by_id(user_id), url=student_url, user=user)
     return redirect(url_for('error.html'))
