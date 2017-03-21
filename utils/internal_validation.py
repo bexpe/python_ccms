@@ -59,7 +59,13 @@ class ValidateInternal:
         """
         validated_str = ValidateInternal.initial_check(user_input)
         if validated_str:
-            # TODO: YOUR CODE GOES HERE
+            if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
+                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
+                # after . not allowed upper- case in the end but .edu.com allowed!
+                print(user_input + ' not allowed')
+                return False
+            print(user_input + '  allowed')
+            return user_input
             return validated_str
         return False
 
