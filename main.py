@@ -9,8 +9,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
 
-from model.assigment import Assigment
-from model.assigment import Answer
+from model.assignment import Assignment
+from model.assignment import Answer
 from model.attendance import *
 from model.student import Student
 from model.mentor import Mentor
@@ -20,6 +20,7 @@ from model.user import User
 ################################################
 # Attendance funcionality
 ################################################
+
 
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
@@ -298,7 +299,6 @@ def data():
 ################################################
 
 
-
 def check_run_args():
     try:
         if sys.argv[1] == '-d':
@@ -318,7 +318,7 @@ def index():
 def before_request():
     if 'user' not in session and request.endpoint != 'login':
         return redirect(url_for('login'))
-        #return render_template("login.html")
+        # return render_template("login.html")
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -333,48 +333,54 @@ def login():
 
 
 ################################################
-# Assigments funcionality
+# Assigmnents funcionality
 ################################################
 
 
-@app.route("/assigments")
-def assigments():
+@app.route("/assignments")
+def assignments():
     user = session['user']
     if user['type'] not in ('Mentor', 'Student'):
         return redirect(url_for('index'))
-    assigments_list = Assigment.get_list_of_assigments()
+    assignments_list = Assignment.get_list_of_assignments()
     if user['type'] == 'Student':
         student = Student.get_student_by_id(user['id'])
-        return render_template('assignment_list.html', assigments_list=assigments_list, user=user, student=student)
-    return render_template('assignment_list.html', assigments_list=assigments_list, user=user)
+        return render_template('assignment_list.html', assignments_list=assignments_list, user=user, student=student)
+    return render_template('assignment_list.html', assignments_list=assignments_list, user=user)
 
 
-@app.route("/submit_assigment/<assigment_id>", methods=['GET', 'POST'])
-def submit_assigment(assigment_id):
+@app.route("/submit_assignment/<assignment_id>", methods=['GET', 'POST'])
+def submit_assignment(assignment_id):
     user = session['user']
     if user['type'] != 'Student':
         return redirect(url_for('index'))
     user = session['user']
     if request.method == 'GET':
-        return render_template('submit_assigment.html', assigment_id=assigment_id, user=user)
+        return render_template('submit_assignment.html', assignment_id=assignment_id, user=user)
     else:
+        assignment = Assignment.get_assignment_by_id(assignment_id)
+        student = Student.get_student_by_id(user['id'])
         student_answer = request.form['github_link']
-        Answer.submit_answer(student_answer, user['id'], assigment_id)
-        return redirect('/assigments')
+        if assignment.task_type == 'Personal':
+            new_answer = Answer(answer_text, assignment_id, student_id=student_id)
+        else:
+            new_answer = Answer(answer_text, assignment_id, team_id=team_id)
+        new_answer.save()
+        return redirect('/assignments')
 
 
-@app.route("/grade_assigment/<assigment_id>")
-def grade_assigment(assigment_id):
+@app.route("/grade_assignment/<assignment_id>")
+def grade_assignment(assignment_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    assigment = Assigment.get_assigment_by_id(assigment_id)
-    if assigment.task_type == 'Personal':
+    assignment = Assignment.get_assignment_by_id(assignment_id)
+    if assignment.task_type == 'Personal':
         students_list = Student.get_list_of_students()
-        return render_template('assignment_grade.html', assigment=assigment, students_list=students_list, user=user)
-    elif assigment.task_type == 'Team':
+        return render_template('assignment_grade.html', assignment=assignment, students_list=students_list, user=user)
+    elif assignment.task_type == 'Team':
         team_list = Team.get_list_of_teams()
-        return render_template('assignment_grade.html', assigment=assigment, team_list=team_list, user=user)
+        return render_template('assignment_grade.html', assignment=assignment, team_list=team_list, user=user)
 
 
 @app.route("/grade_answer/<answer_id>", methods=['POST'])
@@ -387,26 +393,27 @@ def grade_answer(answer_id):
     grade_date = "{}-{}-{}".format(date_now.year, date_now.month, date_now.day)
     answer.grade = request.form['grade']
     answer.grade_date = grade_date
-    answer.save()
-    return redirect(url_for('grade_assigment', assigment_id=answer.assigment_id))
+    answer.update()
+    return redirect(url_for('grade_assignment', assignment_id=answer.assignment_id))
 
 
-@app.route("/add_assigment", methods=['GET', 'POST'])
-def add_new_assigment():
+@app.route("/add_assignment", methods=['GET', 'POST'])
+def add_new_assignment():
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
     if request.method == 'GET':
-        return render_template('add_assigment.html', user=user)
+        return render_template('add_assignment.html', user=user)
     else:
         task_name = request.form['task-name']
         task_type = request.form['task-type']
-        Assigment.add_new_assigment(task_name, task_type)
-        return redirect('/assigments')
+        new_assignment = Assignment(task_name, task_type)
+        new_assignment.save()
+        return redirect('/assignments')
 
 
 ################################################
-# Assigments funcionality END
+# Assignments funcionality END
 ################################################
 
 
