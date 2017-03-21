@@ -11,7 +11,6 @@ class Team:
     @classmethod
     def add_new_team(cls, name, list_of_students):
         db = Database()
-        print(list_of_students)
         new_team = Team(None, name, '')
         query = """INSERT INTO Teams(Name)  VALUES (?)"""
         values = [new_team.team_name]
@@ -25,7 +24,7 @@ class Team:
     #         Student.get_student_by_id(student_id).team_id = team_id
     #         Student.save()
 
-    def edit_team(self, team_id, edit_new_name):
+    def edit_team(self, team_id, edit_new_name, chosen_members):
         db = Database()
         query = """UPDATE Teams SET Name = (?) WHERE ID=(?)""", (edit_new_name, team_id)
         db.set(query)

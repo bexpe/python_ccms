@@ -71,6 +71,29 @@ def create_team():
     return render_template('team_create.html', student_list=Student.get_list_of_students())
 
 
+@app.route('/team_edit.html', methods=['POST', 'GET'])
+def team_edit():
+    if request.method == 'POST':
+        team_name = request.form['new_team_name']
+        chosen_members = []
+        member1 = request.form['member1']
+        member2 = request.form['member2']
+        member3 = request.form['member3']
+        member4 = request.form['member4']
+        if member1:
+            chosen_members.append(Student.get_student_by_id(member1))
+        if member2:
+            chosen_members.append(Student.get_student_by_id(member2))
+        if member3:
+            chosen_members.append(Student.get_student_by_id(member3))
+        if member4:
+            chosen_members.append(Student.get_student_by_id(member4))
+        if len(team_name) > 0:
+            Team.edit_team(team_name, chosen_members)
+        return redirect('teams.html')
+    return render_template('team_edit.html', student_list=Student.get_list_of_students())
+
+
 @app.route('/teams.html')
 def display_teams():
     return render_template('teams.html', teams=Team.get_list_of_teams())
