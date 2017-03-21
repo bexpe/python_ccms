@@ -2,7 +2,7 @@ import re
 class ValidateInternal:
 
     @staticmethod
-    def is_empty(user_input):
+    def empty(user_input):
         """
         Validate if user_input is empty
         :param user_input:
@@ -43,9 +43,8 @@ class ValidateInternal:
         Check if user_input is empty, delete spaces and del elements inside script tag
         :return: user_input/False
         """
-        if ValidateInternal.is_empty(user_input):
-            return False
-        validated_str = ValidateInternal.del_spaces(user_input)
+        validated_str = ValidateInternal.empty(user_input)
+        validated_str = ValidateInternal.del_spaces(validated_str)
         validated_str = ValidateInternal.del_script(validated_str)
         validated_str = ValidateInternal.str_length(validated_str)
 
@@ -59,13 +58,11 @@ class ValidateInternal:
         """
         validated_str = ValidateInternal.initial_check(user_input)
         if validated_str:
-            if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
+            print(validated_str)
+            if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', validated_str):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
-                print(user_input + ' not allowed')
                 return False
-            print(user_input + '  allowed')
-            return user_input
             return validated_str
         return False
 
@@ -117,3 +114,6 @@ class ValidateInternal:
             # TODO: YOUR CODE GOES HERE
             return validated_str
         return False
+
+
+ValidateInternal.login_input('a@a')
