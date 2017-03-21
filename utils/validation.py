@@ -1,6 +1,6 @@
-from utils.internal_validation import ValidateInternal
-from utils.logging_form_validation_class import LoggingFormValidation
-from utils.student_form_validation_class import  StudentFormValidation
+from internal_validation import ValidateInternal
+from logging_form_validation_class import LoggingFormValidation
+from student_form_validation_class import  StudentFormValidation
 import re
 
 class Validate:
@@ -140,4 +140,3 @@ class Validate:
         form_obj.password = ValidateInternal.password_input(password)
 
         return form_obj
-
