@@ -63,9 +63,7 @@ class ValidateInternal:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
-                print(user_input + ' not allowed')
                 return False
-            print(user_input + '  allowed')
             return user_input
         return False
 
@@ -80,9 +78,7 @@ class ValidateInternal:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
-                print(user_input + ' not allowed')
                 return False
-            print(user_input + '  allowed')
             return user_input
         return False
 
@@ -99,7 +95,6 @@ class ValidateInternal:
             # no upper-case at the end of a string allowed
 
             if not regex.match(user_input):
-                print(user_input + '  not allowed')
                 return False
             return user_input
         return False
@@ -131,5 +126,5 @@ class ValidateInternal:
         user_input = ValidateInternal.initial_check(user_input)
         if user_input:
             if re.match(r'[A-Za-z0-9@#$%^&+=]{4,}', user_input):
-            return user_input
+                return user_input
         return False
