@@ -140,5 +140,3 @@ class Validate:
         form_obj.password = ValidateInternal.password_input(password)
 
         return form_obj
-
-print(Validate.team_input(''))
