@@ -1,7 +1,8 @@
 from utils.internal_validation import ValidateInternal
 from utils.logging_form_validation_class import LoggingFormValidation
-from utils.student_form_validation_class import  StudentFormValidation
+from utils.student_form_validation_class import StudentFormValidation
 import re
+
 
 class Validate:
     """
@@ -21,7 +22,6 @@ class Validate:
                 return user_input
         return False
 
-
     @staticmethod
     def student_id_input(string):
         """
@@ -30,10 +30,9 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input is str:
-            if re.match(r'^[0-9]{1,}$', user_input):  # all number, at least one
+            if re.match(r'^[0-9]+$', user_input):  # all number, at least one
                 return user_input
         return False
-
 
     @staticmethod
     def team_input(string):
@@ -43,11 +42,10 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input is str:
-            if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
+            if re.match(r'[A-Za-z0-9@#$%^&+=]+', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 1 character
                 return user_input
         return False
-
 
     @staticmethod
     def grade_input(string):
@@ -61,7 +59,6 @@ class Validate:
                 return user_input
         return False
 
-
     @staticmethod
     def add_assignment_input(string):
         """
@@ -70,12 +67,11 @@ class Validate:
         """
         user_input = ValidateInternal.initial_check(string)
         if user_input is str:
-            if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
+            if re.match(r'[A-Za-z0-9@#$%^&+=]+', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 1 character
 
                 return user_input
         return False
-
 
     @staticmethod
     def submit_link_input(string):
@@ -96,7 +92,6 @@ class Validate:
                                     user_input)  # swapping a link for a html url with href
                 return user_input
 
-
             elif user_input.startswith('www'):
                 if not re.match(r'^www.(.+)\.(.+)$', user_input):  # looking for www. on the beginning
                     return False
@@ -107,7 +102,6 @@ class Validate:
                                     link_name + '</a>', user_input)
                 return user_input
         return False
-
 
     @staticmethod
     def edit_add_input(login, email, name, surname):

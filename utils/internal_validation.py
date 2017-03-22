@@ -2,6 +2,9 @@ import re
 
 
 class ValidateInternal:
+    """
+    Internal class container for Validation
+    """
 
     @staticmethod
     def empty(user_input):
@@ -21,8 +24,8 @@ class ValidateInternal:
         :param user_input:
         :return: user_input/False
         """
-        user_input = re.sub("\s\s+", " ", user_input)  # if its more than two spaces between words or at the beginning and
-        # in the and of user_input, then they're changed for one space
+        user_input = re.sub("\s\s+", " ", user_input)  # if its more than two spaces between words or at the beginning
+        # and in the and of user_input, then they're changed for one space
         return user_input
 
     @staticmethod
@@ -32,7 +35,7 @@ class ValidateInternal:
         :param user_input:
         :return:
         """
-        user_input = re.sub("\<script\>.*\<script\/\>", "", user_input)
+        user_input = re.sub("<script>.*<script/>", "", user_input)
         return user_input
 
     @staticmethod
@@ -67,8 +70,8 @@ class ValidateInternal:
         user_input = ValidateInternal.initial_check(user_input)
         if user_input is str:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
-                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
-                # after . not allowed upper- case in the end but .edu.com allowed!
+                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no
+                # upper-case! after . not allowed upper- case in the end but .edu.com allowed!
                 return False
             return user_input
         return False
@@ -82,8 +85,8 @@ class ValidateInternal:
         user_input = ValidateInternal.initial_check(user_input)
         if user_input is str:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
-                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
-                # after . not allowed upper- case in the end but .edu.com allowed!
+                # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but
+                # no upper-case! after . not allowed upper- case in the end but .edu.com allowed!
                 return False
             return user_input
         return False
@@ -96,8 +99,8 @@ class ValidateInternal:
         """
         user_input = ValidateInternal.initial_check(user_input)
         if user_input is str:
-            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
-            # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
+            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(-)([a-z]{2,})$', re.U)  # Upper-case at the
+            # beginning required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
             # no upper-case at the end of a string allowed
 
             if not regex.match(user_input):
@@ -113,7 +116,7 @@ class ValidateInternal:
         """
         user_input = ValidateInternal.initial_check(user_input)
         if user_input is str:
-            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
+            regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
             # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
             # no upper-case at the end of a string allowed
 

@@ -16,6 +16,7 @@ from model.student import Student
 from model.mentor import Mentor
 from model.team import Team
 from model.user import User
+from utils.validation import Validate
 
 ################################################
 # Attendance funcionality
