@@ -142,21 +142,21 @@ def edit_student(user_id):
             email = request.form['email']
             name = request.form['name']
             surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            team_id = None
-            card = None
-            student = Student.get_student_by_id(user_id)
-            student.login = login
-            student.email = email
-            student.name = name
-            student.surname = surname
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if False not in validated_object:
+                student = Student.get_student_by_id(user_id)
+                student.login = validated_object.login
+                student.email = validated_object.email
+                student.name = validated_object.name
+                student.surname = validated_object.surname
 
-            student.update()
-            db.session.commit()
-            return redirect(url_for(student_url))
-        return render_template('edit_student.html', person=Student.get_student_by_id(user_id), url=student_url, user=user)
+                student.update()
+                db.session.commit()
+                return redirect(url_for(student_url))
+            return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
+                                   url=student_url, user=user)
+        return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
+                               url=student_url, user=user)
     return redirect(url_for('error.html'))
 
 
