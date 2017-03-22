@@ -486,13 +486,6 @@ def remove(team_id):
     return redirect('teams.html')
 
 
-@app.route('/team_details/<int:team_id>')
-def team_details(team_id):
-    user = session['user']
-    if user['type'] != 'Mentor':
-        return redirect(url_for('index'))
-    return render_template('team_details.html', person=Team.get_team_details(team_id), user=user)
-
 if __name__ == "__main__":
     check_run_args()
     app.run(debug=True, port=1111)

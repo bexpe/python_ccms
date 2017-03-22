@@ -39,3 +39,26 @@ class User():
         user_dict = {'id': user[0], 'name': user[1], 'type': user[4]}
         return user_dict
 
+    def delete(self):
+        """
+        Delete object from database
+        :return: none
+        """
+        db.session.delete(self)
+        db.session.commit()
+
+    def save(self):
+        """
+        Save new object in database
+        :return: none
+        """
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        """
+        Update fileds of object in database
+        :return: none
+        """
+        db.session.commit()
+
