@@ -339,6 +339,9 @@ def login():
 
 @app.route("/assignments")
 def assignments():
+    """
+    Show list of assigments to grade or submit if you are student
+    """
     user = session['user']
     if user['type'] not in ('Mentor', 'Student'):
         return redirect(url_for('index'))
@@ -351,6 +354,9 @@ def assignments():
 
 @app.route("/submit_assignment/<assignment_id>", methods=['GET', 'POST'])
 def submit_assignment(assignment_id):
+    """
+    Student submit assignment handler.
+    """
     user = session['user']
     if user['type'] != 'Student':
         return redirect(url_for('index'))
@@ -371,6 +377,9 @@ def submit_assignment(assignment_id):
 
 @app.route("/grade_assignment/<assignment_id>")
 def grade_assignment(assignment_id):
+    """
+    Show list of answers to given assignment.
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -385,6 +394,9 @@ def grade_assignment(assignment_id):
 
 @app.route("/grade_answer/<answer_id>", methods=['POST'])
 def grade_answer(answer_id):
+    """
+    Grade answer by given id.
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -399,6 +411,9 @@ def grade_answer(answer_id):
 
 @app.route("/add_assignment", methods=['GET', 'POST'])
 def add_new_assignment():
+    """
+    Adding new assignment to database.
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
