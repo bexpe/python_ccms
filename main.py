@@ -245,7 +245,7 @@ def remove_student(user_id):
 def add_to_team(user_id):
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        pass  # TODO BEATA teams
+        pass
     return redirect(url_for('error.html'))
 
 
