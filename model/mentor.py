@@ -46,27 +46,4 @@ class Mentor(User, db.Model):
         """
         return cls.query.all()
 
-    def delete(self):
-        """
-        Delete object from database
-        :return: none
-        """
-        db.session.delete(self)
-        db.session.commit()
-
-    def save(self):
-        """
-        Save new object in database
-        :return: none
-        """
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        """
-        Update fileds of object in database
-        :return: none
-        """
-        db.session.commit()
-
 

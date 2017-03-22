@@ -40,26 +40,3 @@ class Employee(User, db.Model):
         :return: list: list with person objects
         """
         return cls.query.all()
-
-    def save(self):
-        """
-        Save new object in database
-        :return: none
-        """
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        """
-        Update fields of object in database
-        :return: none
-        """
-        db.session.commit()
-
-    def delete(self):
-        """
-        Delete object from database
-        :return: none
-        """
-        db.session.delete(self)
-        db.session.commit()
