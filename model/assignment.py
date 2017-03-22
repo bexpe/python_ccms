@@ -63,11 +63,6 @@ class Answer(db.Model):
         self.assignment_id = assignment_id
         self.grade_date = grade_date
 
-    @classmethod
-    def get_answer_by_id(cls, answer_id):
-        """Return answer object by given id."""
-        return cls.query.get(answer_id)
-
     def remove_old_answer(self):
         """
         Method for removing from database answers if they already exist and user typed new answer.
@@ -81,15 +76,16 @@ class Answer(db.Model):
             db.session.commit()
 
     def save(self):
-        """
-        Remove old answer if exist and add new.
-        """
+        """Remove old answer if exist and add new."""
         self.remove_old_answer()
         db.session.add(self)
         db.session.commit()
 
     def update(self):
-        """
-        Just update answer, when mentor grade.
-        """
+        """Just update answer, when mentor grade."""
         db.session.commit()
+
+    @classmethod
+    def get_answer_by_id(cls, answer_id):
+        """Return answer object by given id."""
+        return cls.query.get(answer_id)
