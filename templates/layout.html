@@ -36,7 +36,7 @@
                         </ul>
                         <ul>
                             <li><a href={{ url_for('attendance', student_id=user['id']) }}>Attendance</a></li>
-                            <li><a href={{ url_for('assigments') }}>Assignment list</a></li>
+                            <li><a href={{ url_for('assignments') }}>Assignment list</a></li>
                         </ul>
                     {% elif user['type'] == 'Mentor' %}
                         <ul>
@@ -50,7 +50,7 @@
                             <li><a href="/attendance_by_data">Check attendance by data</a></li>
                             <li><a href={{ url_for('student_list') }}>Students list</a></li>
                             <li><a href={{ url_for('display_teams') }}>Teams</a></li>
-                            <li><a href={{ url_for('assigments') }}>Assignment list</a></li>
+                            <li><a href={{ url_for('assignments') }}>Assignment list</a></li>
                         </ul>
                     {% elif user['type'] == 'Manager' %}
                         <ul>

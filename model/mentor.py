@@ -1,54 +1,49 @@
 from model.user import User
-from model.database import Database
+from main import db
 
 
-class Mentor(User):
+class Mentor(User, db.Model):
+
+    # table name in database for SQLAlchemy
+    __tablename__ = 'Mentor'
+
+    # columns in table for SQLAlchemy
+    user_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    surname = db.Column(db.String)
+    email = db.Column(db.String)
+    date_of_birth = db.Column(db.String)
+    city = db.Column(db.String)
+    phone = db.Column(db.String)
+    login = db.Column(db.String)
+    password = db.Column(db.String)
+
     def __init__(self, user_id, name, surname, email, date_of_birth, city, phone, login):
         super().__init__(user_id, name, surname, email, date_of_birth, city, phone, login)
 
     @classmethod
     def get_mentor_by_id(cls, idx):
-        db = Database()
-        query = """SELECT * FROM Mentor WHERE id =(?)"""
-        person = db.get(query, (idx,))[0]
-        print(person)
-        new_mentor = Mentor(person[0], person[1], person[2], person[3], person[4], person[5], person[6], person[7])
-        return new_mentor
+        """
+        Finds row in database by id and return object made with proper data
+        :param idx: id of row in db
+        :return: object: person object
+        """
+        return cls.query.get(idx)
 
     def get_mentor_details(self, idx):
+        """
+        Returns dictionary made from object
+        :param idx: id of row in db
+        :return: dict: dictionary made from object
+        """
         return self.__dict__
 
     @classmethod
     def get_list_of_mentors(cls):
-        list_of_mentors = []
-        db = Database()
-        query = """SELECT * FROM Mentor;"""
-        for person in db.get(query):
-            person_object = Mentor(person[0], person[1], person[2], person[3], person[4], person[5], person[6],
-                                   person[7])
-            list_of_mentors.append(person_object)
-
-        db.close()
-        return list_of_mentors
-
-    def delete(self):
-        db = Database()
-        query = """DELETE FROM Mentor WHERE id =(?)"""
-        db.set(query, (self.user_id,))
-        db.close()
-
-    def save(self):
-        db = Database()
-        values = (
-        self.name, self.surname, self.email, self.date_of_birth, self.city, self.phone, self.login, self.user_id)
-
-        if not self.user_id:
-            values = values[:-1]
-            query = """INSERT INTO Mentor(Name, Surname, Email, Date_of_birth, City, Phone, Login) VALUES (?,?,?,?,?,?,?);"""
-        else:
-            query = """UPDATE Mentor SET Name=(?), Surname=(?), Email=(?), Date_of_birth=(?), City=(?), Phone=(?), Login=(?) WHERE id =(?);"""
-
-        db.set(query, values)
-        db.close()
+        """
+        Retrieve person from table and return them in list of objects
+        :return: list: list with person objects
+        """
+        return cls.query.all()
 
 

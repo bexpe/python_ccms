@@ -1,74 +1,58 @@
 from model.database import *
 from model.student import Student
+from main import db
 
-class Team:
+class Team(db.Model):
+    # table name in database for SQLAlchemy
+    __tablename__ = 'Teams'
+
+    # columns in table for SQLAlchemy
+    team_id = db.Column(db.Integer, primary_key=True)
+    team_name = db.Column(db.String)
+    members = db.Column(db.String)
 
     def __init__(self, team_id, team_name, members):
         self.team_id = team_id
         self.team_name = team_name
         self.members = members
 
+
     @classmethod
     def add_new_team(cls, name, list_of_students):
-        db = Database()
-        print(list_of_students)
         new_team = Team(None, name, '')
-        query = """INSERT INTO Teams(Name)  VALUES (?)"""
-        values = [new_team.team_name]
-        new_team.team_id = db.set(query, values)
-        db.close()
+
+        db.session.add(new_team)
+
         for student in list_of_students:
             student.set_team_id(student.user_id, new_team.team_id)
+        db.session.commit()
         return new_team
 
-    # def add_student_to_team(self, student_id, team_id):
-    #         Student.get_student_by_id(student_id).team_id = team_id
-    #         Student.save()
-
     def edit_team(self, team_id, edit_new_name):
-        db = Database()
-        query = """UPDATE Teams SET Name = (?) WHERE ID=(?)""", (edit_new_name, team_id)
-        db.set(query)
-        db.close()
+        db.session.commit()
+
+    @classmethod
+    def get_team_by_id(cls, team_id):
+        return cls.query.get(team_id)
 
     @classmethod
     def remove_team(cls, team_id):
-        db = Database()
+        Team.get_team_by_id(team_id)
+        db.session.delete()
         team_members = Team.get_list_of_students_by_team_id(team_id)
         for student in team_members:
-            student.set_team_id(student.user_id, 'NULL')
+            student.set_team_id(student.user_id, 'None')
+        db.session.commit()
 
-        query = """DELETE FROM Teams WHERE ID=(?)"""
-        db.set(query, (team_id,))
-        db.close()
-
-    def get_team_details(self, team_id):
-        team_details = []
-        db = Database()
-        query = """SELECT * FROM Teams WHERE ID=(?)""", (team_id,)
-        for team in db.get(query):
-            team_object = Team(team[0], team[1], team[2])
-            team_details.append(team_object)
-        db.close()
-        return team_details
 
     @classmethod
-    def get_list_of_teams(cls):
-        list_of_teams = []
-        db = Database()
-        query = """SELECT * FROM Teams"""
-        for team in db.get(query):
-            team_id = team[0]
-            team_name = team[1]
-            team_members = Team.get_list_of_students_by_team_id(team_id)
-            team_members_names = []
-            for member in team_members:
-                team_members_names.append(member.name + ' ' + member.surname)
-            team_object = Team(team_id, team_name, team_members)
+    def get_list_of_teams(cls, team_id):
 
-            list_of_teams.append(team_object)
-        db.close()
-        return list_of_teams
+        teams = cls.query.all()
+        for team in teams:
+            team.members = Team.get_list_of_students_by_team_id(team.team_id)
+        return teams
+
 
     # def add_student_to_team(cls, student_id, team_id):
     #     db = Database
@@ -90,6 +74,4 @@ class Team:
                 team_members.append(student)
         return team_members
 
-# Team.add_student_to_team(1, 2)
-print()
 
