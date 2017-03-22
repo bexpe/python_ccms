@@ -65,7 +65,7 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.initial_check(user_input)
-        if user_input:
+        if user_input is str:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
@@ -80,7 +80,7 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.initial_check(user_input)
-        if user_input:
+        if user_input is str:
             if not re.match(r'^[A-Za-z0-9-]+(\.[a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', user_input):
                 # lower and upper-case, dotes and numbers allowed before @, dotes and numbers allowed after @ but no upper-case!
                 # after . not allowed upper- case in the end but .edu.com allowed!
@@ -95,7 +95,7 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.initial_check(user_input)
-        if user_input:
+        if user_input is str:
             regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
             # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
             # no upper-case at the end of a string allowed
@@ -112,7 +112,7 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.initial_check(user_input)
-        if user_input:
+        if user_input is str:
             regex = re.compile(r'(^[A-Z])+(-[^\W_]+)?([a-z]{2,})?(\-)([a-z]{2,})$', re.U)  # Upper-case at the beginning
             # required, one - allowed but without empty spaces!!! eg Catherine-Meg, no numbers allowed,
             # no upper-case at the end of a string allowed
@@ -130,7 +130,7 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.initial_check(user_input)
-        if user_input:
+        if user_input is str:
             if re.match(r'[A-Za-z0-9@#$%^&+=]{4,}', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 4 characters
 

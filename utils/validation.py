@@ -15,7 +15,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if re.match('(\d{4})[/.-](\d{2})[/.-](\d{2})$', user_input):
                 # allows xxxx-xx-xx, xxxx/xx/xx and xxxx.xx.xx formats
                 return user_input
@@ -29,7 +29,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if re.match(r'^[0-9]{1,}$', user_input):  # all number, at least one
                 return user_input
         return False
@@ -42,7 +42,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 1 character
                 return user_input
@@ -56,7 +56,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if re.match(r'^[0-9]{1,3}$', user_input):  # allows numbers, only 1-3 digits
                 return user_input
         return False
@@ -69,7 +69,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 1 character
 
@@ -84,7 +84,7 @@ class Validate:
         :return: string/False
         """
         user_input = ValidateInternal.initial_check(string)
-        if user_input:
+        if user_input is str:
             if user_input.startswith('http'):
                 if not re.match(r'^(http|https)://(.+)\.(.+)',
                                 user_input):  # looking for http/s on the beginning with // and:
