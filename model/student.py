@@ -39,29 +39,6 @@ class Student(User, db.Model):
     def get_student_details(self):
         return self.__dict__
 
-    def save(self):
-        """
-        Save new object in database
-        :return: none
-        """
-        db.session.add(self)
-        db.session.commit()
-
-    def update(self):
-        """
-        Update fileds of object in database
-        :return: none
-        """
-        db.session.commit()
-
-    def delete(self):
-        """
-        Delete object from database
-        :return: none
-        """
-        db.session.delete(self)
-        db.session.commit()
-
     @classmethod
     def get_student_by_id(cls, idx):
         """
