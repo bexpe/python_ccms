@@ -10,7 +10,7 @@ class ValidateInternal:
         :param user_input:
         :return: Boolean
         """
-        if re.match(r'^\s*$', user_input):  # don't allow empty user_input or input with only white spaces
+        if re.match(r'^\s*$]', user_input):  # don't allow empty user_input or input with only white spaces
             return False
         return user_input
 
@@ -46,10 +46,18 @@ class ValidateInternal:
         :return: user_input/False
         """
         user_input = ValidateInternal.empty(user_input)
+        if not user_input:
+            return False
         user_input = ValidateInternal.del_spaces(user_input)
+        if not user_input:
+            return False
         user_input = ValidateInternal.del_script(user_input)
+        if not user_input:
+            return False
         user_input = ValidateInternal.str_length(user_input)
-
+        if not user_input:
+            return False
+        #TODO: VALIDATE REGEX
         return user_input
 
     @staticmethod
