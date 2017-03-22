@@ -27,9 +27,12 @@ class ValidateInternal:
 
     @staticmethod
     def del_script(user_input):
-        if re.search(r'<script.*?>',
-                     user_input):  # don't allow scripts in all user_input even between some different words
-            return False
+        """
+        delete scripts in all user_input even between some different words
+        :param user_input:
+        :return:
+        """
+        user_input = re.sub("\<script\>.*\<script\/\>", "", user_input)
         return user_input
 
     @staticmethod
@@ -49,15 +52,10 @@ class ValidateInternal:
         if not user_input:
             return False
         user_input = ValidateInternal.del_spaces(user_input)
-        if not user_input:
-            return False
         user_input = ValidateInternal.del_script(user_input)
-        if not user_input:
-            return False
         user_input = ValidateInternal.str_length(user_input)
         if not user_input:
             return False
-        #TODO: VALIDATE REGEX
         return user_input
 
     @staticmethod
