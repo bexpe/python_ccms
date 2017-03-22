@@ -62,8 +62,7 @@ CREATE TABLE `Attendance` (
 CREATE TABLE `Assignments` (	
 	`ID`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`Name`	TEXT,
-	`Description`	TEXT,
-	`Student_ID`	INTEGER
+	`Task_type`	TEXT,
 );
 INSERT INTO "Assignments" VALUES(1,'Square','Find the area of a square with a given side',1);
 CREATE TABLE "Teams" (
@@ -93,11 +92,10 @@ CREATE TABLE "Answers" (
 	`Answer_text`	TEXT,
 	`Grade`	TEXT,
 	`Student_ID`	INTEGER,
+	`Team_ID`	INTEGER,
 	`Assignment_ID`	INTEGER,
 	`Grade_date`	TEXT
 );
-INSERT INTO "Answers" VALUES(1,'Square has four sides','6',1,1,NULL);
-INSERT INTO "Answers" VALUES(2,'Circle is round','5',1,2,NULL);
 DELETE FROM sqlite_sequence;
 INSERT INTO "sqlite_sequence" VALUES('Mentor',3);
 INSERT INTO "sqlite_sequence" VALUES('Manager',1);
