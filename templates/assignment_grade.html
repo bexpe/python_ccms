@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <table>
-    <caption>{{ assigment.name }}</caption>
+    <caption>{{ assignment.name }}</caption>
     <thead>
     <tr>
         <th data-field="id" class="id_column">#</th>
@@ -14,25 +14,25 @@
 
     <tbody>
     <!-- lista studenciaków -->
-    {% if assigment.task_type == "Personal" %}
+    {% if assignment.task_type == "Personal" %}
         {% for student in students_list %}
-            {% if assigment.get_student_answer(student.user_id) %}
+            {% if assignment.get_student_answer(student.user_id) %}
             <tr>
                 <td class="id_column">{{ student.user_id }}</td>
                 <td>
                   {{ student.name }} {{ student.surname }}
                 </td>
                 <td>
-                  {{ assigment.get_student_answer(student.user_id).answer_text }}
+                  {{ assignment.get_student_answer(student.user_id).answer_text }}
                 </td>
                 <td>
-                  {{ assigment.get_student_answer(student.user_id).grade }}
+                  {{ assignment.get_student_answer(student.user_id).grade }}
                 </td>
                 <td>
-                  {{ assigment.get_student_answer(student.user_id).grade_date }}
+                  {{ assignment.get_student_answer(student.user_id).grade_date }}
                 </td>
                 <td>
-                    <form action={{ url_for('grade_answer', answer_id=assigment.get_student_answer(student.user_id).id) }} method="post">
+                    <form action={{ url_for('grade_answer', answer_id=assignment.get_student_answer(student.user_id).id) }} method="post">
                         Grade:
                         <input type="text" name="grade">
                         <input type="submit" value="SAVE">
@@ -43,23 +43,23 @@
         {% endfor %}
     {% else %}
         {% for team in team_list %}
-            {% if assigment.get_team_answer(team.team_id) %}
+            {% if assignment.get_team_answer(team.team_id) %}
             <tr>
                 <td class="id_column">01</td>
                 <td>
                   {{ team.team_name }}
                 </td>
                 <td>
-                  {{assigment.get_team_answer(team.team_id).answer_text}}
+                  {{assignment.get_team_answer(team.team_id).answer_text}}
                 </td>
                 <td>
-                  {{assigment.get_team_answer(team.team_id).grade}}
+                  {{assignment.get_team_answer(team.team_id).grade}}
                 </td>
                 <td>
-                  {{assigment.get_team_answer(team.team_id).grade_date}}
+                  {{assignment.get_team_answer(team.team_id).grade_date}}
                 </td>
                 <td>
-                    <form action={{ url_for('grade_answer', answer_id=assigment.get_team_answer(team.team_id).id) }} method="post">
+                    <form action={{ url_for('grade_answer', answer_id=assignment.get_team_answer(team.team_id).id) }} method="post">
                         Grade:
                         <input type="text" name="grade">
                         <input type="submit" value="SAVE">

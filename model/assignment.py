@@ -54,7 +54,17 @@ class Answer(db.Model):
     def get_answer_by_id(cls, answer_id):
         return cls.query.get(answer_id)
 
+    def remove_old_answer(self):
+        if self.student_id:
+            answer = self.query.filter_by(assignment_id=self.assignment_id, student_id=self.student_id).first()
+        elif self.team_id:
+            answer = self.query.filter_by(assignment_id=self.assignment_id, team_id=self.team_id).first()
+        if answer:
+            db.session.delete(answer)
+            db.session.commit()
+
     def save(self):
+        self.remove_old_answer()
         db.session.add(self)
         db.session.commit()
 

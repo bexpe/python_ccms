@@ -362,9 +362,9 @@ def submit_assignment(assignment_id):
         student = Student.get_student_by_id(user['id'])
         student_answer = request.form['github_link']
         if assignment.task_type == 'Personal':
-            new_answer = Answer(answer_text, assignment_id, student_id=student_id)
+            new_answer = Answer(student_answer, assignment_id, student_id=student.user_id)
         else:
-            new_answer = Answer(answer_text, assignment_id, team_id=team_id)
+            new_answer = Answer(student_answer, assignment_id, team_id=student.team_id)
         new_answer.save()
         return redirect('/assignments')
 
