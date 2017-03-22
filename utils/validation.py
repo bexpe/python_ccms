@@ -1,6 +1,6 @@
-from internal_validation import ValidateInternal
-from logging_form_validation_class import LoggingFormValidation
-from student_form_validation_class import  StudentFormValidation
+from utils.internal_validation import ValidateInternal
+from utils.logging_form_validation_class import LoggingFormValidation
+from utils.student_form_validation_class import  StudentFormValidation
 import re
 
 class Validate:
@@ -45,7 +45,6 @@ class Validate:
         if user_input:
             if re.match(r'[A-Za-z0-9@#$%^&+=]{1,}', user_input):  # all upper and lower case allowed with special
                 # signs not shorter than 1 character
-
                 return user_input
         return False
 
