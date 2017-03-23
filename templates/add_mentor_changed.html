@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block modal %}
+<!-- The Modal -->
+<div id="add_mentor_Modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+      <form class="newStudent" METHOD="POST">
+      {% if url == 'mentor_list' %}
+        <a href="{{ url_for('mentor_list') }} "><span class="close_edit">&times;</span></a>
+        <h1>New mentor</h1>
+      {% endif %}
+
+        {% if person.login == False %}
+        <p>Given format is not allowed reference to example input: mail@mail.com</p>
+        <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
+        {% else %}
+        <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)"
+               value="{{ person.login }}">
+        {% endif %}
+
+        {% if person.email == False %}
+        <p>Given format is not allowed reference to example input: mail@mail.com</p>
+        <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)">
+        {% else %}
+        <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)"
+               value="{{ person.email }}">
+        {% endif %}
+
+        {% if person.name == False %}
+        <p>Given format is not allowed. Reference to example input: Name or Name-Name</p>
+        <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)">
+        {% else %}
+        <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)"
+               value="{{ person.name }}">
+        {% endif %}
+
+        {% if person.surname == False %}
+        <p>Given format is not allowed. Reference to example input: Surname or Surname-Surname</p>
+        <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)">
+        {% else %}
+        <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)"
+               value="{{ person.surname }}">
+        {% endif %}
+
+        <input type="submit" value="SAVE" id="input-save_add_mentor">
+
+      </form>
+  </div>
+</div>
+{% endblock %}
