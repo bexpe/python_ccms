@@ -151,12 +151,19 @@ def data():
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
     if request.method == "POST":
-        start_date = request.form.get("start")
-        end_date = request.form.get("end")
-        student_id = request.form.get("student_id")
-        return redirect(
-            url_for('attendance_data', user=user, student_id=student_id, start_date=start_date, end_date=end_date))
-    return render_template('attendance_by_data.html', user=user)
+        start_date = request.form["start"]
+        end_date = request.form["end"]
+        student_id = request.form["student_id"]
+        validated_object = Validate.date_validation(start_date, end_date, student_id)
+        if validated_object.valid_object():
+            return redirect(url_for('attendance_data',
+                                    user=user,
+                                    validated=validated_object))
+        return render_template('attendance_by_data_validation.html',
+                               user=user,
+                               validated=validated_object)
+    return render_template('attendance_by_data.html',
+                           user=user)
 
 
 ################################################
