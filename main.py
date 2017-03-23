@@ -93,6 +93,7 @@ def present(student_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
+
     Attendance.set_attendance(None, student_id, datetime.now().date(), "Obecny")
     return redirect(url_for('check_attendance'))
 
@@ -258,7 +259,8 @@ def absent(student_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(None, student_id, datetime.now().date(), "Nieobecny")
+    attendance = Attendance(None, student_id, datetime.now().date(), "Nieobecny")
+    attendance.save()
     return redirect(url_for('check_attendance'))
 
 
