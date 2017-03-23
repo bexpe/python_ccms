@@ -184,12 +184,19 @@ def add_mentor():
             date_of_birth = None
             city = None
             phone = None
-            new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
-            new_mentor.save()
-            return redirect(url_for(mentor_url))
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                login = validated_object.login
+                email = validated_object.email
+                name = validated_object.name
+                surname = validated_object.surname
+                new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
+                new_mentor.save()
+                return redirect(url_for(mentor_url))
+            return render_template('add_mentor_changed.html', person=validated_object,
+                                   url=mentor_url, user=user)
         return render_template('add_mentor.html', url=mentor_url, user=user)
     return redirect(url_for('error.html'))
-
 
 @app.route('/add_student.html', methods=['GET', 'POST'])
 def add_student():
@@ -207,9 +214,18 @@ def add_student():
             phone = None
             team_id = None
             card = None
-            new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id, card)
-            new_student.save()
-            return redirect(url_for(student_url))
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                login = validated_object.login
+                email = validated_object.email
+                name = validated_object.name
+                surname = validated_object.surname
+                new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id,
+                                      card)
+                new_student.save()
+                return redirect(url_for(student_url))
+            return render_template('add_student_changed.html', person=validated_object,
+                                   url=student_url, user=user)
         return render_template('add_student.html', url=student_url, user=user)
     return redirect(url_for('error.html'))
 
