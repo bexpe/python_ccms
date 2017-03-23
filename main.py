@@ -17,7 +17,6 @@ from model.team import Team
 from model.user import User
 from utils.validation import Validate
 
-
 ################################################
 # Attendance funcionality
 ################################################
@@ -143,7 +142,7 @@ def edit_student(user_id):
             name = request.form['name']
             surname = request.form['surname']
             validated_object = Validate.edit_add_input(login, email, name, surname)
-            if False not in validated_object:
+            if validated_object.valid_object():
                 student = Student.get_student_by_id(user_id)
                 student.login = validated_object.login
                 student.email = validated_object.email
@@ -153,7 +152,7 @@ def edit_student(user_id):
                 student.update()
                 db.session.commit()
                 return redirect(url_for(student_url))
-            return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
+            return render_template('edit_student.html', person=validated_object,
                                    url=student_url, user=user)
         return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
                                url=student_url, user=user)
