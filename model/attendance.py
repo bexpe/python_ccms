@@ -1,23 +1,35 @@
 from model.database import *
+from main import db
+from datetime import date
+import time
 
+class Attendance(db.Model):
+    __tablename__ = 'Attendance'
+    attendance_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    student_id = db.Column(db.Integer)
+    data = db.Column(db.String)
+    attendance_value = db.Column(db.String)
 
-class Attendance:
+    def __init__(self, attendence_id, student_id, data, attendence_value):
+        self.student_id = student_id
+        self.attendance_value = attendence_value
+        self.attendance_id = attendence_id
+        self.data = data
 
-    @staticmethod
-    def get_student_attendance(student_id):
-        db = Database()
-        attendance = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Student_ID=(?) ORDER BY Date", (student_id,))
-        db.close()
-        return attendance
+    @classmethod
+    def get_student_attendance(cls, student_id):
+        return cls.query.filter_by(student_id=student_id)
 
-    @staticmethod
-    def set_attendance(student_id, attendance):
-        db = Database()
-        if db.get("SELECT Attendance_value from Attendance WHERE Student_ID = (?) AND Date = date('now')", (student_id,)):
-            db.set("UPDATE Attendance SET Attendance_value = (?) WHERE Student_ID = (?) and Date = date('now')", (attendance, student_id))
+    @classmethod
+    def set_attendance(cls, attendence_id, student_id, data, attendance_value):
+        xd = date.today()
+        if cls.query.filter_by(data=data('now')).filter_by(student_id=student_id):
+            db.query(Attendance).update({Attendance.attendance_value: attendance_value})
+
         else:
-            db.set("INSERT INTO Attendance Values (null,(?), date('now'), (?))", (student_id, attendance))
-        db.close()
+            attendance = Attendance(attendence_id, student_id, xd, attendance_value)
+            db.session.add(attendance)
+        db.session.commit()
 
     @staticmethod
     def check_attendance_by_date(data_start, data_end, student_id):
@@ -33,4 +45,4 @@ class Attendance:
         db.close()
         return everyone
 
-Attendance.get_student_attendance(3)
+

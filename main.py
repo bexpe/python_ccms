@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-
 from model.assignment import Assignment
 from model.assignment import Answer
 from model.attendance import *
@@ -17,6 +16,7 @@ from model.mentor import Mentor
 from model.team import Team
 from model.user import User
 from utils.validation import Validate
+
 
 ################################################
 # Attendance funcionality
