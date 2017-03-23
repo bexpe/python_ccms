@@ -421,7 +421,11 @@ def grade_answer(answer_id):
     answer = Answer.get_answer_by_id(answer_id)
     date_now = datetime.now()
     grade_date = "{}-{}-{}".format(date_now.year, date_now.month, date_now.day)
-    answer.grade = request.form['grade']
+    grade = request.form['grade']
+    grade = Validate.grade_input(grade)
+    if type(grade) != str:
+        return redirect(url_for('grade_assignment', assignment_id=answer.assignment_id))
+    answer.grade = grade
     answer.grade_date = grade_date
     answer.update()
     return redirect(url_for('grade_assignment', assignment_id=answer.assignment_id))
@@ -439,6 +443,9 @@ def add_new_assignment():
         return render_template('add_assignment.html', user=user)
     else:
         task_name = request.form['task-name']
+        task_name = Validate.add_assignment_input(task_name)
+        if type(task_name) != str:
+            return render_template('add_assignment.html', user=user)
         task_type = request.form['task-type']
         new_assignment = Assignment(task_name, task_type)
         new_assignment.save()
