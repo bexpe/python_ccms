@@ -136,10 +136,14 @@ def edit_mentor(user_id):
 
                 mentor.update()
                 return redirect(url_for(mentor_url))
-            return render_template('edit_student.html', person=validated_object,
-                                   url=mentor_url, user=user)
-        return render_template('edit_student.html', person=Mentor.get_student_by_id(user_id),
-                               url=mentor_url, user=user)
+            return render_template('edit_student.html',
+                                   person=validated_object,
+                                   url=mentor_url,
+                                   user=user)
+        return render_template('edit_student.html',
+                               person=Mentor.get_student_by_id(user_id),
+                               url=mentor_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 
@@ -163,10 +167,14 @@ def edit_student(user_id):
 
                 student.update()
                 return redirect(url_for(student_url))
-            return render_template('edit_student.html', person=validated_object,
-                                   url=student_url, user=user)
-        return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
-                               url=student_url, user=user)
+            return render_template('edit_student.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('edit_student.html',
+                               person=Student.get_student_by_id(user_id),
+                               url=student_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 
@@ -193,9 +201,13 @@ def add_mentor():
                 new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
                 new_mentor.save()
                 return redirect(url_for(mentor_url))
-            return render_template('add_mentor_changed.html', person=validated_object,
-                                   url=mentor_url, user=user)
-        return render_template('add_mentor.html', url=mentor_url, user=user)
+            return render_template('add_mentor_changed.html',
+                                   person=validated_object,
+                                   url=mentor_url,
+                                   user=user)
+        return render_template('add_mentor.html',
+                               url=mentor_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 @app.route('/add_student.html', methods=['GET', 'POST'])
@@ -224,9 +236,13 @@ def add_student():
                                       card)
                 new_student.save()
                 return redirect(url_for(student_url))
-            return render_template('add_student_changed.html', person=validated_object,
-                                   url=student_url, user=user)
-        return render_template('add_student.html', url=student_url, user=user)
+            return render_template('add_student_changed.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('add_student.html',
+                               url=student_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 
@@ -330,12 +346,19 @@ def data():
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
     if request.method == "POST":
-        start_date = request.form.get("start")
-        end_date = request.form.get("end")
-        student_id = request.form.get("student_id")
-        return redirect(
-            url_for('attendance_data', user=user, student_id=student_id, start_date=start_date, end_date=end_date))
-    return render_template('attendance_by_data.html', user=user)
+        start_date = request.form["start"]
+        end_date = request.form["end"]
+        student_id = request.form["student_id"]
+        validated_object = Validate.date_validation(start_date, end_date, student_id)
+        if validated_object.valid_object():
+            return redirect(url_for('attendance_data',
+                                    user=user,
+                                    validated=validated_object))
+        return render_template('attendance_by_data_validation.html',
+                               user=user,
+                               validated=validated_object)
+    return render_template('attendance_by_data.html',
+                           user=user)
 
 
 ################################################
@@ -494,6 +517,10 @@ def create_team():
         return redirect(url_for('index'))
     if request.method == 'POST':
         team_name = request.form['new_team_name']
+        team_name = Validate.team_input(team_name)
+        if type(team_name) == str:
+            return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
+        #TODO: FIX create_team
         chosen_members = []
         member1 = request.form['member1']
         member2 = request.form['member2']
