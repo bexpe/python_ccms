@@ -1,36 +1,65 @@
-from model.database import *
+from main import db
 
 
-class Attendance:
+class Attendance(db.Model):
 
-    @staticmethod
-    def get_student_attendance(student_id):
-        db = Database()
-        attendance = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Student_ID=(?) ORDER BY Date", (student_id,))
-        db.close()
-        return attendance
+    # table name
+    __tablename__ = 'attendance'
 
-    @staticmethod
-    def set_attendance(student_id, attendance):
-        db = Database()
-        if db.get("SELECT Attendance_value from Attendance WHERE Student_ID = (?) AND Date = date('now')", (student_id,)):
-            db.set("UPDATE Attendance SET Attendance_value = (?) WHERE Student_ID = (?) and Date = date('now')", (attendance, student_id))
-        else:
-            db.set("INSERT INTO Attendance Values (null,(?), date('now'), (?))", (student_id, attendance))
-        db.close()
+    # column name and stats
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer)
+    date = db.Column(db.String)
+    attendance_value = db.Column(db.String)
 
-    @staticmethod
-    def check_attendance_by_date(data_start, data_end, student_id):
-        db = Database()
-        check = db.get("SELECT Date, Attendance_value FROM Attendance WHERE Date BETWEEN (?) AND (?) AND Student_ID = (?)", (data_start, data_end, student_id))
-        db.close()
-        return check
+    def __init__(self, attendance_id, student_id=None, date=None, attendance_value=None):
+        self.student_id = student_id
+        self.attendance_value = attendance_value
+        self.attendance_id = attendance_id
+        self.date = date
 
-    @staticmethod
-    def check_everyone_attendance():
-        db = Database()
-        everyone = db.get("SELECT Attendance.Date, Student.Name, Student.Surname, Attendance.Attendance_value FROM Attendance INNER JOIN Student on Attendance.Student_ID = Student.ID")
-        db.close()
-        return everyone
+    def remove_attendance(self):
+        """
+        Remove attendance if exist
+        """
+        attendence = self.query.filter_by(student_id=self.student_id, date=self.date).first()
+        if attendence:
+            db.session.delete(attendence)
+            db.session.commit()
 
-Attendance.get_student_attendance(3)
+    def save(self):
+        """
+        Save attendence, first checking if exist in date=today if exist remove this column
+        """
+        self.remove_attendance()
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_student_attendance(cls, student_id):
+        """
+        :param student_id: int(search student id)
+        :return: attendance object
+        """
+        return cls.query.filter_by(student_id=student_id)
+
+    @classmethod
+    def check_attendance_by_date(cls, data_start, data_end, student_id):
+        """
+        :param data_start: start research data
+        :param data_end: end of research data
+        :param student_id: id of searching student
+        :return: attendance object
+        """
+        return cls.query.filter_by(student_id=student_id).filter(cls.date.between(data_start, data_end)).order_by(cls.date)
+
+
+
+    @classmethod
+    def check_everyone_attendance(cls):
+        """
+        :return: everyone attendance object
+        """
+        return cls.query.all()
+
+

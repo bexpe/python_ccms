@@ -2,76 +2,86 @@ from model.database import *
 from model.student import Student
 from main import db
 
+
 class Team(db.Model):
-    # table name in database for SQLAlchemy
-    __tablename__ = 'Teams'
-
-    # columns in table for SQLAlchemy
-    team_id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = 'Teams'  # table name in database for SQLAlchemy
+    team_id = db.Column(db.Integer, primary_key=True)  # columns in table for SQLAlchemy
     team_name = db.Column(db.String)
-    members = db.Column(db.String)
 
-    def __init__(self, team_id, team_name, members):
-        self.team_id = team_id
+    def __init__(self, team_name):
         self.team_name = team_name
-        self.members = members
 
-
-    @classmethod
-    def add_new_team(cls, name, list_of_students):
-        new_team = Team(None, name, '')
-
-        db.session.add(new_team)
-
-        for student in list_of_students:
-            student.set_team_id(student.user_id, new_team.team_id)
-        db.session.commit()
-        return new_team
-
-    def edit_team(self, team_id, edit_new_name):
+    def save_new_team(self):
+        """
+        This method adding new team to the db and saving changes
+        """
+        db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def get_team_by_id(cls, team_id):
-        return cls.query.get(team_id)
+    def update(self):
+        """
+        This method is saving changes in an edited object to the database
+        """
+        db.session.commit()
 
     @classmethod
     def remove_team(cls, team_id):
-        Team.get_team_by_id(team_id)
-        db.session.delete()
-        team_members = Team.get_list_of_students_by_team_id(team_id)
+        """
+        This method removes a team from a database
+        :param team_id:
+        """
+        team = Team.get_team_by_id(team_id)  # getting id of a team to remove
+        db.session.delete(team)
+        team_members = Team.get_list_of_students_by_team_id(team_id)  # getting team members from students by team id
         for student in team_members:
-            student.set_team_id(student.user_id, 'None')
+            student.set_team_id(student.user_id, 'None')  # changing a team id in students table
         db.session.commit()
 
+    # @classmethod
+    # def get_team_by_id(cls, team_id):
+    #     db = Database()
+    #     query = """SELECT * FROM Teams WHERE ID=(?)"""
+    #     values = (team_id,)
+    #
+    #     team = db.get(query, values)[0]
+    #     print(team)
+    #     team_object = Team(team[0], team[1], [])
+    #     return team_object
 
     @classmethod
-    def get_list_of_teams(cls, team_id):
+    def get_team_by_id(cls, team_id):
+        """
+        Gets object of a team from the database
+        :param team_id:
+        :return: object of a team
+        """
+        return cls.query.get(team_id)
 
-        teams = cls.query.all()
-        for team in teams:
-            team.members = Team.get_list_of_students_by_team_id(team.team_id)
-        return teams
-
-
-    # def add_student_to_team(cls, student_id, team_id):
-    #     db = Database
-    #     student_list_in_team = self.members
-    #     query1 = """SELECT Name, Surname FROM Students WHERE ID= (?)""", (student_id,)
-    #     student = db.get(query1)
-    #
-    #     student_list_in_team.append(student)
-    #     query2 = """ UPDATE Teams SET Members= student_list_in_team WHERE ID= (?)""", (team_id,)
-    #     db.set(query2)
-    #     db.close()
-    #     return student_list_in_team
+    @classmethod
+    def get_list_of_teams(cls):
+        """
+        Gets a list of every team in a Team table from database
+        :return: all teams objects
+        """
+        return Team.query.all()
 
     @classmethod
     def get_list_of_students_by_team_id(cls, team_id):
+        """
+        This method returns a list of students which have a specified id
+        :param team_id:
+        :return: a list of students which have specified id
+        """
         team_members = []
         for student in Student.get_list_of_students():
-            if student.team_id == team_id:
+            if student.team_id == team_id:  # looking for team members by id
                 team_members.append(student)
         return team_members
 
-
+    def get_team_students(self):
+        """
+        This method gets all students which belongs to the team specified and filtered by id
+        :return:
+        """
+        return Student.query.filter_by(team_id=self.team_id)  # filtering all students and looking for theese which have
+        # specified team id

@@ -1,15 +1,17 @@
 {% extends "layout.html" %}
 {% block modal %}
-<div id="edit_Modal" class="modal">
+<!-- The Modal -->
+<div id="add_student_Modal" class="modal">
+
   <!-- Modal content -->
   <div class="modal-content">
       <form class="newStudent" METHOD="POST">
+      {% if url == 'student_list' %}
         <a href="{{ url_for('student_list') }} "><span class="close_edit">&times;</span></a>
-        <h1>Edit student</h1>
+        <h1>New student</h1>
+      {% endif %}
 
-        {% if person.login == None %}
-        <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
-        {% elif person.login == False %}
+        {% if person.login == False %}
         <p>Given format is not allowed reference to example input: mail@mail.com</p>
         <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
         {% else %}
@@ -17,9 +19,7 @@
                value="{{ person.login }}">
         {% endif %}
 
-        {% if person.email == None %}
-        <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)">
-        {% elif person.email == False %}
+        {% if person.email == False %}
         <p>Given format is not allowed reference to example input: mail@mail.com</p>
         <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)">
         {% else %}
@@ -27,9 +27,7 @@
                value="{{ person.email }}">
         {% endif %}
 
-        {% if person.name == None %}
-        <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)">
-        {% elif person.name == False %}
+        {% if person.name == False %}
         <p>Given format is not allowed. Reference to example input: Name or Name-Name</p>
         <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)">
         {% else %}
@@ -37,9 +35,7 @@
                value="{{ person.name }}">
         {% endif %}
 
-        {% if person.surname == None %}
-        <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)">
-        {% elif person.surname == False %}
+        {% if person.surname == False %}
         <p>Given format is not allowed. Reference to example input: Surname or Surname-Surname</p>
         <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)">
         {% else %}
@@ -47,7 +43,7 @@
                value="{{ person.surname }}">
         {% endif %}
 
-        <input type="submit" value="SAVE" id="input-save_edit">
+        <input type="submit" value="SAVE" id="input-save_add_mentor">
 
       </form>
   </div>
