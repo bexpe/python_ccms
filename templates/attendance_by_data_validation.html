@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+     <link rel="stylesheet" type="text/css" href="../static/attendance.css">
+    <div class="data_form">
+<form method="post" action="/attendance_by_data">
+    <table>
+        <tr>Start date:
+        {% if validated.student_id != False %}
+            <input type="date" name="start" value="{{validated.start_date}}"></tr>
+        {% else %}
+            <input type="date" name="start"></tr>
+        {% endif %}
+
+        <tr>End date:
+        {% if validated.student_id != False %}
+            <input type="date" name="end" value="{{validated.end_date}}"></tr>
+        {% else %}
+            <input type="date" name="end"></tr>
+        {% endif %}
+
+        <tr>Student ID:
+        {% if validated.student_id != False %}
+            <input type="number" name="student_id" value="{{validated.student_id}}"></tr>
+        {% else %}
+            <input type="number" name="student_id"></tr>
+        {% endif %}
+        <input type="submit" value="send">
+    </table>
+</form>
+    </div>
+
+{% endblock %}

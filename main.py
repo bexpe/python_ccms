@@ -191,11 +191,16 @@ def edit_student(user_id):
 
                 student.update()
                 return redirect(url_for(student_url))
-            return render_template('edit_student.html', person=validated_object,
-                                   url=student_url, user=user)
-        return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
-                               url=student_url, user=user)
+            return render_template('edit_student.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('edit_student.html',
+                               person=Student.get_student_by_id(user_id),
+                               url=student_url,
+                               user=user)
     return redirect(url_for('error.html'))
+
 
 
 @app.route('/add_student.html', methods=['GET', 'POST'])
@@ -224,9 +229,13 @@ def add_student():
                                       card)
                 new_student.save()
                 return redirect(url_for(student_url))
-            return render_template('add_student_changed.html', person=validated_object,
-                                   url=student_url, user=user)
-        return render_template('add_student.html', url=student_url, user=user)
+            return render_template('add_student_changed.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('add_student.html',
+                               url=student_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 
@@ -312,9 +321,13 @@ def add_mentor():
                 new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
                 new_mentor.save()
                 return redirect(url_for(mentor_url))
-            return render_template('add_mentor_changed.html', person=validated_object,
-                                   url=mentor_url, user=user)
-        return render_template('add_mentor.html', url=mentor_url, user=user)
+            return render_template('add_mentor_changed.html',
+                                   person=validated_object,
+                                   url=mentor_url,
+                                   user=user)
+        return render_template('add_mentor.html',
+                               url=mentor_url,
+                               user=user)
     return redirect(url_for('error.html'))
 
 
