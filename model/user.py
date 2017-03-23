@@ -14,6 +14,9 @@ class User():
         self.phone = phone
         self.login = login
 
+    def __repr__(self):
+        return "{} {}".format(self.name, self.surname)
+
     @classmethod
     def login(cls, login, passw):
         db = Database()
@@ -27,8 +30,6 @@ class User():
                         SELECT User_id, Name, Login, Password, 'Manager' as user_type FROM Manager)
                         where  Login = ? and  Password = ?
                     """)
-        # awesome query, I love union <3
-
         values = ((login, passw))
 
         user = db.get(query, values)
