@@ -148,3 +148,15 @@ class ValidateInternal:
                 # allows xxxx-xx-xx, xxxx/xx/xx and xxxx.xx.xx formats
                 return user_input
         return False
+
+    @staticmethod
+    def student_id_input(string):
+        """
+        Validate student id input
+        :return: string/False
+        """
+        user_input = ValidateInternal.initial_check(string)
+        if type(user_input) is str:
+            if re.match(r'^[0-9]+$', user_input):  # all number, at least one
+                return user_input
+        return False
