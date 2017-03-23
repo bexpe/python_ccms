@@ -115,18 +115,20 @@ def edit_mentor(user_id):
             email = request.form['email']
             name = request.form['name']
             surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            mentor = Mentor.get_mentor_by_id(user_id)
-            mentor.login = login
-            mentor.email = email
-            mentor.name = name
-            mentor.surname = surname
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                mentor = Mentor.get_student_by_id(user_id)
+                mentor.login = validated_object.login
+                mentor.email = validated_object.email
+                mentor.name = validated_object.name
+                mentor.surname = validated_object.surname
 
-            mentor.update()
-            return redirect(url_for(mentor_url))
-        return render_template('edit_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url, user=user)
+                mentor.update()
+                return redirect(url_for(mentor_url))
+            return render_template('edit_student.html', person=validated_object,
+                                   url=mentor_url, user=user)
+        return render_template('edit_student.html', person=Mentor.get_student_by_id(user_id),
+                               url=mentor_url, user=user)
     return redirect(url_for('error.html'))
 
 
@@ -149,7 +151,6 @@ def edit_student(user_id):
                 student.surname = validated_object.surname
 
                 student.update()
-                db.session.commit()
                 return redirect(url_for(student_url))
             return render_template('edit_student.html', person=validated_object,
                                    url=student_url, user=user)
