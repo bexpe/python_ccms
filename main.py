@@ -256,7 +256,7 @@ def remove_student(user_id):
 def add_to_team(user_id):
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        pass  # TODO BEATA teams
+        pass
     return redirect(url_for('error.html'))
 
 
@@ -495,6 +495,36 @@ def create_team():
             Team.add_new_team(team_name, chosen_members)
         return redirect('teams.html')
     return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
+
+
+@app.route('/team_edit/<int:team_id>', methods=['POST', 'GET'])  # z maina
+def team_edit(team_id):
+    user = session['user']
+    if user['type'] != 'Mentor':
+        return redirect(url_for('index'))
+    team = Team.get_team_by_id(team_id)
+
+    if request.method == 'POST':
+        team_name = request.form['edited_name']
+        team.team_name = team_name
+        choosen_members = []
+        member1 = request.form['member1']
+        member2 = request.form['member2']
+        member3 = request.form['member3']
+        member4 = request.form['member4']
+        if member1:
+            choosen_members.append(Student.get_student_by_id(member1))
+        if member2:
+            choosen_members.append(Student.get_student_by_id(member2))
+        if member3:
+            choosen_members.append(Student.get_student_by_id(member3))
+        if member4:
+            choosen_members.append(Student.get_student_by_id(member4))
+        if len(team.team_name) > 0:
+            team_members = Team.get_list_of_students_by_team_id(team_id)
+            team.edit_team(team_id, team_name)
+        return redirect('teams.html')
+    return render_template('team_edit.html', team=team, student_list=Student.get_list_of_students(), user=user)
 
 
 @app.route('/teams.html')
