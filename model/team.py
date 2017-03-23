@@ -24,11 +24,19 @@ class Team:
     #         Student.get_student_by_id(student_id).team_id = team_id
     #         Student.save()
 
-    def edit_team(self, team_id, edit_new_name, chosen_members):
+    def edit_team(self, team_id, edit_new_name, choosen_members, list_of_students):
+        print(self.__dict__)
         db = Database()
-        query = """UPDATE Teams SET Name = (?) WHERE ID=(?)""", (edit_new_name, team_id)
-        db.set(query)
+        self.team_id=team_id
+        self.team_name=edit_new_name
+        self.members=choosen_members
+        print(self.__dict__)
+        query = """UPDATE Teams SET Name = (?) WHERE ID=(?)"""
+        values = (self.team_name, self.team_id)
+        db.set(query, values)
         db.close()
+        for student in list_of_students:
+            student.set_team_id(student.user_id, self.team_id
 
     @classmethod
     def remove_team(cls, team_id):
@@ -37,7 +45,7 @@ class Team:
         for student in team_members:
             student.set_team_id(student.user_id, 'NULL')
 
-        query = """DELETE FROM Teams WHERE ID=(?)"""
+        query = "DELETE FROM Teams WHERE ID=(?)"
         db.set(query, (team_id,))
         db.close()
 
@@ -50,6 +58,18 @@ class Team:
             team_details.append(team_object)
         db.close()
         return team_details
+
+    @classmethod
+    def get_team_by_id(cls, team_id):
+        db = Database()
+        query = """SELECT * FROM Teams WHERE ID=(?)"""
+        values = (team_id,)
+
+        team = db.get(query, values)[0]
+        print(team)
+        team_object = Team(team[0], team[1], [])
+        return team_object
+
 
     @classmethod
     def get_list_of_teams(cls):
