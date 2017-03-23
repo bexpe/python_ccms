@@ -470,18 +470,26 @@ def create_team():
         return redirect(url_for('index'))
     if request.method == 'POST':
         team_name = request.form['new_team_name']
-        if len(team_name) > 0:
-            new_team = Team(team_name)
-            new_team.save_new_team()
-            members_id_list = [request.form['member1'], request.form[
-                'member2'], request.form['member3'], request.form['member4']]
-            for member_id in members_id_list:
-                student = Student.get_student_by_id(member_id)
-                if student:
-                    student.team_id = new_team.team_id
-                    student.update()
+        team_name = Validate.team_input(team_name)
+        if type(team_name) != str:
+            return render_template('team_create.html',
+                           student_list=Student.get_list_of_students(),
+                           user=user)
+        new_team = Team(team_name)
+        new_team.save_new_team()
+        members_id_list = [request.form['member1'],
+                           request.form['member2'],
+                           request.form['member3'],
+                           request.form['member4']]
+        for member_id in members_id_list:
+            student = Student.get_student_by_id(member_id)
+            if student:
+                student.team_id = new_team.team_id
+                student.update()
         return redirect('teams.html')
-    return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
+    return render_template('team_create.html',
+                           student_list=Student.get_list_of_students(),
+                           user=user)
 
 
 @app.route('/team_edit/<int:team_id>', methods=['POST', 'GET'])  # z maina
@@ -489,10 +497,16 @@ def team_edit(team_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
+    team_to_edit = Team.get_team_by_id(team_id)
     if request.method == 'POST':
-        team_to_edit = Team.get_team_by_id(team_id)
         if team_to_edit:
             team_name = request.form['edited_name']
+            team_name = Validate.team_input(team_name)
+            if type(team_name) != str:
+                return render_template('team_edit.html',
+                                       team=team_to_edit,
+                                       student_list=Student.get_list_of_students(),
+                                       user=user)
             # remove students from team \/
             old_students_in_team = team_to_edit.get_team_students()
             for old_student in old_students_in_team:
@@ -500,20 +514,23 @@ def team_edit(team_id):
                 old_student.update()
             # update team name and insert new students to team
             # it means give each student team_id value
-            if len(team_name) > 0:
-                team_to_edit.team_name = team_name
-                team_to_edit.update()
-                members_id_list = [request.form['member1'], request.form[
-                    'member2'], request.form['member3'], request.form['member4']]
-                if any(members_id_list):  # if there is id in any member form
-                    for member_id in members_id_list:
-                        student = Student.get_student_by_id(member_id)
-                        if student:
-                            student.team_id = team_to_edit.team_id
-                            student.update()
+            team_to_edit.team_name = team_name
+            team_to_edit.update()
+            members_id_list = [request.form['member1'],
+                               request.form['member2'],
+                               request.form['member3'],
+                               request.form['member4']]
+            if any(members_id_list):  # if there is id in any member form
+                for member_id in members_id_list:
+                    student = Student.get_student_by_id(member_id)
+                    if student:
+                        student.team_id = team_to_edit.team_id
+                        student.update()
         return redirect('teams.html')
-    team = Team.get_team_by_id(team_id)
-    return render_template('team_edit.html', team=team, student_list=Student.get_list_of_students(), user=user)
+    return render_template('team_edit.html',
+                           team=team_to_edit,
+                           student_list=Student.get_list_of_students(),
+                           user=user)
 
 
 @app.route('/teams.html')
@@ -562,7 +579,15 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    from utils.internal_validation import ValidateInternal
     if request.method == 'POST':
+        #TODO: fix db and change validation from ValidateInternal to Validate class.
+        login = request.form['email']
+        login = ValidateInternal.initial_check(login)
+        password = request.form['password']
+        password = ValidateInternal.initial_check(password)
+        if type(login) != str or type(password) != str:
+            return redirect(url_for('login'))
         user = User.login(request.form['email'], request.form['password'])
         if user:
             session['user'] = user
