@@ -550,6 +550,10 @@ def team_edit(team_id):
     if request.method == 'POST':
         team_name = request.form['edited_name']
         team.team_name = team_name
+        team_name = Validate.team_input(team_name)
+        if type(team_name) == str:
+            return render_template('team_edit.html', student_list=Student.get_list_of_students(), user=user)
+        #TODO: FIX create_team
         choosen_members = []
         member1 = request.form['member1']
         member2 = request.form['member2']
