@@ -1,6 +1,7 @@
 from utils.internal_validation import ValidateInternal
 from utils.logging_form_validation_class import LoggingFormValidation
 from utils.student_form_validation_class import StudentFormValidation
+from utils.date_form_validation_class import DateFormValidation
 import re
 
 
@@ -10,17 +11,17 @@ class Validate:
     """
 
     @staticmethod
-    def date_input(string):
+    def date_validation(start_date, end_date, student_id):
         """
         Validate date input
         :return: string/False
         """
-        user_input = ValidateInternal.initial_check(string)
-        if type(user_input) is str:
-            if re.match('(\d{4})[/.-](\d{2})[/.-](\d{2})$', user_input):
-                # allows xxxx-xx-xx, xxxx/xx/xx and xxxx.xx.xx formats
-                return user_input
-        return False
+        start_date = ValidateInternal.date_input(start_date)
+        end_date = ValidateInternal.date_input(end_date)
+        student_id = Validate.student_id_input(student_id)
+        form_obj = DateFormValidation(start_date, end_date, student_id)
+
+        return form_obj
 
     @staticmethod
     def student_id_input(string):

@@ -135,3 +135,16 @@ class ValidateInternal:
 
                 return user_input
         return False
+
+    @staticmethod
+    def date_input(user_input):
+        """
+        Validate date input
+        :return: string/False
+        """
+        user_input = ValidateInternal.initial_check(user_input)
+        if type(user_input) is str:
+            if re.match('(\d{4})[/.-](\d{2})[/.-](\d{2})$', user_input):
+                # allows xxxx-xx-xx, xxxx/xx/xx and xxxx.xx.xx formats
+                return user_input
+        return False
