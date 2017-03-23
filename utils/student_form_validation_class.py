@@ -3,7 +3,7 @@ class StudentFormValidation:
         Student form validation class.
 
     """
-    def __init__(self, user_id, login, email, name, surname):
+    def __init__(self, login, email, name, surname):
         """
         create class object
         :param login:
@@ -11,7 +11,6 @@ class StudentFormValidation:
         :param name:
         :param surname:
         """
-        self.user_id = user_id
         self.login = login
         self.email = email
         self.name = name
