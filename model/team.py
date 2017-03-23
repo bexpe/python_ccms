@@ -10,21 +10,13 @@ class Team(db.Model):
     team_id = db.Column(db.Integer, primary_key=True)
     team_name = db.Column(db.String)
 
-    def __init__(self, team_id, team_name):
-        self.team_id = team_id
+    def __init__(self, team_name):
         self.team_name = team_name
 
 
-    @classmethod
-    def add_new_team(cls, name, list_of_students):  # SQL
-        new_team = Team(None, name)
-
-        db.session.add(new_team)
-
-        for student in list_of_students:
-            student.set_team_id(student.user_id, new_team.team_id)
+    def save_new_team(self):  # SQL
+        db.session.add(self)
         db.session.commit()
-        return new_team
 
 
     # def edit_team(self, team_id, edit_new_name, choosen_members, list_of_students):
@@ -41,7 +33,7 @@ class Team(db.Model):
     #     for student in list_of_students:
     #         student.set_team_id(student.user_id, self.team_id)
 
-    def edit_team(self, team_id, edit_new_name):
+    def update(self):
         db.session.commit()
 
     @classmethod
@@ -96,7 +88,10 @@ class Team(db.Model):
                 team_members.append(student)
         return team_members
 
+    def get_team_students(self):
+        return Student.query.filter_by(team_id=self.team_id)
+
 
 # Team.add_student_to_team(1, 2)
-print()
+
 
