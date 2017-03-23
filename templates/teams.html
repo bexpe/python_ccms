@@ -21,7 +21,11 @@
                 <tr>
                     <td class="id_column">{{ team.team_id }}</td>
                     <td>{{ team.team_name }}</td>
-                    <td>{{ team.members | join(', ') }}</td>
+                    <td>
+                    {% for student in team.get_team_students() %}
+                        {{ student.name }} {{ student.surname }},
+                    {% endfor %}
+                    </td>
 
                     <td>
                         <span class="buttons">
