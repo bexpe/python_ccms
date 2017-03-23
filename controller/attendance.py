@@ -1,3 +1,5 @@
-from model.attendance import *
-from flask import Flask, url_for, request, render_template
+from sqlalchemy import Date, cast
+from datetime import datetime
 
+created_at = datetime.now().date()
+print(created_at)

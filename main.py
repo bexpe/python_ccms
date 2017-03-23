@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 
-
 from model.assignment import Assignment
 from model.assignment import Answer
 from model.attendance import *
@@ -25,6 +24,9 @@ from utils.validation import Validate
 
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
+    """
+    :param student_id: int(id of searching student)
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -32,14 +34,13 @@ def attendance_data(student_id, start_date, end_date):
     attendance_lvl = 0
     x = 0
     for i in attendance:
-        if i[1] == "Obecny":
+        if i.attendance_value == "Obecny":
             x += 1
             attendance_lvl += 100
-        elif i[1] == "Spozniony":
+        elif i.attendance_value == "Spozniony":
             x += 1
             attendance_lvl += 80
-        elif i[1] == "Nieobecny":
-            x += 1
+        elif i.attendance_value == "Nieobecny":
             attendance_lvl += 0
         continue
     if x != 0:
@@ -51,6 +52,10 @@ def attendance_data(student_id, start_date, end_date):
 
 @app.route('/attendance/<student_id>')
 def attendance(student_id):
+    """
+    :param student_id: int
+    :return: render temple for html site with attendance detalis
+    """
     user = session['user']
     if user['type'] != 'Mentor' and user['id'] != student_id:
         student_id = user['id']
@@ -58,14 +63,13 @@ def attendance(student_id):
     attendance_lvl = 0
     x = 0
     for i in attendance:
-        if i[1] == "Obecny":
+        if i.attendance_value == "Obecny":
             x += 1
             attendance_lvl += 100
-        elif i[1] == "Spozniony":
+        elif i.attendance_value == "Spozniony":
             x += 1
             attendance_lvl += 80
-        elif i[1] == "Nieobecny":
-            x += 1
+        elif i.attendance_value == "Nieobecny":
             attendance_lvl += 0
         continue
     if x != 0:
@@ -92,10 +96,15 @@ def check_attendance():
 
 @app.route('/present/<student_id>')
 def present(student_id):
+    """
+    set student status as present (obecny)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Obecny")
+    attendance = Attendance(None, student_id, datetime.now().date(), "Obecny")
+    attendance.save()
     return redirect(url_for('check_attendance'))
 
 
@@ -117,18 +126,20 @@ def edit_mentor(user_id):
             email = request.form['email']
             name = request.form['name']
             surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            mentor = Mentor.get_mentor_by_id(user_id)
-            mentor.login = login
-            mentor.email = email
-            mentor.name = name
-            mentor.surname = surname
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                mentor = Mentor.get_student_by_id(user_id)
+                mentor.login = validated_object.login
+                mentor.email = validated_object.email
+                mentor.name = validated_object.name
+                mentor.surname = validated_object.surname
 
-            mentor.update()
-            return redirect(url_for(mentor_url))
-        return render_template('edit_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url, user=user)
+                mentor.update()
+                return redirect(url_for(mentor_url))
+            return render_template('edit_student.html', person=validated_object,
+                                   url=mentor_url, user=user)
+        return render_template('edit_student.html', person=Mentor.get_student_by_id(user_id),
+                               url=mentor_url, user=user)
     return redirect(url_for('error.html'))
 
 
@@ -142,21 +153,20 @@ def edit_student(user_id):
             email = request.form['email']
             name = request.form['name']
             surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            team_id = None
-            card = None
-            student = Student.get_student_by_id(user_id)
-            student.login = login
-            student.email = email
-            student.name = name
-            student.surname = surname
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                student = Student.get_student_by_id(user_id)
+                student.login = validated_object.login
+                student.email = validated_object.email
+                student.name = validated_object.name
+                student.surname = validated_object.surname
 
-            student.update()
-            db.session.commit()
-            return redirect(url_for(student_url))
-        return render_template('edit_student.html', person=Student.get_student_by_id(user_id), url=student_url, user=user)
+                student.update()
+                return redirect(url_for(student_url))
+            return render_template('edit_student.html', person=validated_object,
+                                   url=student_url, user=user)
+        return render_template('edit_student.html', person=Student.get_student_by_id(user_id),
+                               url=student_url, user=user)
     return redirect(url_for('error.html'))
 
 
@@ -257,24 +267,37 @@ def privileges_error_handler():
 
 @app.route('/absent/<student_id>')
 def absent(student_id):
+    """
+    set student status as absent (Nieobecny)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Nieobecny")
+    attendance = Attendance(None, student_id, datetime.now().date(), "Nieobecny")
+    attendance.save()
     return redirect(url_for('check_attendance'))
 
 
 @app.route('/late/<student_id>')
 def late(student_id):
+    """
+    set student status as late (Spozniony)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Spozniony")
+    attendance = Attendance(None, student_id, datetime.now().date(), "Spozniony")
+    attendance.save()
     return redirect(url_for('check_attendance'))
 
 
 @app.route('/check_everyone_attendance')
 def check_everyone_attendance():
+    """
+    Return render template for check everyone attendece where we have list of all students
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -283,6 +306,10 @@ def check_everyone_attendance():
 
 @app.route('/attendance_by_data', methods=['GET', 'POST'])
 def data():
+    """
+    Check attendance by data
+    :return: url for site with data
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
