@@ -9,12 +9,18 @@
 
         {% if person.login == None %}
         <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
+        {% elif person.login == False %}
+        <p>Given format is not allowed reference to example input: mail@mail.com</p>
+        <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)">
         {% else %}
         <input type="text" id="input-login_edit" name="login" placeholder="Enter login " onchange="validateContactData(this)"
                value="{{ person.login }}">
         {% endif %}
 
         {% if person.email == None %}
+        <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)">
+        {% elif person.email == False %}
+        <p>Given format is not allowed reference to example input: mail@mail.com</p>
         <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)">
         {% else %}
         <input type="email" id="input-email_edit" name="email" placeholder="Type email " onchange="validateContactData(this)"
@@ -23,12 +29,18 @@
 
         {% if person.name == None %}
         <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)">
+        {% elif person.name == False %}
+        <p>Given format is not allowed. Reference to example input: Name or Name-Name</p>
+        <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)">
         {% else %}
         <input type="text" id="input-firstName_edit" name="name" placeholder="Enter name " onchange="validateContactData(this)"
                value="{{ person.name }}">
         {% endif %}
 
         {% if person.surname == None %}
+        <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)">
+        {% elif person.surname == False %}
+        <p>Given format is not allowed. Reference to example input: Surname or Surname-Surname</p>
         <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)">
         {% else %}
         <input type="text" id="input-surname_edit" name="surname" placeholder="Enter your surname " onchange="validateContactData(this)"
