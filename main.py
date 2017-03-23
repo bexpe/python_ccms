@@ -494,7 +494,7 @@ def add_new_assignment():
         task_name = request.form['task-name']
         task_name = Validate.add_assignment_input(task_name)
         if type(task_name) != str:
-            render_template('add_assignment.html', user=user)
+            return render_template('add_assignment.html', user=user)
         task_type = request.form['task-type']
         new_assignment = Assignment(task_name, task_type)
         new_assignment.save()
