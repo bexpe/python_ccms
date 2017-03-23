@@ -25,6 +25,9 @@ from utils.validation import Validate
 
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
+    """
+    :param student_id: int(id of searching student)
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -50,6 +53,10 @@ def attendance_data(student_id, start_date, end_date):
 
 @app.route('/attendance/<student_id>')
 def attendance(student_id):
+    """
+    :param student_id: int
+    :return: render temple for html site with attendance detalis
+    """
     user = session['user']
     if user['type'] != 'Mentor' and user['id'] != student_id:
         student_id = user['id']
@@ -90,6 +97,10 @@ def check_attendance():
 
 @app.route('/present/<student_id>')
 def present(student_id):
+    """
+    set student status as present (obecny)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -256,6 +267,10 @@ def privileges_error_handler():
 
 @app.route('/absent/<student_id>')
 def absent(student_id):
+    """
+    set student status as absent (Nieobecny)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -266,6 +281,10 @@ def absent(student_id):
 
 @app.route('/late/<student_id>')
 def late(student_id):
+    """
+    set student status as late (Spozniony)
+    :param student_id: int
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -276,6 +295,9 @@ def late(student_id):
 
 @app.route('/check_everyone_attendance')
 def check_everyone_attendance():
+    """
+    Return render template for check everyone attendece where we have list of all students
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -284,6 +306,10 @@ def check_everyone_attendance():
 
 @app.route('/attendance_by_data', methods=['GET', 'POST'])
 def data():
+    """
+    Check attendance by data
+    :return: url for site with data
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))

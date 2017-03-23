@@ -1,12 +1,11 @@
-from model.database import *
 from main import db
-from datetime import *
-import time
 
 
 class Attendance(db.Model):
+
     # table name
     __tablename__ = 'attendance'
+
     # column name and stats
     id = db.Column(db.Integer, primary_key=True)
     student_id = db.Column(db.Integer)
@@ -38,17 +37,29 @@ class Attendance(db.Model):
 
     @classmethod
     def get_student_attendance(cls, student_id):
+        """
+        :param student_id: int(search student id)
+        :return: attendance object
+        """
         return cls.query.filter_by(student_id=student_id)
 
     @classmethod
     def check_attendance_by_date(cls, data_start, data_end, student_id):
-        print(type(cls.date))
-        return cls.query.filter_by(student_id=student_id)
+        """
+        :param data_start: start research data
+        :param data_end: end of research data
+        :param student_id: id of searching student
+        :return: attendance object
+        """
+        return cls.query.filter_by(student_id=student_id).filter(cls.date.between(data_start, data_end)).order_by(cls.date)
 
 
 
     @classmethod
     def check_everyone_attendance(cls):
+        """
+        :return: everyone attendance object
+        """
         return cls.query.all()
 
 
