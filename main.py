@@ -32,14 +32,13 @@ def attendance_data(student_id, start_date, end_date):
     attendance_lvl = 0
     x = 0
     for i in attendance:
-        if i[1] == "Obecny":
+        if i.attendance_value == "Obecny":
             x += 1
             attendance_lvl += 100
-        elif i[1] == "Spozniony":
+        elif i.attendance_value == "Spozniony":
             x += 1
             attendance_lvl += 80
-        elif i[1] == "Nieobecny":
-            x += 1
+        elif i.attendance_value == "Nieobecny":
             attendance_lvl += 0
         continue
     if x != 0:
@@ -58,14 +57,13 @@ def attendance(student_id):
     attendance_lvl = 0
     x = 0
     for i in attendance:
-        if i[1] == "Obecny":
+        if i.attendance_value == "Obecny":
             x += 1
             attendance_lvl += 100
-        elif i[1] == "Spozniony":
+        elif i.attendance_value == "Spozniony":
             x += 1
             attendance_lvl += 80
-        elif i[1] == "Nieobecny":
-            x += 1
+        elif i.attendance_value == "Nieobecny":
             attendance_lvl += 0
         continue
     if x != 0:
@@ -95,7 +93,7 @@ def present(student_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Obecny")
+    Attendance.set_attendance(None, student_id, datetime.now().date(), "Obecny")
     return redirect(url_for('check_attendance'))
 
 
@@ -260,7 +258,7 @@ def absent(student_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Nieobecny")
+    Attendance.set_attendance(None, student_id, datetime.now().date(), "Nieobecny")
     return redirect(url_for('check_attendance'))
 
 
@@ -269,7 +267,7 @@ def late(student_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    Attendance.set_attendance(student_id, "Spozniony")
+    Attendance.set_attendance(None, student_id, datetime.now().date(), "Spozniony")
     return redirect(url_for('check_attendance'))
 
 
