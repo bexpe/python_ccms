@@ -17,8 +17,9 @@ from model.team import Team
 from model.user import User
 from utils.validation import Validate
 
+
 ################################################
-# Attendance funcionality
+# Attendance
 ################################################
 
 
@@ -79,13 +80,6 @@ def attendance(student_id):
                            student_id=student_id)
 
 
-@app.route('/student_list.html')
-def student_list():
-    user = session['user']
-    if user['type'] in ('Mentor', 'Employee'):
-        return render_template('student_list.html', user=user, students=Student.get_list_of_students())
-
-
 @app.route('/check_attendance', methods=["POST", 'GET'])
 def check_attendance():
     user = session['user']
@@ -106,195 +100,6 @@ def present(student_id):
     attendance = Attendance(None, student_id, datetime.now().date(), "Obecny")
     attendance.save()
     return redirect(url_for('check_attendance'))
-
-
-@app.route('/mentor_list.html')
-def mentor_list():
-    user = session['user']
-    if user['type'] != 'Manager':
-        return redirect(url_for('index'))
-    return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors(), user=user)
-
-
-@app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
-def edit_mentor(user_id):
-    user = session['user']
-    if user['type'] == 'Manager':
-        mentor_url = "mentor_list"
-        if request.method == "POST":
-            login = request.form['login']
-            email = request.form['email']
-            name = request.form['name']
-            surname = request.form['surname']
-            validated_object = Validate.edit_add_input(login, email, name, surname)
-            if validated_object.valid_object():
-                mentor = Mentor.get_student_by_id(user_id)
-                mentor.login = validated_object.login
-                mentor.email = validated_object.email
-                mentor.name = validated_object.name
-                mentor.surname = validated_object.surname
-
-                mentor.update()
-                return redirect(url_for(mentor_url))
-            return render_template('edit_student.html',
-                                   person=validated_object,
-                                   url=mentor_url,
-                                   user=user)
-        return render_template('edit_student.html',
-                               person=Mentor.get_student_by_id(user_id),
-                               url=mentor_url,
-                               user=user)
-    return redirect(url_for('error.html'))
-
-
-@app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
-def edit_student(user_id):
-    user = session['user']
-    if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        student_url = "student_list"
-        if request.method == "POST":
-            login = request.form['login']
-            email = request.form['email']
-            name = request.form['name']
-            surname = request.form['surname']
-            validated_object = Validate.edit_add_input(login, email, name, surname)
-            if validated_object.valid_object():
-                student = Student.get_student_by_id(user_id)
-                student.login = validated_object.login
-                student.email = validated_object.email
-                student.name = validated_object.name
-                student.surname = validated_object.surname
-
-                student.update()
-                return redirect(url_for(student_url))
-            return render_template('edit_student.html',
-                                   person=validated_object,
-                                   url=student_url,
-                                   user=user)
-        return render_template('edit_student.html',
-                               person=Student.get_student_by_id(user_id),
-                               url=student_url,
-                               user=user)
-    return redirect(url_for('error.html'))
-
-
-@app.route('/add_mentor.html', methods=['GET', 'POST'])
-def add_mentor():
-    user = session['user']
-    if user['type'] == 'Manager':
-        mentor_url = "mentor_list"
-        if request.method == "POST":
-            user_id = None
-            login = request.form['login']
-            email = request.form['email']
-            name = request.form['name']
-            surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            validated_object = Validate.edit_add_input(login, email, name, surname)
-            if validated_object.valid_object():
-                login = validated_object.login
-                email = validated_object.email
-                name = validated_object.name
-                surname = validated_object.surname
-                new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
-                new_mentor.save()
-                return redirect(url_for(mentor_url))
-            return render_template('add_mentor_changed.html',
-                                   person=validated_object,
-                                   url=mentor_url,
-                                   user=user)
-        return render_template('add_mentor.html',
-                               url=mentor_url,
-                               user=user)
-    return redirect(url_for('error.html'))
-
-@app.route('/add_student.html', methods=['GET', 'POST'])
-def add_student():
-    user = session['user']
-    if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        student_url = "student_list"
-        if request.method == "POST":
-            user_id = None
-            login = request.form['login']
-            email = request.form['email']
-            name = request.form['name']
-            surname = request.form['surname']
-            date_of_birth = None
-            city = None
-            phone = None
-            team_id = None
-            card = None
-            validated_object = Validate.edit_add_input(login, email, name, surname)
-            if validated_object.valid_object():
-                login = validated_object.login
-                email = validated_object.email
-                name = validated_object.name
-                surname = validated_object.surname
-                new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id,
-                                      card)
-                new_student.save()
-                return redirect(url_for(student_url))
-            return render_template('add_student_changed.html',
-                                   person=validated_object,
-                                   url=student_url,
-                                   user=user)
-        return render_template('add_student.html',
-                               url=student_url,
-                               user=user)
-    return redirect(url_for('error.html'))
-
-
-@app.route('/details_mentor/<int:user_id>')
-def details_mentor(user_id):
-    user = session['user']
-    if user['type'] == 'Manager':
-        mentor_url = "mentor_list"
-        return render_template('details_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url, user=user)
-    return redirect(url_for('error.html'))
-
-
-@app.route('/details_student/<int:user_id>')
-def details_student(user_id):
-    user = session['user']
-    if user['type'] == 'Manager' or 'Manager' or "Employee":
-        student_url = "student_list"
-        return render_template('details_student.html', person=Student.get_student_by_id(user_id), url=student_url, user=user)
-    return redirect(url_for('error.html'))
-
-
-@app.route('/remove_mentor/<int:user_id>')
-def remove_mentor(user_id):
-    user = session['user']
-    if user['type'] == 'Manager':
-        mentor = Mentor.get_mentor_by_id(user_id)
-        mentor.delete()
-        return redirect(url_for('mentor_list'))
-    return redirect(url_for('error.html'))
-
-
-@app.route('/remove_student/<int:user_id>')
-def remove_student(user_id):
-    user = session['user']
-    if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        student = Student.get_student_by_id(user_id)
-        student.delete()
-        return redirect(url_for('student_list'))
-    return redirect(url_for('error.html'))
-
-
-@app.route('/add_to_team/<int:user_id>')
-def add_to_team(user_id):
-    user = session['user']
-    if user['type'] == 'Manager' or 'Mentor' or "Employee":
-        pass
-    return redirect(url_for('error.html'))
-
-
-@app.route('/error.html.html')
-def privileges_error_handler():
-    return render_template('error.html')
 
 
 @app.route('/absent/<student_id>')
@@ -346,61 +151,207 @@ def data():
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
     if request.method == "POST":
-        start_date = request.form["start"]
-        end_date = request.form["end"]
-        student_id = request.form["student_id"]
-        validated_object = Validate.date_validation(start_date, end_date, student_id)
-        if validated_object.valid_object():
-            return redirect(url_for('attendance_data',
-                                    user=user,
-                                    validated=validated_object))
-        return render_template('attendance_by_data_validation.html',
-                               user=user,
-                               validated=validated_object)
-    return render_template('attendance_by_data.html',
-                           user=user)
+        start_date = request.form.get("start")
+        end_date = request.form.get("end")
+        student_id = request.form.get("student_id")
+        return redirect(
+            url_for('attendance_data', user=user, student_id=student_id, start_date=start_date, end_date=end_date))
+    return render_template('attendance_by_data.html', user=user)
 
 
 ################################################
-# Attendance funcionality END
+# Students
 ################################################
 
 
-def check_run_args():
-    try:
-        if sys.argv[1] == '-d':
-            from dump_db import dump_db
-            dump_db()  # clearing db and inserting testing rows
-    except IndexError:
-        pass
-
-
-@app.route('/')
-def index():
+@app.route('/student_list.html')
+def student_list():
     user = session['user']
-    return render_template('index.html', user=user)
+    if user['type'] in ('Mentor', 'Employee'):
+        return render_template('student_list.html', user=user, students=Student.get_list_of_students())
 
 
-@app.before_request
-def before_request():
-    if 'user' not in session and request.endpoint != 'login':
-        return redirect(url_for('login'))
-        # return render_template("login.html")
+@app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
+def edit_student(user_id):
+    user = session['user']
+    if user['type'] == 'Manager' or 'Mentor' or "Employee":
+        student_url = "student_list"
+        if request.method == "POST":
+            login = request.form['login']
+            email = request.form['email']
+            name = request.form['name']
+            surname = request.form['surname']
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                student = Student.get_student_by_id(user_id)
+                student.login = validated_object.login
+                student.email = validated_object.email
+                student.name = validated_object.name
+                student.surname = validated_object.surname
+
+                student.update()
+                return redirect(url_for(student_url))
+            return render_template('edit_student.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('edit_student.html',
+                               person=Student.get_student_by_id(user_id),
+                               url=student_url,
+                               user=user)
+    return redirect(url_for('error.html'))
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        user = User.login(request.form['email'], request.form['password'])
-        if user:
-            session['user'] = user
-            return redirect(url_for('index'))
-        return redirect(url_for('login'))
-    return render_template("login.html")
+
+@app.route('/add_student.html', methods=['GET', 'POST'])
+def add_student():
+    user = session['user']
+    if user['type'] == 'Manager' or 'Mentor' or "Employee":
+        student_url = "student_list"
+        if request.method == "POST":
+            user_id = None
+            login = request.form['login']
+            email = request.form['email']
+            name = request.form['name']
+            surname = request.form['surname']
+            date_of_birth = None
+            city = None
+            phone = None
+            team_id = None
+            card = None
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                login = validated_object.login
+                email = validated_object.email
+                name = validated_object.name
+                surname = validated_object.surname
+                new_student = Student(user_id, name, surname, email, date_of_birth, city, phone, login, team_id,
+                                      card)
+                new_student.save()
+                return redirect(url_for(student_url))
+            return render_template('add_student_changed.html',
+                                   person=validated_object,
+                                   url=student_url,
+                                   user=user)
+        return render_template('add_student.html',
+                               url=student_url,
+                               user=user)
+    return redirect(url_for('error.html'))
+
+
+@app.route('/details_student/<int:user_id>')
+def details_student(user_id):
+    user = session['user']
+    if user['type'] == 'Manager' or 'Manager' or "Employee":
+        student_url = "student_list"
+        return render_template('details_student.html', person=Student.get_student_by_id(user_id), url=student_url, user=user)
+    return redirect(url_for('error.html'))
+
+
+@app.route('/remove_student/<int:user_id>')
+def remove_student(user_id):
+    user = session['user']
+    if user['type'] == 'Manager' or 'Mentor' or "Employee":
+        student = Student.get_student_by_id(user_id)
+        student.delete()
+        return redirect(url_for('student_list'))
+    return redirect(url_for('error.html'))
 
 
 ################################################
-# Assigmnents funcionality
+# Mentors
+################################################
+
+
+@app.route('/mentor_list.html')
+def mentor_list():
+    user = session['user']
+    if user['type'] != 'Manager':
+        return redirect(url_for('index'))
+    return render_template('mentor_list.html', mentors=Mentor.get_list_of_mentors(), user=user)
+
+
+@app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
+def edit_mentor(user_id):
+    user = session['user']
+    if user['type'] == 'Manager':
+        mentor_url = "mentor_list"
+        if request.method == "POST":
+            login = request.form['login']
+            email = request.form['email']
+            name = request.form['name']
+            surname = request.form['surname']
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                mentor = Mentor.get_student_by_id(user_id)
+                mentor.login = validated_object.login
+                mentor.email = validated_object.email
+                mentor.name = validated_object.name
+                mentor.surname = validated_object.surname
+
+                mentor.update()
+                return redirect(url_for(mentor_url))
+            return render_template('edit_student.html', person=validated_object,
+                                   url=mentor_url, user=user)
+        return render_template('edit_student.html', person=Mentor.get_student_by_id(user_id),
+                               url=mentor_url, user=user)
+    return redirect(url_for('error.html'))
+
+
+@app.route('/add_mentor.html', methods=['GET', 'POST'])
+def add_mentor():
+    user = session['user']
+    if user['type'] == 'Manager':
+        mentor_url = "mentor_list"
+        if request.method == "POST":
+            user_id = None
+            login = request.form['login']
+            email = request.form['email']
+            name = request.form['name']
+            surname = request.form['surname']
+            date_of_birth = None
+            city = None
+            phone = None
+            validated_object = Validate.edit_add_input(login, email, name, surname)
+            if validated_object.valid_object():
+                login = validated_object.login
+                email = validated_object.email
+                name = validated_object.name
+                surname = validated_object.surname
+                new_mentor = Mentor(user_id, name, surname, email, date_of_birth, city, phone, login)
+                new_mentor.save()
+                return redirect(url_for(mentor_url))
+            return render_template('add_mentor_changed.html',
+                                   person=validated_object,
+                                   url=mentor_url,
+                                   user=user)
+        return render_template('add_mentor.html',
+                               url=mentor_url,
+                               user=user)
+    return redirect(url_for('error.html'))
+
+
+@app.route('/details_mentor/<int:user_id>')
+def details_mentor(user_id):
+    user = session['user']
+    if user['type'] == 'Manager':
+        mentor_url = "mentor_list"
+        return render_template('details_mentor.html', person=Mentor.get_mentor_by_id(user_id), url=mentor_url, user=user)
+    return redirect(url_for('error.html'))
+
+
+@app.route('/remove_mentor/<int:user_id>')
+def remove_mentor(user_id):
+    user = session['user']
+    if user['type'] == 'Manager':
+        mentor = Mentor.get_mentor_by_id(user_id)
+        mentor.delete()
+        return redirect(url_for('mentor_list'))
+    return redirect(url_for('error.html'))
+
+
+################################################
+# Assigmnents
 ################################################
 
 
@@ -500,21 +451,9 @@ def add_new_assignment():
         new_assignment.save()
         return redirect('/assignments')
 
-
 ################################################
-# Assignments funcionality END
+# Teams
 ################################################
-
-
-@app.route('/logout')
-def logout():
-    # remove the username from the session if it's there
-    session.pop('user', None)
-    return redirect(url_for('index'))
-
-
-# set the secret key.  keep this really secret:
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 
 @app.route('/team_create.html', methods=['POST', 'GET'])
@@ -524,25 +463,16 @@ def create_team():
         return redirect(url_for('index'))
     if request.method == 'POST':
         team_name = request.form['new_team_name']
-        team_name = Validate.team_input(team_name)
-        if type(team_name) == str:
-            return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
-        #TODO: FIX create_team
-        chosen_members = []
-        member1 = request.form['member1']
-        member2 = request.form['member2']
-        member3 = request.form['member3']
-        member4 = request.form['member4']
-        if member1:
-            chosen_members.append(Student.get_student_by_id(member1))
-        if member2:
-            chosen_members.append(Student.get_student_by_id(member2))
-        if member3:
-            chosen_members.append(Student.get_student_by_id(member3))
-        if member4:
-            chosen_members.append(Student.get_student_by_id(member4))
         if len(team_name) > 0:
-            Team.add_new_team(team_name, chosen_members)
+            new_team = Team(team_name)
+            new_team.save_new_team()
+            members_id_list = [request.form['member1'], request.form[
+                'member2'], request.form['member3'], request.form['member4']]
+            for member_id in members_id_list:
+                student = Student.get_student_by_id(member_id)
+                if student:
+                    student.team_id = new_team.team_id
+                    student.update()
         return redirect('teams.html')
     return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
 
@@ -552,32 +482,30 @@ def team_edit(team_id):
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
-    team = Team.get_team_by_id(team_id)
-
     if request.method == 'POST':
-        team_name = request.form['edited_name']
-        team.team_name = team_name
-        team_name = Validate.team_input(team_name)
-        if type(team_name) == str:
-            return render_template('team_edit.html', student_list=Student.get_list_of_students(), user=user)
-        #TODO: FIX create_team
-        choosen_members = []
-        member1 = request.form['member1']
-        member2 = request.form['member2']
-        member3 = request.form['member3']
-        member4 = request.form['member4']
-        if member1:
-            choosen_members.append(Student.get_student_by_id(member1))
-        if member2:
-            choosen_members.append(Student.get_student_by_id(member2))
-        if member3:
-            choosen_members.append(Student.get_student_by_id(member3))
-        if member4:
-            choosen_members.append(Student.get_student_by_id(member4))
-        if len(team.team_name) > 0:
-            team_members = Team.get_list_of_students_by_team_id(team_id)
-            team.edit_team(team_id, team_name)
+        team_to_edit = Team.get_team_by_id(team_id)
+        if team_to_edit:
+            team_name = request.form['edited_name']
+            # remove students from team \/
+            old_students_in_team = team_to_edit.get_team_students()
+            for old_student in old_students_in_team:
+                old_student.team_id = None
+                old_student.update()
+            # update team name and insert new students to team
+            # it means give each student team_id value
+            if len(team_name) > 0:
+                team_to_edit.team_name = team_name
+                team_to_edit.update()
+                members_id_list = [request.form['member1'], request.form[
+                    'member2'], request.form['member3'], request.form['member4']]
+                if any(members_id_list):  # if there is id in any member form
+                    for member_id in members_id_list:
+                        student = Student.get_student_by_id(member_id)
+                        if student:
+                            student.team_id = team_to_edit.team_id
+                            student.update()
         return redirect('teams.html')
+    team = Team.get_team_by_id(team_id)
     return render_template('team_edit.html', team=team, student_list=Student.get_list_of_students(), user=user)
 
 
@@ -596,6 +524,60 @@ def remove(team_id):
         return redirect(url_for('index'))
     Team.remove_team(team_id)
     return redirect('teams.html')
+
+
+################################################
+# Login
+################################################
+
+
+def check_run_args():
+    try:
+        if sys.argv[1] == '-d':
+            from dump_db import dump_db
+            dump_db()  # clearing db and inserting testing rows
+    except IndexError:
+        pass
+
+
+@app.route('/')
+def index():
+    user = session['user']
+    return render_template('index.html', user=user)
+
+
+@app.before_request
+def before_request():
+    if 'user' not in session and request.endpoint != 'login':
+        return redirect(url_for('login'))
+        # return render_template("login.html")
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = User.login(request.form['email'], request.form['password'])
+        if user:
+            session['user'] = user
+            return redirect(url_for('index'))
+        return redirect(url_for('login'))
+    return render_template("login.html")
+
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('user', None)
+    return redirect(url_for('index'))
+
+
+# set the secret key.  keep this really secret:
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+
+@app.route('/error.html.html')
+def privileges_error_handler():
+    return render_template('error.html')
 
 
 if __name__ == "__main__":

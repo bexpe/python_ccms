@@ -7,7 +7,7 @@
                   <form class="newStudent" method="POST" action=/team_edit/{{team.team_id}}>
                     <span class="close_add_team">&times;</span>
                     <h1>Edit team </h1>
-                        <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="edited_name" value="{{ new_team_name }}">
+                        <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="edited_name" value="{{ team.team_name }}">
                         <span type="text" id="input-member1"  name="member1">Member nr 1</span>
                         <select name="member1">
                             <option selected='selected' value=''>nobody</option>
