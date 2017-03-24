@@ -25,9 +25,6 @@ class Student(User, db.Model):
         self.team_id = team_id
         self.card = card
 
-    def __repr__(self):
-        return "{} {}".format(self.name, self.surname)
-
     @classmethod
     def get_list_of_students(cls):
         """

@@ -16,6 +16,7 @@ from model.mentor import Mentor
 from model.team import Team
 from model.user import User
 from utils.validation import Validate
+from utils.login import Login
 
 
 ################################################
@@ -85,8 +86,9 @@ def attendance(student_id):
 @app.route('/check_attendance', methods=["POST", 'GET'])
 def check_attendance():
     """
-    Showing students list to check attendance
-    :return: template with student list to check attendance
+    Route for page with attendance checker
+    :return: rendered webpage
+
     """
     user = session['user']
     if user['type'] != 'Mentor':
@@ -157,12 +159,19 @@ def data():
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
     if request.method == "POST":
-        start_date = request.form.get("start")
-        end_date = request.form.get("end")
-        student_id = request.form.get("student_id")
-        return redirect(
-            url_for('attendance_data', user=user, student_id=student_id, start_date=start_date, end_date=end_date))
-    return render_template('attendance_by_data.html', user=user)
+        start_date = request.form["start"]
+        end_date = request.form["end"]
+        student_id = request.form["student_id"]
+        validated_object = Validate.date_validation(start_date, end_date, student_id)
+        if validated_object.valid_object():
+            return redirect(url_for('attendance_data',
+                                    user=user,
+                                    validated=validated_object))
+        return render_template('attendance_by_data_validation.html',
+                               user=user,
+                               validated=validated_object)
+    return render_template('attendance_by_data.html',
+                           user=user)
 
 
 ################################################
@@ -173,8 +182,8 @@ def data():
 @app.route('/student_list.html')
 def student_list():
     """
-    Redirect to student list
-    :return: template with student list
+    Route for page with list of person
+    :return: rendered webpage
     """
     user = session['user']
     if user['type'] in ('Mentor', 'Employee'):
@@ -184,9 +193,9 @@ def student_list():
 @app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
 def edit_student(user_id):
     """
-    showing a form to edit dspecified by id student
-    :param user_id:
-    :return: different templates depending on the information we want to display to the user
+    Edit person object atributes with validated data
+    :param user_id: id of user
+    :return:
     """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
@@ -221,8 +230,8 @@ def edit_student(user_id):
 @app.route('/add_student.html', methods=['GET', 'POST'])
 def add_student():
     """
-    Shows a form to add new student
-    :return: Different templates depending on information we want to display to the user
+    Create student object from data from form on webpage and store it in db
+    :return:
     """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
@@ -261,9 +270,9 @@ def add_student():
 @app.route('/details_student/<int:user_id>')
 def details_student(user_id):
     """
-    Shows a window with details of specified by id student
-    :param user_id:
-    :return: Template with student details or an error
+    Presents data of person
+    :param user_id: id of student
+    :return:
     """
     user = session['user']
     if user['type'] == 'Manager' or 'Manager' or "Employee":
@@ -275,9 +284,9 @@ def details_student(user_id):
 @app.route('/remove_student/<int:user_id>')
 def remove_student(user_id):
     """
-    This function gives a possibility to remove specified by id student
-    :param user_id:
-    :return: temlate with a new list of students
+    Get user object and delete it from db
+    :param user_id: id of user
+    :return: template with a new list of students
     """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
@@ -295,8 +304,8 @@ def remove_student(user_id):
 @app.route('/mentor_list.html')
 def mentor_list():
     """
-    Shows list of all mentors
-    :return: template with mentor list
+    Route for page with list of person
+    :return: rendered webpage
     """
     user = session['user']
     if user['type'] != 'Manager':
@@ -307,9 +316,9 @@ def mentor_list():
 @app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
 def edit_mentor(user_id):
     """
-    Shows form to edit specified by id mentor
-    :param user_id:
-    :return: different templates depending on information we want to display to the user
+    Edit person object atributes with validated data
+    :param user_id: id of user
+    :return:
     """
     user = session['user']
     if user['type'] == 'Manager':
@@ -339,7 +348,7 @@ def edit_mentor(user_id):
 @app.route('/add_mentor.html', methods=['GET', 'POST'])
 def add_mentor():
     """
-    Shows form to add new mentor
+    Create student object from data from form on webpage and store it in db
     :return: different templates depending on information we want to display to the user
     """
     user = session['user']
@@ -376,9 +385,9 @@ def add_mentor():
 @app.route('/details_mentor/<int:user_id>')
 def details_mentor(user_id):
     """
-    Shows a window with details of specified by id mentor
-    :param user_id:
-    :return: template with mentor details
+    Presents data of person
+    :param user_id: id of student
+    :return:template with mentor details
     """
     user = session['user']
     if user['type'] == 'Manager':
@@ -390,9 +399,9 @@ def details_mentor(user_id):
 @app.route('/remove_mentor/<int:user_id>')
 def remove_mentor(user_id):
     """
-    Gives a possibility to remove specified by id mentor
-    :param user_id:
-    :return: list of mentors without deleted mentor
+    Get user object and delete it from db
+    :param user_id: id of user
+    :return:
     """
     user = session['user']
     if user['type'] == 'Manager':
@@ -511,7 +520,7 @@ def add_new_assignment():
 @app.route('/team_create.html', methods=['POST', 'GET'])
 def create_team():
     """
-    Shows a form to create new team and add members to this team
+    Create team object from data from form on webpage and store it in db
     :return: list of teams with a new created team
     """
     user = session['user']
@@ -519,34 +528,48 @@ def create_team():
         return redirect(url_for('index'))
     if request.method == 'POST':
         team_name = request.form['new_team_name']
-        if len(team_name) > 0:
-            new_team = Team(team_name)
-            new_team.save_new_team()
-            members_id_list = [request.form['member1'], request.form[
-                'member2'], request.form['member3'], request.form['member4']]
-            for member_id in members_id_list:
-                student = Student.get_student_by_id(member_id)
-                if student:
-                    student.team_id = new_team.team_id
-                    student.update()
+        team_name = Validate.team_input(team_name)
+        if type(team_name) != str:
+            return render_template('team_create.html',
+                           student_list=Student.get_list_of_students(),
+                           user=user)
+        new_team = Team(team_name)
+        new_team.save_new_team()
+        members_id_list = [request.form['member1'],
+                           request.form['member2'],
+                           request.form['member3'],
+                           request.form['member4']]
+        for member_id in members_id_list:
+            student = Student.get_student_by_id(member_id)
+            if student:
+                student.team_id = new_team.team_id
+                student.update()
         return redirect('teams.html')
-    return render_template('team_create.html', student_list=Student.get_list_of_students(), user=user)
+    return render_template('team_create.html',
+                           student_list=Student.get_list_of_students(),
+                           user=user)
 
 
 @app.route('/team_edit/<int:team_id>', methods=['POST', 'GET'])  # z maina
 def team_edit(team_id):
     """
-    Shows a form to edit specified by id team
-    :param team_id:
-    :return: template with a list with a newly edited team
+    Edit team object atributes with validated data
+    :param user_id: id of team
+    :return:
     """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
+    team_to_edit = Team.get_team_by_id(team_id)
     if request.method == 'POST':
-        team_to_edit = Team.get_team_by_id(team_id)
         if team_to_edit:
             team_name = request.form['edited_name']
+            team_name = Validate.team_input(team_name)
+            if type(team_name) != str:
+                return render_template('team_edit.html',
+                                       team=team_to_edit,
+                                       student_list=Student.get_list_of_students(),
+                                       user=user)
             # remove students from team \/
             old_students_in_team = team_to_edit.get_team_students()
             for old_student in old_students_in_team:
@@ -554,27 +577,30 @@ def team_edit(team_id):
                 old_student.update()
             # update team name and insert new students to team
             # it means give each student team_id value
-            if len(team_name) > 0:
-                team_to_edit.team_name = team_name
-                team_to_edit.update()
-                members_id_list = [request.form['member1'], request.form[
-                    'member2'], request.form['member3'], request.form['member4']]
-                if any(members_id_list):  # if there is id in any member form
-                    for member_id in members_id_list:
-                        student = Student.get_student_by_id(member_id)
-                        if student:
-                            student.team_id = team_to_edit.team_id
-                            student.update()
+            team_to_edit.team_name = team_name
+            team_to_edit.update()
+            members_id_list = [request.form['member1'],
+                               request.form['member2'],
+                               request.form['member3'],
+                               request.form['member4']]
+            if any(members_id_list):  # if there is id in any member form
+                for member_id in members_id_list:
+                    student = Student.get_student_by_id(member_id)
+                    if student:
+                        student.team_id = team_to_edit.team_id
+                        student.update()
         return redirect('teams.html')
-    team = Team.get_team_by_id(team_id)
-    return render_template('team_edit.html', team=team, student_list=Student.get_list_of_students(), user=user)
+    return render_template('team_edit.html',
+                           team=team_to_edit,
+                           student_list=Student.get_list_of_students(),
+                           user=user)
 
 
 @app.route('/teams.html')
 def display_teams():
     """
-    Shows a list with all teams
-    :return: template with a list of teams
+    Route for page with list of teams
+    :return: rendered webpage
     """
     user = session['user']
     if user['type'] != 'Mentor':
@@ -585,9 +611,9 @@ def display_teams():
 @app.route("/remove/<int:team_id>")
 def remove(team_id):
     """
-    This method gives a possibility to remove a specified by id team
-    :param team_id:
-    :return: template with list of teams without newly removed team
+    Get team object and delete it from db
+    :param user_id: id of team
+    :return:template with list of teams without newly removed team
     """
     user = session['user']
     if user['type'] != 'Mentor':
@@ -637,11 +663,19 @@ def before_request():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
-    This method is responsible for signing in
+    Gets data from login form and run method to compare it with data stored in db
     :return: if a user is finded its a template for this user if not- a template with a page to sign in again
     """
+
     if request.method == 'POST':
-        user = User.login(request.form['email'], request.form['password'])
+        #TODO: fix db and change validation from ValidateInternal to Validate class.
+        login = request.form['email']
+        login = ValidateInternal.initial_check(login)
+        password = request.form['password']
+        password = ValidateInternal.initial_check(password)
+        if type(login) != str or type(password) != str:
+            return redirect(url_for('login'))
+        user = Login.login(request.form['email'], request.form['password'])
         if user:
             session['user'] = user
             return redirect(url_for('index'))
@@ -674,5 +708,4 @@ def privileges_error_handler():
 
 
 if __name__ == "__main__":
-    check_run_args()
     app.run(debug=True, port=1111)

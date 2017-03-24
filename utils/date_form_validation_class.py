@@ -1,4 +1,6 @@
-class DateFormValidation:
+from utils.abstract_form_validation import FormValidation
+
+class DateFormValidation(FormValidation):
     """
     Date form validation class.
     """
