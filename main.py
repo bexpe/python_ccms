@@ -16,6 +16,7 @@ from model.mentor import Mentor
 from model.team import Team
 from model.user import User
 from utils.validation import Validate
+from utils.login import Login
 
 
 ################################################
@@ -563,7 +564,7 @@ def before_request():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = User.login(request.form['email'], request.form['password'])
+        user = Login.login(request.form['email'], request.form['password'])
         if user:
             session['user'] = user
             return redirect(url_for('index'))
