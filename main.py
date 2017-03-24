@@ -83,6 +83,10 @@ def attendance(student_id):
 
 @app.route('/check_attendance', methods=["POST", 'GET'])
 def check_attendance():
+    """
+    Route for page with attendance checker
+    :return: rendered webpage
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -174,6 +178,10 @@ def data():
 
 @app.route('/student_list.html')
 def student_list():
+    """
+    Route for page with list of person
+    :return: rendered webpage
+    """
     user = session['user']
     if user['type'] in ('Mentor', 'Employee'):
         return render_template('student_list.html', user=user, students=Student.get_list_of_students())
@@ -181,6 +189,11 @@ def student_list():
 
 @app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
 def edit_student(user_id):
+    """
+    Edit person object atributes with validated data
+    :param user_id: id of user
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student_url = "student_list"
@@ -213,6 +226,10 @@ def edit_student(user_id):
 
 @app.route('/add_student.html', methods=['GET', 'POST'])
 def add_student():
+    """
+    Create student object from data from form on webpage and store it in db
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student_url = "student_list"
@@ -249,6 +266,11 @@ def add_student():
 
 @app.route('/details_student/<int:user_id>')
 def details_student(user_id):
+    """
+    Presents data of person
+    :param user_id: id of student
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Manager' or "Employee":
         student_url = "student_list"
@@ -258,6 +280,11 @@ def details_student(user_id):
 
 @app.route('/remove_student/<int:user_id>')
 def remove_student(user_id):
+    """
+    Get user object and delete it from db
+    :param user_id: id of user
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student = Student.get_student_by_id(user_id)
@@ -273,6 +300,10 @@ def remove_student(user_id):
 
 @app.route('/mentor_list.html')
 def mentor_list():
+    """
+    Route for page with list of person
+    :return: rendered webpage
+    """
     user = session['user']
     if user['type'] != 'Manager':
         return redirect(url_for('index'))
@@ -281,6 +312,11 @@ def mentor_list():
 
 @app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
 def edit_mentor(user_id):
+    """
+    Edit person object atributes with validated data
+    :param user_id: id of user
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -308,6 +344,10 @@ def edit_mentor(user_id):
 
 @app.route('/add_mentor.html', methods=['GET', 'POST'])
 def add_mentor():
+    """
+    Create student object from data from form on webpage and store it in db
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -341,6 +381,11 @@ def add_mentor():
 
 @app.route('/details_mentor/<int:user_id>')
 def details_mentor(user_id):
+    """
+    Presents data of person
+    :param user_id: id of student
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -350,6 +395,11 @@ def details_mentor(user_id):
 
 @app.route('/remove_mentor/<int:user_id>')
 def remove_mentor(user_id):
+    """
+    Get user object and delete it from db
+    :param user_id: id of user
+    :return:
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor = Mentor.get_mentor_by_id(user_id)
@@ -466,6 +516,10 @@ def add_new_assignment():
 
 @app.route('/team_create.html', methods=['POST', 'GET'])
 def create_team():
+    """
+    Create team object from data from form on webpage and store it in db
+    :return:
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -495,6 +549,11 @@ def create_team():
 
 @app.route('/team_edit/<int:team_id>', methods=['POST', 'GET'])  # z maina
 def team_edit(team_id):
+    """
+    Edit team object atributes with validated data
+    :param user_id: id of team
+    :return:
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -536,6 +595,10 @@ def team_edit(team_id):
 
 @app.route('/teams.html')
 def display_teams():
+    """
+    Route for page with list of teams
+    :return: rendered webpage
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -544,6 +607,11 @@ def display_teams():
 
 @app.route("/remove/<int:team_id>")
 def remove(team_id):
+    """
+    Get team object and delete it from db
+    :param user_id: id of team
+    :return:
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -554,16 +622,6 @@ def remove(team_id):
 ################################################
 # Login
 ################################################
-
-
-def check_run_args():
-    try:
-        if sys.argv[1] == '-d':
-            from dump_db import dump_db
-            dump_db()  # clearing db and inserting testing rows
-    except IndexError:
-        pass
-
 
 @app.route('/')
 def index():
@@ -580,6 +638,10 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Gets data from login form and run method to compare it with data stored in db
+    :return:
+    """
     from utils.internal_validation import ValidateInternal
     if request.method == 'POST':
         #TODO: fix db and change validation from ValidateInternal to Validate class.
@@ -614,5 +676,4 @@ def privileges_error_handler():
 
 
 if __name__ == "__main__":
-    check_run_args()
     app.run(debug=True, port=1111)
