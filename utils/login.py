@@ -1,4 +1,4 @@
-from main import db
+# from main import db <- used for testing this method, uncomment in case of fire or terrible disaster
 from model.employee import *
 from model.manager import *
 from model.student import *
@@ -9,20 +9,14 @@ class Login:
 
     @classmethod
     def login(cls, login, password):
-        user = db.session.query(Employee).filter_by(login=login,password=password).first()
-        print(user)
-        if user:
-          return {'name':user.name, 'type':user.__tablename__, 'id':user.user_id}
-        user = db.session.query(Student).filter_by(login=login,password=password).first()
-        if user:
-          return {'name':user.name, 'type':user.__tablename__, 'id':user[0].user_id}
-        user = db.session.query(Manager).filter_by(login=login,password=password).first()
-        if user:
-          return {'name':user.name, 'type':user.__tablename__, 'id':user.user_id}
-        user = db.session.query(Employee).filter_by(login=login,password=password).first()
-        if user:
-          return {'name':user.name, 'type':user.__tablename__, 'id':user.user_id}
+        """
+        Find proper user from database and return dictionary with necessary user's data for session
+        :param login: user login from login form
+        :param password: user password from login form
+        :return: dictionary: dictionary with data for flask session
+        """
 
-
-
-print(Login.login('miriam@e','dupa'))
+        for role in [Mentor, Student, Manager, Employee]:
+            user = db.session.query(role).filter_by(login=login, password=password).first()
+            if user:
+                return {'name': user.name, 'type': user.__tablename__, 'id': user.user_id}
