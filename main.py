@@ -26,6 +26,7 @@ from utils.validation import Validate
 @app.route('/attendance_data/<student_id>?<start_date>?<end_date>')
 def attendance_data(student_id, start_date, end_date):
     """
+    This method gives possibility to check attendance of every student displayed
     :param student_id: int(id of searching student)
     """
     user = session['user']
@@ -54,6 +55,7 @@ def attendance_data(student_id, start_date, end_date):
 @app.route('/attendance/<student_id>')
 def attendance(student_id):
     """
+    This method gives the possibility to show attendance level of a specified student
     :param student_id: int
     :return: render temple for html site with attendance detalis
     """
@@ -82,6 +84,10 @@ def attendance(student_id):
 
 @app.route('/check_attendance', methods=["POST", 'GET'])
 def check_attendance():
+    """
+    Showing students list to check attendance
+    :return: template with student list to check attendance
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -166,6 +172,10 @@ def data():
 
 @app.route('/student_list.html')
 def student_list():
+    """
+    Redirect to student list
+    :return: template with student list
+    """
     user = session['user']
     if user['type'] in ('Mentor', 'Employee'):
         return render_template('student_list.html', user=user, students=Student.get_list_of_students())
@@ -173,6 +183,11 @@ def student_list():
 
 @app.route('/edit_student/<int:user_id>', methods=['GET', 'POST'])
 def edit_student(user_id):
+    """
+    showing a form to edit dspecified by id student
+    :param user_id:
+    :return: different templates depending on the information we want to display to the user
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student_url = "student_list"
@@ -205,6 +220,10 @@ def edit_student(user_id):
 
 @app.route('/add_student.html', methods=['GET', 'POST'])
 def add_student():
+    """
+    Shows a form to add new student
+    :return: Different templates depending on information we want to display to the user
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student_url = "student_list"
@@ -241,6 +260,11 @@ def add_student():
 
 @app.route('/details_student/<int:user_id>')
 def details_student(user_id):
+    """
+    Shows a window with details of specified by id student
+    :param user_id:
+    :return: Template with student details or an error
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Manager' or "Employee":
         student_url = "student_list"
@@ -250,6 +274,11 @@ def details_student(user_id):
 
 @app.route('/remove_student/<int:user_id>')
 def remove_student(user_id):
+    """
+    This function gives a possibility to remove specified by id student
+    :param user_id:
+    :return: temlate with a new list of students
+    """
     user = session['user']
     if user['type'] == 'Manager' or 'Mentor' or "Employee":
         student = Student.get_student_by_id(user_id)
@@ -265,6 +294,10 @@ def remove_student(user_id):
 
 @app.route('/mentor_list.html')
 def mentor_list():
+    """
+    Shows list of all mentors
+    :return: template with mentor list
+    """
     user = session['user']
     if user['type'] != 'Manager':
         return redirect(url_for('index'))
@@ -273,6 +306,11 @@ def mentor_list():
 
 @app.route('/edit_mentor/<int:user_id>', methods=['GET', 'POST'])
 def edit_mentor(user_id):
+    """
+    Shows form to edit specified by id mentor
+    :param user_id:
+    :return: different templates depending on information we want to display to the user
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -300,6 +338,10 @@ def edit_mentor(user_id):
 
 @app.route('/add_mentor.html', methods=['GET', 'POST'])
 def add_mentor():
+    """
+    Shows form to add new mentor
+    :return: different templates depending on information we want to display to the user
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -333,6 +375,11 @@ def add_mentor():
 
 @app.route('/details_mentor/<int:user_id>')
 def details_mentor(user_id):
+    """
+    Shows a window with details of specified by id mentor
+    :param user_id:
+    :return: template with mentor details
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor_url = "mentor_list"
@@ -342,6 +389,11 @@ def details_mentor(user_id):
 
 @app.route('/remove_mentor/<int:user_id>')
 def remove_mentor(user_id):
+    """
+    Gives a possibility to remove specified by id mentor
+    :param user_id:
+    :return: list of mentors without deleted mentor
+    """
     user = session['user']
     if user['type'] == 'Manager':
         mentor = Mentor.get_mentor_by_id(user_id)
@@ -458,6 +510,10 @@ def add_new_assignment():
 
 @app.route('/team_create.html', methods=['POST', 'GET'])
 def create_team():
+    """
+    Shows a form to create new team and add members to this team
+    :return: list of teams with a new created team
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -479,6 +535,11 @@ def create_team():
 
 @app.route('/team_edit/<int:team_id>', methods=['POST', 'GET'])  # z maina
 def team_edit(team_id):
+    """
+    Shows a form to edit specified by id team
+    :param team_id:
+    :return: template with a list with a newly edited team
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -511,6 +572,10 @@ def team_edit(team_id):
 
 @app.route('/teams.html')
 def display_teams():
+    """
+    Shows a list with all teams
+    :return: template with a list of teams
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -519,6 +584,11 @@ def display_teams():
 
 @app.route("/remove/<int:team_id>")
 def remove(team_id):
+    """
+    This method gives a possibility to remove a specified by id team
+    :param team_id:
+    :return: template with list of teams without newly removed team
+    """
     user = session['user']
     if user['type'] != 'Mentor':
         return redirect(url_for('index'))
@@ -532,6 +602,9 @@ def remove(team_id):
 
 
 def check_run_args():
+    """
+    This method is clearing a database from all data inserted by typeing in a console -d  by running the file
+    """
     try:
         if sys.argv[1] == '-d':
             from dump_db import dump_db
@@ -542,12 +615,20 @@ def check_run_args():
 
 @app.route('/')
 def index():
+    """
+    Shows main page after signing in
+    :return: template with a main page after signing in
+    """
     user = session['user']
     return render_template('index.html', user=user)
 
 
 @app.before_request
 def before_request():
+    """
+    Shows a page to sign in
+    :return: template to sign in
+    """
     if 'user' not in session and request.endpoint != 'login':
         return redirect(url_for('login'))
         # return render_template("login.html")
@@ -555,6 +636,10 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    This method is responsible for signing in
+    :return: if a user is finded its a template for this user if not- a template with a page to sign in again
+    """
     if request.method == 'POST':
         user = User.login(request.form['email'], request.form['password'])
         if user:
@@ -566,6 +651,10 @@ def login():
 
 @app.route('/logout')
 def logout():
+    """
+    This method removes a username from the session if it is there and finishes a session
+    :return: the template with an index page
+    """
     # remove the username from the session if it's there
     session.pop('user', None)
     return redirect(url_for('index'))
@@ -577,6 +666,10 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 @app.route('/error.html.html')
 def privileges_error_handler():
+    """
+    Shows an error template
+    :return: error template
+    """
     return render_template('error.html')
 
 

@@ -37,6 +37,10 @@ class Student(User, db.Model):
         return cls.query.all()
 
     def get_student_details(self):
+        """
+        This method gets details of specified student
+        :return: a dictionary with information about student
+        """
         return self.__dict__
 
     @classmethod
@@ -49,6 +53,11 @@ class Student(User, db.Model):
         return cls.query.get(idx)
 
     def set_team_id(self, student_id, team_id):
+        """
+        Looking for student with specified id and setting a new value of a team_id
+        :param student_id:
+        :param team_id:
+        """
         student = Student.get_student_by_id(student_id)
         student.team_id = team_id
         student.save()

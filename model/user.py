@@ -16,6 +16,12 @@ class User():
 
     @classmethod
     def login(cls, login, passw):
+        """
+        This method is responsible for signing in to the app
+        :param login:
+        :param passw:
+        :return: dictionary with user id name and type
+        """
         db = Database()
         query = ("""
         SELECT * from (SELECT User_id, name, Login, Password, 'Student' as user_type FROM Student
@@ -61,4 +67,3 @@ class User():
         :return: none
         """
         db.session.commit()
-
