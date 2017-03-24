@@ -592,10 +592,11 @@ def team_edit(team_id):
                         student.team_id = team_to_edit.team_id
                         student.update()
         return redirect('teams.html')
+
     return render_template('team_edit.html',
                            team=team_to_edit,
                            student_list=Student.get_list_of_students(),
-                           user=user)
+                           user=user, members=Team.get_list_of_students_by_team_id(team_id))
 
 
 @app.route('/teams.html')

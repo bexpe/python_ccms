@@ -2,6 +2,7 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="../static/forms.css">
     <link href="https://fonts.googleapis.com/css?family=Metrophobic" rel="stylesheet">
+{#    {{ members }}#}
             <table>
                   <!-- Modal content -->
                   <form class="newStudent" method="POST" action=/team_edit/{{team.team_id}}>
@@ -10,7 +11,11 @@
                         <input type="text" id="input-first_add_team" placeholder="Enter team name:" onchange="validateContactData(this)" name="edited_name" value="{{ team.team_name }}">
                         <span type="text" id="input-member1"  name="member1">Member nr 1</span>
                         <select name="member1">
-                            <option selected='selected' value=''>nobody</option>
+                            {% if members|length > 0 %}
+                            <option selected='selected' value="{{ members[0].user_id }}">{{ members[0] }}</option>
+                            {% else %}
+                            <option selected='selected' value=""></option>
+                            {% endif %}
                             {% for student in student_list %}
                             <option value="{{ student.user_id }}">{{ student.name }} {{ student.surname }}</option>
                             {% endfor %}
@@ -18,7 +23,11 @@
 
                       <span type="text" id="input-member2"  name="member2">Member nr 2</span>
                       <select name="member2">
-                          <option selected='selected' value=''>nobody
+                          {% if members|length > 1 %}
+                            <option selected='selected' value="{{ members[1].user_id }}">{{ members[1] }}</option>
+                            {% else %}
+                            <option selected='selected' value=""></option>
+                            {% endif %}
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
@@ -26,7 +35,12 @@
 
                       <span type="text" id="input-member3"  name="member3">Member nr 3</span>
                       <select name="member3">
-                          <option selected='selected' value=''>nobody</option>
+                            {% if members|length > 2 %}
+                            <option selected='selected' value="{{ members[2].user_id }}">{{ members[2] }}</option>
+                            {% else %}
+                            <option selected='selected' value=""></option>
+                            {% endif %}
+
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
@@ -34,7 +48,11 @@
 
                       <span type="text" id="input-member4"  name="member4">Member nr 4</span>
                       <select name="member4">
-                          <option selected='selected' value=''>nobody</option>
+                            {% if members|length > 3 %}
+                            <option selected='selected' value="{{ members[3].user_id }}">{{ members[3] }}</option>
+                            {% else %}
+                            <option selected='selected' value=""></option>
+                            {% endif %}
                           {% for student in student_list %}
                           <option value={{ student.user_id }}>{{ student.name }} {{ student.surname }}</option>
                           {% endfor %}
