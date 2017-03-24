@@ -16,6 +16,7 @@ from model.mentor import Mentor
 from model.team import Team
 from model.user import User
 from utils.validation import Validate
+from utils.login import Login
 
 
 ################################################
@@ -588,7 +589,7 @@ def login():
         password = ValidateInternal.initial_check(password)
         if type(login) != str or type(password) != str:
             return redirect(url_for('login'))
-        user = User.login(request.form['email'], request.form['password'])
+        user = Login.login(request.form['email'], request.form['password'])
         if user:
             session['user'] = user
             return redirect(url_for('index'))
