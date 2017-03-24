@@ -1,4 +1,3 @@
-from model.database import Database
 from main import db
 
 
@@ -14,36 +13,11 @@ class User():
         self.login = login
         self.password = 'dupa'
 
-
-    @classmethod
-    def login(cls, login, passw):
-        """
-        This method is responsible for signing in to the app
-        :param login:
-        :param passw:
-        :return: dictionary with user id name and type
-        """
-
-        db = Database()
-        query = ("""
-        SELECT * from (SELECT User_id, name, Login, Password, 'Student' as user_type FROM Student
-                        UNION
-                        SELECT User_id, Name, Login, Password, 'Mentor' as user_type FROM Mentor
-                        UNION
-                        SELECT User_id, Name, Login, Password, 'Employee' as user_type FROM Employee
-                        UNION
-                        SELECT User_id, Name, Login, Password, 'Manager' as user_type FROM Manager)
-                        where  Login = ? and  Password = ?
-                    """)
-
-        values = ((login, passw))
-
     def __repr__(self):
         """Method for printing object in console in nice form
         :return: string: string with name and surname from person object
         """
         return "{} {}".format(self.name, self.surname)
-
 
     ######################  OLD LOGIN METHOD USING SQLITE (it is too beautiful for just delete it)
     # @classmethod
