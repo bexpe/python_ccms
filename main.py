@@ -166,7 +166,9 @@ def data():
         if validated_object.valid_object():
             return redirect(url_for('attendance_data',
                                     user=user,
-                                    validated=validated_object))
+                                    student_id=validated_object.student_id,
+                                    start_date=validated_object.start_date,
+                                    end_date= validated_object.end_date))
         return render_template('attendance_by_data_validation.html',
                                user=user,
                                validated=validated_object)
