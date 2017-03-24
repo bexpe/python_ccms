@@ -630,18 +630,6 @@ def remove(team_id):
 ################################################
 
 
-def check_run_args():
-    """
-    This method is clearing a database from all data inserted by typeing in a console -d  by running the file
-    """
-    try:
-        if sys.argv[1] == '-d':
-            from dump_db import dump_db
-            dump_db()  # clearing db and inserting testing rows
-    except IndexError:
-        pass
-
-
 @app.route('/')
 def index():
     """
@@ -710,21 +698,38 @@ def privileges_error_handler():
     """
     return render_template('error.html')
 
+
 @app.errorhandler(404)
 def page_not_found(e):
+    """
+    Route for handling 404 error
+    """
     return render_template('404.html'), 404
+
 
 @app.errorhandler(403)
 def page_not_found(e):
+    """
+    Route for handling 403 error
+    """
     return render_template('403.html'), 403
+
 
 @app.errorhandler(410)
 def page_not_found(e):
+    """
+    Route for handling 410 error
+    """
     return render_template('410.html'), 410
+
 
 @app.errorhandler(500)
 def page_not_found(e):
+    """
+    Route for handling 500 error
+    """
     return render_template('500.html'), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=1111)
