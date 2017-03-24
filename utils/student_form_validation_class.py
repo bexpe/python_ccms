@@ -1,4 +1,6 @@
-class StudentFormValidation:
+from utils.abstract_form_validation import FormValidation
+
+class StudentFormValidation(FormValidation):
     """
         Student form validation class.
 
