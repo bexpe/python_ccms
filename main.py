@@ -666,9 +666,10 @@ def login():
     Gets data from login form and run method to compare it with data stored in db
     :return: if a user is finded its a template for this user if not- a template with a page to sign in again
     """
-
+    from utils.internal_validation import ValidateInternal
     if request.method == 'POST':
         #TODO: fix db and change validation from ValidateInternal to Validate class.
+
         login = request.form['email']
         login = ValidateInternal.initial_check(login)
         password = request.form['password']
