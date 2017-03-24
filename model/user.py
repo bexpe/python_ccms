@@ -12,6 +12,7 @@ class User():
         self.city = city
         self.phone = phone
         self.login = login
+        self.password = 'dupa'
 
     def __repr__(self):
         """Method for printing object in console in nice form
